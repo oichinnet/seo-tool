@@ -25,16 +25,17 @@ h1 span{color:#3b82f6}
 .btn-primary:disabled{background:#1e2533;opacity:.6}
 .results{width:100%;max-width:720px}
 .url-block{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
-.url-title{color:#e8eaf0;font-size:13px;font-weight:700;font-family:'DM Mono',monospace;margin-bottom:12px;word-break:break-all}
+.url-title{color:#3b82f6;font-size:11px;font-weight:700;font-family:'DM Mono',monospace;margin-bottom:4px;letter-spacing:.08em}
+.url-text{color:#e8eaf0;font-size:12px;font-family:'DM Mono',monospace;word-break:break-all;margin-bottom:12px}
 .score-row{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
 .score-box{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px 16px;flex:1;min-width:200px}
 .score-box-label{color:#4a5568;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
 .score-num{font-size:28px;font-weight:800;font-family:'DM Mono',monospace}
-.metrics{display:flex;flex-direction:column;gap:2px}
-.metric-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #1e2533}
+.metrics{display:flex;flex-direction:column;gap:0}
+.metric-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1e2533}
 .metric-row:last-child{border:none}
 .metric-name{color:#8892a4;font-size:11px;font-family:'DM Mono',monospace}
-.metric-val{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;color:#e8eaf0}
+.metric-val{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;color:#e8eaf0}
 .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
 .steps{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
 .step{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;background:#080c12;border:1px solid #1e2533;color:#4a5568;transition:all .3s}
@@ -44,14 +45,13 @@ h1 span{color:#3b82f6}
 .step-icon{min-width:16px;text-align:center}
 .step-detail{opacity:.8;margin-top:2px;white-space:pre-line}
 .summary-card{background:#0d1117;border:1px solid #0cce6b44;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
-.summary-title{color:#0cce6b;font-size:12px;font-family:'DM Mono',monospace;font-weight:700;margin-bottom:12px;letter-spacing:.1em}
-.summary-row{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid #1e2533;font-family:'DM Mono',monospace;font-size:11px}
+.summary-title{color:#0cce6b;font-size:11px;font-family:'DM Mono',monospace;font-weight:700;margin-bottom:12px;letter-spacing:.1em}
+.summary-row{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #1e2533;font-family:'DM Mono',monospace;font-size:11px}
 .summary-row:last-child{border:none}
 .summary-url{color:#8892a4;flex:1;word-break:break-all}
-.summary-scores{color:#e8eaf0;white-space:nowrap}
-.summary-gsc{font-size:11px}
-.btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:8px}
-.progress-label{color:#4a5568;font-size:11px;font-family:'DM Mono',monospace;margin-bottom:8px;letter-spacing:.08em}
+.summary-scores{color:#e8eaf0;white-space:nowrap;font-weight:700}
+.btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:12px}
+.progress-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-bottom:6px;letter-spacing:.1em;text-transform:uppercase}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .spin{animation:spin 1s linear infinite;display:inline-block}
@@ -74,14 +74,9 @@ https://oichin.net/danh-muc/abc"></textarea>
 
 <div id="results" style="display:none" class="results"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 const GSC_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8Y5wQrXhJxXWtwOJGol-sd8N_m5JSGSuQO0MVR4zNo7eevHzB9sMxNhC-_6HBP-e3/exec";
 const GSC_TOKEN = "oichin2024gsc";
-const EMAILJS_SERVICE_ID = "service_imgjwwp";
-const EMAILJS_TEMPLATE_ID = "template_hrn1opm";
-const EMAILJS_PUBLIC_KEY = "Cyt1d0NbVmXtKGx9x";
-const REPORT_EMAIL = "quypham.adw@gmail.com";
 
 let allResults = [];
 
@@ -127,6 +122,7 @@ function renderScoreBox(data, label) {
     { name: "CLS", key: "cumulative-layout-shift" },
     { name: "TBT", key: "total-blocking-time" },
     { name: "FCP", key: "first-contentful-paint" },
+    { name: "Speed Index", key: "speed-index" },
   ];
   const rows = metrics.map(m => {
     const a = audits[m.key];
@@ -148,12 +144,22 @@ function createUrlBlock(url, index) {
   div.className = "url-block";
   div.id = "block_" + index;
   div.innerHTML = `
-    <div class="url-title">🔗 ${url}</div>
-    <div class="progress-label">TIẾN TRÌNH</div>
+    <div class="url-title">URL ${index + 1}</div>
+    <div class="url-text">${url}</div>
+    <div class="progress-label">Tiến trình</div>
     <div class="steps">
-      <div class="step active" id="s_ps_${index}"><span class="step-icon"><span class="spin">⟳</span></span><div><div>Phân tích PageSpeed...</div></div></div>
-      <div class="step" id="s_gsc_${index}"><span class="step-icon">⏳</span><div><div>Submit Google Search Console</div></div></div>
-      <div class="step" id="s_em_${index}"><span class="step-icon">⏳</span><div><div>Chờ gửi email tổng hợp</div></div></div>
+      <div class="step active" id="s_ps_${index}">
+        <span class="step-icon"><span class="spin">⟳</span></span>
+        <div><div>Phân tích PageSpeed</div><div class="step-detail" id="d_ps_${index}">Đang chạy Mobile & Desktop...</div></div>
+      </div>
+      <div class="step" id="s_gsc_${index}">
+        <span class="step-icon">⏳</span>
+        <div><div>Submit Google Search Console</div><div class="step-detail" id="d_gsc_${index}">Chờ PageSpeed hoàn tất...</div></div>
+      </div>
+      <div class="step" id="s_em_${index}">
+        <span class="step-icon">⏳</span>
+        <div><div>Gửi email báo cáo</div><div class="step-detail" id="d_em_${index}">Chờ xử lý xong tất cả URL...</div></div>
+      </div>
     </div>
     <div id="scores_${index}" style="display:none" class="score-row"></div>
   `;
@@ -165,41 +171,23 @@ function setStep(index, id, state, detail) {
   if (!el) return;
   el.className = "step " + state;
   const icons = { active: '<span class="spin">⟳</span>', done: "✅", error: "❌", idle: "⏳" };
-  const divs = el.querySelectorAll("div > div");
   el.querySelector(".step-icon").innerHTML = icons[state] || "⏳";
-  if (detail && divs[1]) { divs[1].className = "step-detail"; divs[1].textContent = detail; }
-  else if (divs[1]) divs[1].textContent = "";
+  const d = document.getElementById(`d_${id}_${index}`);
+  if (d && detail !== undefined) d.textContent = detail;
 }
 
 function buildReportText() {
   const now = new Date().toLocaleString("vi-VN");
-  let text = `📊 BÁO CÁO PAGESPEED & GSC\n━━━━━━━━━━━━━━━━━━━━━━━\nThời gian: ${now}\nSố URL: ${allResults.length}\n\n`;
+  let text = `📊 BÁO CÁO PAGESPEED & GSC\n━━━━━━━━━━━━━━━━━━━━━━━\nThời gian: ${now} — ${allResults.length} URL\n\n`;
   allResults.forEach((r, i) => {
-    text += `[${i+1}] ${r.url}\n`;
-    text += `📱 Mobile: ${getScore(r.mobile)}/100 | 🖥 Desktop: ${getScore(r.desktop)}/100\n`;
-    text += `GSC: ${r.gscStatus}\n`;
-    if (r.gscMsg) text += `${r.gscMsg}\n`;
-    text += `LCP Mobile: ${getMetric(r.mobile,"largest-contentful-paint")} | LCP Desktop: ${getMetric(r.desktop,"largest-contentful-paint")}\n\n`;
+    text += `[${i+1}] ${r.url}\n📱 Mobile: ${getScore(r.mobile)}/100 | 🖥 Desktop: ${getScore(r.desktop)}/100\nGSC: ${r.gscStatus}\n\n`;
   });
   return text.trim();
-}
-
-function buildEmailBody() {
-  let rows = allResults.map((r, i) => `
-URL ${i+1}: ${r.url}
-📱 Mobile: ${getScore(r.mobile)}/100 | 🖥 Desktop: ${getScore(r.desktop)}/100
-GSC: ${r.gscStatus}${r.gscMsg ? "\n" + r.gscMsg : ""}
-LCP M: ${getMetric(r.mobile,"largest-contentful-paint")} | LCP D: ${getMetric(r.desktop,"largest-contentful-paint")}
-CLS M: ${getMetric(r.mobile,"cumulative-layout-shift")} | CLS D: ${getMetric(r.desktop,"cumulative-layout-shift")}
-TBT M: ${getMetric(r.mobile,"total-blocking-time")} | TBT D: ${getMetric(r.desktop,"total-blocking-time")}
-`).join("\n---\n");
-  return rows;
 }
 
 async function handleRun() {
   const raw = document.getElementById("urlInput").value;
   const urls = raw.split("\n").map(u => u.trim()).filter(u => u.length > 0).slice(0, 3).map(normalizeUrl);
-
   if (urls.length === 0) return;
 
   allResults = [];
@@ -211,10 +199,7 @@ async function handleRun() {
   resultsDiv.innerHTML = "";
   resultsDiv.style.display = "block";
 
-  // Tạo block cho từng URL
-  urls.forEach((url, i) => {
-    resultsDiv.appendChild(createUrlBlock(url, i));
-  });
+  urls.forEach((url, i) => resultsDiv.appendChild(createUrlBlock(url, i)));
 
   // Xử lý tuần tự từng URL
   for (let i = 0; i < urls.length; i++) {
@@ -234,7 +219,7 @@ async function handleRun() {
     } catch(e) {
       setStep(i, "ps", "error", e.message);
       setStep(i, "gsc", "error", "Bỏ qua");
-      setStep(i, "em", "idle", "Chờ gửi email tổng hợp");
+      setStep(i, "em", "idle", "Chờ gửi email...");
       allResults.push(result);
       continue;
     }
@@ -264,55 +249,79 @@ async function handleRun() {
     allResults.push(result);
   }
 
-  // Gửi 1 email tổng hợp
-  const emailStep = urls.length - 1;
-  urls.forEach((_, i) => setStep(i, "em", i === emailStep ? "active" : "idle", i === emailStep ? "Đang gửi email tổng hợp..." : ""));
-
+  // Gửi email HTML qua Apps Script
+  urls.forEach((_, i) => setStep(i, "em", "active", "Đang gửi email HTML..."));
   try {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
     const now = new Date().toLocaleString("vi-VN");
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email: REPORT_EMAIL,
-      url: allResults.map((r,i) => `[${i+1}] ${r.url}`).join("\n"),
-      checked_at: now,
-      gsc_status: allResults.map((r,i) => `[${i+1}] ${r.gscStatus}`).join("\n"),
-      mobile_score: allResults.map((r,i) => `[${i+1}] ${getScore(r.mobile)}`).join(" | "),
-      desktop_score: allResults.map((r,i) => `[${i+1}] ${getScore(r.desktop)}`).join(" | "),
-      mobile_lcp: allResults.map((r,i) => `[${i+1}] ${getMetric(r.mobile,"largest-contentful-paint")}`).join(" | "),
-      mobile_cls: allResults.map((r,i) => `[${i+1}] ${getMetric(r.mobile,"cumulative-layout-shift")}`).join(" | "),
-      mobile_tbt: allResults.map((r,i) => `[${i+1}] ${getMetric(r.mobile,"total-blocking-time")}`).join(" | "),
-      mobile_fcp: allResults.map((r,i) => `[${i+1}] ${getMetric(r.mobile,"first-contentful-paint")}`).join(" | "),
-      desktop_lcp: allResults.map((r,i) => `[${i+1}] ${getMetric(r.desktop,"largest-contentful-paint")}`).join(" | "),
-      desktop_cls: allResults.map((r,i) => `[${i+1}] ${getMetric(r.desktop,"cumulative-layout-shift")}`).join(" | "),
-      desktop_tbt: allResults.map((r,i) => `[${i+1}] ${getMetric(r.desktop,"total-blocking-time")}`).join(" | "),
-      desktop_fcp: allResults.map((r,i) => `[${i+1}] ${getMetric(r.desktop,"first-contentful-paint")}`).join(" | "),
-      report_text: buildEmailBody(),
+    const reportData = {
+      checkedAt: now,
+      results: allResults.map(r => ({
+        url: r.url,
+        gscStatus: r.gscStatus,
+        gscMsg: r.gscMsg,
+        mobile: r.mobile ? {
+          lighthouseResult: {
+            categories: r.mobile.lighthouseResult?.categories,
+            audits: {
+              "largest-contentful-paint": r.mobile.lighthouseResult?.audits?.["largest-contentful-paint"],
+              "cumulative-layout-shift": r.mobile.lighthouseResult?.audits?.["cumulative-layout-shift"],
+              "total-blocking-time": r.mobile.lighthouseResult?.audits?.["total-blocking-time"],
+              "first-contentful-paint": r.mobile.lighthouseResult?.audits?.["first-contentful-paint"],
+              "speed-index": r.mobile.lighthouseResult?.audits?.["speed-index"],
+            }
+          }
+        } : null,
+        desktop: r.desktop ? {
+          lighthouseResult: {
+            categories: r.desktop.lighthouseResult?.categories,
+            audits: {
+              "largest-contentful-paint": r.desktop.lighthouseResult?.audits?.["largest-contentful-paint"],
+              "cumulative-layout-shift": r.desktop.lighthouseResult?.audits?.["cumulative-layout-shift"],
+              "total-blocking-time": r.desktop.lighthouseResult?.audits?.["total-blocking-time"],
+              "first-contentful-paint": r.desktop.lighthouseResult?.audits?.["first-contentful-paint"],
+              "speed-index": r.desktop.lighthouseResult?.audits?.["speed-index"],
+            }
+          }
+        } : null,
+      }))
+    };
+
+    const data = await callScript({
+      token: GSC_TOKEN,
+      action: "email",
+      reportData: encodeURIComponent(JSON.stringify(reportData))
     });
-    urls.forEach((_, i) => setStep(i, "em", "done", i === emailStep ? "Đã gửi tổng hợp tới " + REPORT_EMAIL : "✓"));
+
+    if (data.success) {
+      urls.forEach((_, i) => setStep(i, "em", "done", i === urls.length-1 ? "Email HTML đã gửi tới quypham.adw@gmail.com" : "✓"));
+    } else {
+      throw new Error(data.error);
+    }
   } catch(e) {
-    urls.forEach((_, i) => setStep(i, "em", "error", i === emailStep ? "Gửi thất bại: " + (e?.text || e?.message) : ""));
+    urls.forEach((_, i) => setStep(i, "em", "error", i === urls.length-1 ? "Gửi thất bại: " + e.message : ""));
   }
 
-  // Summary card
+  // Summary
   const summary = document.createElement("div");
   summary.className = "summary-card";
   summary.innerHTML = `<div class="summary-title">📋 TỔNG KẾT — ${allResults.length} URL</div>` +
     allResults.map((r,i) => `<div class="summary-row">
       <span class="summary-url">[${i+1}] ${r.url}</span>
-      <span class="summary-scores">📱${getScore(r.mobile)} 🖥${getScore(r.desktop)}</span>
-      <span class="summary-gsc">${r.gscStatus}</span>
+      <span class="summary-scores" style="color:${scoreColor(getScore(r.mobile))}">📱${getScore(r.mobile)}</span>
+      <span class="summary-scores" style="color:${scoreColor(getScore(r.desktop))}">🖥${getScore(r.desktop)}</span>
+      <span style="font-size:11px;font-family:'DM Mono',monospace;color:${r.gscStatus.includes("✅")?"#0cce6b":"#ff4e42"}">${r.gscStatus}</span>
     </div>`).join("") +
-    `<button class="btn-copy" onclick="handleCopy()">📋 Copy báo cáo</button>`;
+    `<button class="btn-copy" onclick="handleCopy(event)">📋 Copy báo cáo dạng text</button>`;
   resultsDiv.appendChild(summary);
 
   btnRun.disabled = false;
   btnRun.textContent = "Kiểm tra tất cả";
 }
 
-function handleCopy() {
+function handleCopy(e) {
   navigator.clipboard.writeText(buildReportText()).then(() => {
-    event.target.textContent = "✅ Đã copy!";
-    setTimeout(() => event.target.textContent = "📋 Copy báo cáo", 2000);
+    e.target.textContent = "✅ Đã copy!";
+    setTimeout(() => e.target.textContent = "📋 Copy báo cáo dạng text", 2000);
   });
 }
 </script>
