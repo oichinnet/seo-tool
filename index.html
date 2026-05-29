@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Oichin SEO Toolkit</title>
+<title>Oichin SEO Toolkit V5</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -286,10 +286,44 @@ async function handleRun() {
       }))
     };
 
+    // Gửi data tối thiểu để tránh URL quá dài
+    const minData = {
+      checkedAt: now,
+      results: allResults.map(r => ({
+        url: r.url,
+        gscStatus: r.gscStatus,
+        gscMsg: r.gscMsg,
+        mScore: getScore(r.mobile),
+        dScore: getScore(r.desktop),
+        mLCP: getMetric(r.mobile, "largest-contentful-paint"),
+        mCLS: getMetric(r.mobile, "cumulative-layout-shift"),
+        mTBT: getMetric(r.mobile, "total-blocking-time"),
+        mFCP: getMetric(r.mobile, "first-contentful-paint"),
+        mSI:  getMetric(r.mobile, "speed-index"),
+        dLCP: getMetric(r.desktop, "largest-contentful-paint"),
+        dCLS: getMetric(r.desktop, "cumulative-layout-shift"),
+        dTBT: getMetric(r.desktop, "total-blocking-time"),
+        dFCP: getMetric(r.desktop, "first-contentful-paint"),
+        dSI:  getMetric(r.desktop, "speed-index"),
+        mScore_raw: r.mobile?.lighthouseResult?.categories?.performance?.score ?? 0,
+        dScore_raw: r.desktop?.lighthouseResult?.categories?.performance?.score ?? 0,
+        mLCP_s: r.mobile?.lighthouseResult?.audits?.["largest-contentful-paint"]?.score ?? 0,
+        mCLS_s: r.mobile?.lighthouseResult?.audits?.["cumulative-layout-shift"]?.score ?? 0,
+        mTBT_s: r.mobile?.lighthouseResult?.audits?.["total-blocking-time"]?.score ?? 0,
+        mFCP_s: r.mobile?.lighthouseResult?.audits?.["first-contentful-paint"]?.score ?? 0,
+        mSI_s:  r.mobile?.lighthouseResult?.audits?.["speed-index"]?.score ?? 0,
+        dLCP_s: r.desktop?.lighthouseResult?.audits?.["largest-contentful-paint"]?.score ?? 0,
+        dCLS_s: r.desktop?.lighthouseResult?.audits?.["cumulative-layout-shift"]?.score ?? 0,
+        dTBT_s: r.desktop?.lighthouseResult?.audits?.["total-blocking-time"]?.score ?? 0,
+        dFCP_s: r.desktop?.lighthouseResult?.audits?.["first-contentful-paint"]?.score ?? 0,
+        dSI_s:  r.desktop?.lighthouseResult?.audits?.["speed-index"]?.score ?? 0,
+      }))
+    };
+
     const data = await callScript({
       token: GSC_TOKEN,
       action: "email",
-      reportData: encodeURIComponent(JSON.stringify(reportData))
+      reportData: encodeURIComponent(JSON.stringify(minData))
     });
 
     if (data.success) {
