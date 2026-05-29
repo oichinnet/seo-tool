@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Oichin SEO Toolkit V5</title>
+<title>Oichin SEO Toolkit</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -25,13 +25,17 @@ h1 span{color:#3b82f6}
 .btn-primary:disabled{background:#1e2533;opacity:.6}
 .results{width:100%;max-width:720px}
 .url-block{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
-.url-title{color:#3b82f6;font-size:11px;font-weight:700;font-family:'DM Mono',monospace;margin-bottom:4px;letter-spacing:.08em}
-.url-text{color:#e8eaf0;font-size:12px;font-family:'DM Mono',monospace;word-break:break-all;margin-bottom:12px}
+.url-tag{font-size:10px;font-weight:700;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:4px;margin-right:6px}
+.url-tag-num{background:#1e2533;color:#3b82f6}
+.url-tag-index{padding:2px 10px;border-radius:4px;font-size:10px;font-weight:700;font-family:'DM Mono',monospace}
+.url-tag-indexed{background:#0a1a0a;color:#0cce6b}
+.url-tag-noindex{background:#1a0808;color:#ff4e42}
+.url-text{color:#e8eaf0;font-size:12px;font-family:'DM Mono',monospace;word-break:break-all;margin-top:6px;margin-bottom:12px}
 .score-row{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
 .score-box{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px 16px;flex:1;min-width:200px}
 .score-box-label{color:#4a5568;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
 .score-num{font-size:28px;font-weight:800;font-family:'DM Mono',monospace}
-.metrics{display:flex;flex-direction:column;gap:0}
+.metrics{display:flex;flex-direction:column}
 .metric-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1e2533}
 .metric-row:last-child{border:none}
 .metric-name{color:#8892a4;font-size:11px;font-family:'DM Mono',monospace}
@@ -42,6 +46,7 @@ h1 span{color:#3b82f6}
 .step.active{border-color:#3b82f6;color:#3b82f6;background:#0a1020}
 .step.done{border-color:#0cce6b44;color:#0cce6b;background:#0a1a0a}
 .step.error{border-color:#ff4e42;color:#ff4e42;background:#1a0808}
+.step.warn{border-color:#ffa40044;color:#ffa400;background:#1a1200}
 .step-icon{min-width:16px;text-align:center}
 .step-detail{opacity:.8;margin-top:2px;white-space:pre-line}
 .summary-card{background:#0d1117;border:1px solid #0cce6b44;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
@@ -49,8 +54,8 @@ h1 span{color:#3b82f6}
 .summary-row{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #1e2533;font-family:'DM Mono',monospace;font-size:11px}
 .summary-row:last-child{border:none}
 .summary-url{color:#8892a4;flex:1;word-break:break-all}
-.summary-scores{color:#e8eaf0;white-space:nowrap;font-weight:700}
 .btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:12px}
+.noindex-banner{background:#1a0808;border:1px solid #ff4e4244;border-radius:8px;padding:10px 16px;margin-top:8px;color:#ff4e42;font-size:11px;font-family:'DM Mono',monospace}
 .progress-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-bottom:6px;letter-spacing:.1em;text-transform:uppercase}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
@@ -60,7 +65,7 @@ h1 span{color:#3b82f6}
 <body>
 
 <div class="badge">Oichin SEO Toolkit</div>
-<h1>PageSpeed &amp; GSC<br><span>Inspector V5</span></h1>
+<h1>PageSpeed &amp; Index<br><span>Inspector</span></h1>
 <p class="subtitle">Nhập URL → Kiểm tra → Nhận báo cáo</p>
 
 <div class="card">
@@ -113,6 +118,7 @@ function metricColor(s) { return s >= 0.9 ? "#0cce6b" : s >= 0.5 ? "#ffa400" : "
 function scoreColor(s) { return s >= 90 ? "#0cce6b" : s >= 50 ? "#ffa400" : "#ff4e42"; }
 function getScore(d) { return d ? Math.round((d.lighthouseResult?.categories?.performance?.score ?? 0) * 100) : "N/A"; }
 function getMetric(d, key) { return d?.lighthouseResult?.audits?.[key]?.displayValue ?? "N/A"; }
+function getMetricScore(d, key) { return d?.lighthouseResult?.audits?.[key]?.score ?? 0; }
 
 function renderScoreBox(data, label) {
   const score = getScore(data);
@@ -144,7 +150,10 @@ function createUrlBlock(url, index) {
   div.className = "url-block";
   div.id = "block_" + index;
   div.innerHTML = `
-    <div class="url-title">URL ${index + 1}</div>
+    <div style="margin-bottom:4px">
+      <span class="url-tag url-tag-num">URL ${index + 1}</span>
+      <span class="url-tag-index url-tag-noindex" id="indextag_${index}" style="display:none"></span>
+    </div>
     <div class="url-text">${url}</div>
     <div class="progress-label">Tiến trình</div>
     <div class="steps">
@@ -152,13 +161,13 @@ function createUrlBlock(url, index) {
         <span class="step-icon"><span class="spin">⟳</span></span>
         <div><div>Phân tích PageSpeed</div><div class="step-detail" id="d_ps_${index}">Đang chạy Mobile & Desktop...</div></div>
       </div>
-      <div class="step" id="s_gsc_${index}">
+      <div class="step" id="s_idx_${index}">
         <span class="step-icon">⏳</span>
-        <div><div>Submit Google Search Console</div><div class="step-detail" id="d_gsc_${index}">Chờ PageSpeed hoàn tất...</div></div>
+        <div><div>Kiểm tra Index trên Google</div><div class="step-detail" id="d_idx_${index}">Chờ PageSpeed hoàn tất...</div></div>
       </div>
       <div class="step" id="s_em_${index}">
         <span class="step-icon">⏳</span>
-        <div><div>Gửi email báo cáo</div><div class="step-detail" id="d_em_${index}">Chờ xử lý xong tất cả URL...</div></div>
+        <div><div>Gửi email & lưu Sheet</div><div class="step-detail" id="d_em_${index}">Chờ xử lý xong tất cả URL...</div></div>
       </div>
     </div>
     <div id="scores_${index}" style="display:none" class="score-row"></div>
@@ -170,19 +179,41 @@ function setStep(index, id, state, detail) {
   const el = document.getElementById(`s_${id}_${index}`);
   if (!el) return;
   el.className = "step " + state;
-  const icons = { active: '<span class="spin">⟳</span>', done: "✅", error: "❌", idle: "⏳" };
+  const icons = { active: '<span class="spin">⟳</span>', done: "✅", error: "❌", idle: "⏳", warn: "⚠️" };
   el.querySelector(".step-icon").innerHTML = icons[state] || "⏳";
   const d = document.getElementById(`d_${id}_${index}`);
   if (d && detail !== undefined) d.textContent = detail;
 }
 
-function buildReportText() {
-  const now = new Date().toLocaleString("vi-VN");
-  let text = `📊 BÁO CÁO PAGESPEED & GSC\n━━━━━━━━━━━━━━━━━━━━━━━\nThời gian: ${now} — ${allResults.length} URL\n\n`;
-  allResults.forEach((r, i) => {
-    text += `[${i+1}] ${r.url}\n📱 Mobile: ${getScore(r.mobile)}/100 | 🖥 Desktop: ${getScore(r.desktop)}/100\nGSC: ${r.gscStatus}\n\n`;
-  });
-  return text.trim();
+function buildMinData() {
+  return allResults.map(r => ({
+    url: r.url,
+    indexed: r.indexed,
+    mScore: getScore(r.mobile),
+    dScore: getScore(r.desktop),
+    mLCP: getMetric(r.mobile, "largest-contentful-paint"),
+    mCLS: getMetric(r.mobile, "cumulative-layout-shift"),
+    mTBT: getMetric(r.mobile, "total-blocking-time"),
+    mFCP: getMetric(r.mobile, "first-contentful-paint"),
+    mSI:  getMetric(r.mobile, "speed-index"),
+    dLCP: getMetric(r.desktop, "largest-contentful-paint"),
+    dCLS: getMetric(r.desktop, "cumulative-layout-shift"),
+    dTBT: getMetric(r.desktop, "total-blocking-time"),
+    dFCP: getMetric(r.desktop, "first-contentful-paint"),
+    dSI:  getMetric(r.desktop, "speed-index"),
+    mScore_raw: r.mobile?.lighthouseResult?.categories?.performance?.score ?? 0,
+    dScore_raw: r.desktop?.lighthouseResult?.categories?.performance?.score ?? 0,
+    mLCP_s: getMetricScore(r.mobile, "largest-contentful-paint"),
+    mCLS_s: getMetricScore(r.mobile, "cumulative-layout-shift"),
+    mTBT_s: getMetricScore(r.mobile, "total-blocking-time"),
+    mFCP_s: getMetricScore(r.mobile, "first-contentful-paint"),
+    mSI_s:  getMetricScore(r.mobile, "speed-index"),
+    dLCP_s: getMetricScore(r.desktop, "largest-contentful-paint"),
+    dCLS_s: getMetricScore(r.desktop, "cumulative-layout-shift"),
+    dTBT_s: getMetricScore(r.desktop, "total-blocking-time"),
+    dFCP_s: getMetricScore(r.desktop, "first-contentful-paint"),
+    dSI_s:  getMetricScore(r.desktop, "speed-index"),
+  }));
 }
 
 async function handleRun() {
@@ -198,13 +229,11 @@ async function handleRun() {
   const resultsDiv = document.getElementById("results");
   resultsDiv.innerHTML = "";
   resultsDiv.style.display = "block";
-
   urls.forEach((url, i) => resultsDiv.appendChild(createUrlBlock(url, i)));
 
-  // Xử lý tuần tự từng URL
   for (let i = 0; i < urls.length; i++) {
     const url = urls[i];
-    const result = { url, mobile: null, desktop: null, gscStatus: "Chưa submit", gscMsg: "" };
+    const result = { url, mobile: null, desktop: null, indexed: null };
 
     // PageSpeed
     try {
@@ -214,138 +243,87 @@ async function handleRun() {
       result.desktop = data.desktop;
       setStep(i, "ps", "done", `Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
       const scoresDiv = document.getElementById("scores_" + i);
-      scoresDiv.innerHTML = renderScoreBox(data.mobile, "📱 Mobile") + renderScoreBox(data.desktop, "🖥 Desktop");
+      scoresDiv.innerHTML = renderScoreBox(data.mobile, "Mobile") + renderScoreBox(data.desktop, "Desktop");
       scoresDiv.style.display = "flex";
     } catch(e) {
       setStep(i, "ps", "error", e.message);
-      setStep(i, "gsc", "error", "Bỏ qua");
-      setStep(i, "em", "idle", "Chờ gửi email...");
+      setStep(i, "idx", "error", "Bỏ qua");
+      setStep(i, "em", "idle", "Chờ...");
       allResults.push(result);
       continue;
     }
 
-    // GSC
-    setStep(i, "gsc", "active", "Đang gọi GSC API...");
+    // Check Index
+    setStep(i, "idx", "active", "Đang kiểm tra site:URL trên Google...");
     try {
-      const data = await callScript({ token: GSC_TOKEN, action: "gsc", url });
-      if (data.success) {
-        const cs = data.data?.inspectionResult?.indexStatusResult?.coverageState ?? "";
-        const v = data.data?.inspectionResult?.indexStatusResult?.verdict ?? "";
-        result.gscMsg = [cs ? "Trạng thái: " + cs : "", v ? "Verdict: " + v : ""].filter(Boolean).join("\n") || "Đã gửi thành công";
-        result.gscStatus = "✅ Đã submit";
-        setStep(i, "gsc", "done", result.gscMsg);
+      const data = await callScript({ token: GSC_TOKEN, action: "checkindex", url });
+      if (!data.success) throw new Error(data.error);
+      result.indexed = data.indexed;
+      const tag = document.getElementById("indextag_" + i);
+      tag.style.display = "inline";
+      if (data.indexed) {
+        tag.className = "url-tag-index url-tag-indexed";
+        tag.textContent = "Đã Index";
+        setStep(i, "idx", "done", "Tìm thấy trên Google ✓");
       } else {
-        result.gscStatus = "⚠️ Lỗi";
-        result.gscMsg = data.error || "Lỗi không xác định";
-        setStep(i, "gsc", "error", result.gscMsg);
+        tag.className = "url-tag-index url-tag-noindex";
+        tag.textContent = "Chưa Index";
+        setStep(i, "idx", "warn", "Không tìm thấy trên Google → sẽ lưu vào Sheet");
       }
     } catch(e) {
-      result.gscStatus = "⚠️ Timeout";
-      result.gscMsg = e.message;
-      setStep(i, "gsc", "error", e.message);
+      result.indexed = null;
+      setStep(i, "idx", "error", e.message);
     }
 
-    setStep(i, "em", "idle", "Chờ gửi email tổng hợp...");
+    setStep(i, "em", "idle", "Chờ gửi email & lưu Sheet...");
     allResults.push(result);
   }
 
-  // Gửi email HTML qua Apps Script
-  urls.forEach((_, i) => setStep(i, "em", "active", "Đang gửi email HTML..."));
+  // Email + Sheet
+  urls.forEach((_, i) => setStep(i, "em", "active", "Đang xử lý..."));
+  const now = new Date().toLocaleString("vi-VN");
+  const minData = buildMinData();
+  const noIndexUrls = allResults.filter(r => r.indexed === false).map(r => ({ url: r.url, timeAdded: now }));
+
+  // Gửi email
   try {
-    const now = new Date().toLocaleString("vi-VN");
-    const reportData = {
-      checkedAt: now,
-      results: allResults.map(r => ({
-        url: r.url,
-        gscStatus: r.gscStatus,
-        gscMsg: r.gscMsg,
-        mobile: r.mobile ? {
-          lighthouseResult: {
-            categories: r.mobile.lighthouseResult?.categories,
-            audits: {
-              "largest-contentful-paint": r.mobile.lighthouseResult?.audits?.["largest-contentful-paint"],
-              "cumulative-layout-shift": r.mobile.lighthouseResult?.audits?.["cumulative-layout-shift"],
-              "total-blocking-time": r.mobile.lighthouseResult?.audits?.["total-blocking-time"],
-              "first-contentful-paint": r.mobile.lighthouseResult?.audits?.["first-contentful-paint"],
-              "speed-index": r.mobile.lighthouseResult?.audits?.["speed-index"],
-            }
-          }
-        } : null,
-        desktop: r.desktop ? {
-          lighthouseResult: {
-            categories: r.desktop.lighthouseResult?.categories,
-            audits: {
-              "largest-contentful-paint": r.desktop.lighthouseResult?.audits?.["largest-contentful-paint"],
-              "cumulative-layout-shift": r.desktop.lighthouseResult?.audits?.["cumulative-layout-shift"],
-              "total-blocking-time": r.desktop.lighthouseResult?.audits?.["total-blocking-time"],
-              "first-contentful-paint": r.desktop.lighthouseResult?.audits?.["first-contentful-paint"],
-              "speed-index": r.desktop.lighthouseResult?.audits?.["speed-index"],
-            }
-          }
-        } : null,
-      }))
-    };
-
-    // Gửi data tối thiểu để tránh URL quá dài
-    const minData = {
-      checkedAt: now,
-      results: allResults.map(r => ({
-        url: r.url,
-        gscStatus: r.gscStatus,
-        gscMsg: r.gscMsg,
-        mScore: getScore(r.mobile),
-        dScore: getScore(r.desktop),
-        mLCP: getMetric(r.mobile, "largest-contentful-paint"),
-        mCLS: getMetric(r.mobile, "cumulative-layout-shift"),
-        mTBT: getMetric(r.mobile, "total-blocking-time"),
-        mFCP: getMetric(r.mobile, "first-contentful-paint"),
-        mSI:  getMetric(r.mobile, "speed-index"),
-        dLCP: getMetric(r.desktop, "largest-contentful-paint"),
-        dCLS: getMetric(r.desktop, "cumulative-layout-shift"),
-        dTBT: getMetric(r.desktop, "total-blocking-time"),
-        dFCP: getMetric(r.desktop, "first-contentful-paint"),
-        dSI:  getMetric(r.desktop, "speed-index"),
-        mScore_raw: r.mobile?.lighthouseResult?.categories?.performance?.score ?? 0,
-        dScore_raw: r.desktop?.lighthouseResult?.categories?.performance?.score ?? 0,
-        mLCP_s: r.mobile?.lighthouseResult?.audits?.["largest-contentful-paint"]?.score ?? 0,
-        mCLS_s: r.mobile?.lighthouseResult?.audits?.["cumulative-layout-shift"]?.score ?? 0,
-        mTBT_s: r.mobile?.lighthouseResult?.audits?.["total-blocking-time"]?.score ?? 0,
-        mFCP_s: r.mobile?.lighthouseResult?.audits?.["first-contentful-paint"]?.score ?? 0,
-        mSI_s:  r.mobile?.lighthouseResult?.audits?.["speed-index"]?.score ?? 0,
-        dLCP_s: r.desktop?.lighthouseResult?.audits?.["largest-contentful-paint"]?.score ?? 0,
-        dCLS_s: r.desktop?.lighthouseResult?.audits?.["cumulative-layout-shift"]?.score ?? 0,
-        dTBT_s: r.desktop?.lighthouseResult?.audits?.["total-blocking-time"]?.score ?? 0,
-        dFCP_s: r.desktop?.lighthouseResult?.audits?.["first-contentful-paint"]?.score ?? 0,
-        dSI_s:  r.desktop?.lighthouseResult?.audits?.["speed-index"]?.score ?? 0,
-      }))
-    };
-
-    const data = await callScript({
-      token: GSC_TOKEN,
-      action: "email",
-      reportData: encodeURIComponent(JSON.stringify(minData))
-    });
-
-    if (data.success) {
-      urls.forEach((_, i) => setStep(i, "em", "done", i === urls.length-1 ? "Email HTML đã gửi tới quypham.adw@gmail.com" : "✓"));
-    } else {
-      throw new Error(data.error);
-    }
+    const reportData = { checkedAt: now, results: minData };
+    const data = await callScript({ token: GSC_TOKEN, action: "email", reportData: encodeURIComponent(JSON.stringify(reportData)) });
+    if (!data.success) throw new Error(data.error);
   } catch(e) {
-    urls.forEach((_, i) => setStep(i, "em", "error", i === urls.length-1 ? "Gửi thất bại: " + e.message : ""));
+    urls.forEach((_, i) => setStep(i, "em", "error", "Email thất bại: " + e.message));
+    btnRun.disabled = false; btnRun.textContent = "Kiểm tra tất cả";
+    return;
   }
 
+  // Lưu Sheet nếu có URL chưa index
+  let sheetMsg = "Email đã gửi tới quypham.adw@gmail.com";
+  if (noIndexUrls.length > 0) {
+    try {
+      const data = await callScript({ token: GSC_TOKEN, action: "savesheet", sheetData: encodeURIComponent(JSON.stringify(noIndexUrls)) });
+      if (data.success) {
+        sheetMsg = `Email đã gửi · ${noIndexUrls.length} URL chưa index → đã lưu Google Sheet`;
+      }
+    } catch(e) {
+      sheetMsg = `Email đã gửi · Lưu Sheet thất bại: ${e.message}`;
+    }
+  }
+
+  urls.forEach((_, i) => setStep(i, "em", "done", i === urls.length - 1 ? sheetMsg : "✓"));
+
   // Summary
+  const noIndexCount = allResults.filter(r => r.indexed === false).length;
   const summary = document.createElement("div");
   summary.className = "summary-card";
-  summary.innerHTML = `<div class="summary-title">📋 TỔNG KẾT — ${allResults.length} URL</div>` +
-    allResults.map((r,i) => `<div class="summary-row">
+  summary.innerHTML = `<div class="summary-title">TỔNG KẾT — ${allResults.length} URL</div>` +
+    allResults.map((r, i) => `<div class="summary-row">
       <span class="summary-url">[${i+1}] ${r.url}</span>
-      <span class="summary-scores" style="color:${scoreColor(getScore(r.mobile))}">📱${getScore(r.mobile)}</span>
-      <span class="summary-scores" style="color:${scoreColor(getScore(r.desktop))}">🖥${getScore(r.desktop)}</span>
-      <span style="font-size:11px;font-family:'DM Mono',monospace;color:${r.gscStatus.includes("✅")?"#0cce6b":"#ff4e42"}">${r.gscStatus}</span>
+      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.mobile))};font-size:12px">M:${getScore(r.mobile)}</span>
+      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.desktop))};font-size:12px">D:${getScore(r.desktop)}</span>
+      <span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:700;color:${r.indexed===true?"#0cce6b":r.indexed===false?"#ff4e42":"#4a5568"}">${r.indexed===true?"Đã Index":r.indexed===false?"Chưa Index":"?"}</span>
     </div>`).join("") +
-    `<button class="btn-copy" onclick="handleCopy(event)">📋 Copy báo cáo dạng text</button>`;
+    (noIndexCount > 0 ? `<div class="noindex-banner">⚠️ ${noIndexCount} URL chưa index đã được lưu vào Google Sheet để theo dõi</div>` : "") +
+    `<button class="btn-copy" onclick="handleCopy(event)">📋 Copy báo cáo</button>`;
   resultsDiv.appendChild(summary);
 
   btnRun.disabled = false;
@@ -353,9 +331,16 @@ async function handleRun() {
 }
 
 function handleCopy(e) {
-  navigator.clipboard.writeText(buildReportText()).then(() => {
+  const now = new Date().toLocaleString("vi-VN");
+  let text = `📊 BÁO CÁO SEO — ${now}\n━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+  allResults.forEach((r, i) => {
+    text += `[${i+1}] ${r.url}\n`;
+    text += `PageSpeed — Mobile: ${getScore(r.mobile)}/100 | Desktop: ${getScore(r.desktop)}/100\n`;
+    text += `Index: ${r.indexed===true?"✅ Đã Index":r.indexed===false?"❌ Chưa Index":"Không xác định"}\n\n`;
+  });
+  navigator.clipboard.writeText(text.trim()).then(() => {
     e.target.textContent = "✅ Đã copy!";
-    setTimeout(() => e.target.textContent = "📋 Copy báo cáo dạng text", 2000);
+    setTimeout(() => e.target.textContent = "📋 Copy báo cáo", 2000);
   });
 }
 </script>
