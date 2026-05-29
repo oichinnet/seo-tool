@@ -46,7 +46,6 @@ h1 span{color:#3b82f6}
 .step-title{font-weight:600}
 .step-detail{font-size:11px;opacity:.8;margin-top:4px;line-height:1.6;white-space:pre-line}
 .btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:4px}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .spin{animation:spin 1s linear infinite;display:inline-block}
@@ -69,13 +68,10 @@ h1 span{color:#3b82f6}
 <div id="errorBox" style="display:none" class="error-box"></div>
 
 <div id="results" style="display:none" class="results">
-  <!-- Score cards (hiện sau khi pagespeed xong) -->
   <div class="score-grid" id="scoreGrid" style="display:none">
     <div class="device-card" id="mobileCard"></div>
     <div class="device-card" id="desktopCard"></div>
   </div>
-
-  <!-- Progress steps -->
   <div class="progress-card">
     <p class="progress-label">TIẾN TRÌNH</p>
     <div class="step" id="stepPagespeed">
@@ -123,12 +119,31 @@ function normalizeUrl(u) {
   return u;
 }
 
-function callScript(body) {
-  return fetch(GSC_SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain" },
-    body: JSON.stringify(body)
-  }).then(r => r.json());
+// JSONP — bypass CORS hoàn toàn
+function callScript(params) {
+  return new Promise((resolve, reject) => {
+    const cbName = "cb_" + Math.random().toString(36).slice(2);
+    const qs = Object.entries(params).map(([k,v]) => k + "=" + encodeURIComponent(v)).join("&");
+    const url = GSC_SCRIPT_URL + "?" + qs + "&callback=" + cbName;
+    const script = document.createElement("script");
+    const timer = setTimeout(() => {
+      delete window[cbName];
+      document.head.removeChild(script);
+      reject(new Error("Timeout sau 60 giây"));
+    }, 60000);
+    window[cbName] = (data) => {
+      clearTimeout(timer);
+      delete window[cbName];
+      document.head.removeChild(script);
+      resolve(data);
+    };
+    script.onerror = () => {
+      clearTimeout(timer);
+      reject(new Error("Không kết nối được Apps Script"));
+    };
+    script.src = url;
+    document.head.appendChild(script);
+  });
 }
 
 function metricColor(s) { return s >= 0.9 ? "#0cce6b" : s >= 0.5 ? "#ffa400" : "#ff4e42"; }
@@ -171,10 +186,9 @@ function getMetric(d, key) { return d?.lighthouseResult?.audits?.[key]?.displayV
 function getScore(d) { return d ? Math.round((d.lighthouseResult?.categories?.performance?.score ?? 0) * 100) : "N/A"; }
 
 function setStep(id, state, detail) {
-  const el = document.getElementById("step" + id);
-  el.className = "step " + state;
-  const iconMap = { active: '<span class="spin">⟳</span>', done: "✅", error: "❌", idle: "⏳" };
-  document.getElementById("icon" + id).innerHTML = iconMap[state] || "⏳";
+  document.getElementById("step" + id).className = "step " + state;
+  const icons = { active: '<span class="spin">⟳</span>', done: "✅", error: "❌", idle: "⏳" };
+  document.getElementById("icon" + id).innerHTML = icons[state] || "⏳";
   if (detail !== undefined) document.getElementById("detail" + id).innerHTML = detail;
 }
 
@@ -216,7 +230,6 @@ async function handleRun() {
   document.getElementById("btnCopy").style.display = "none";
   document.getElementById("results").style.display = "block";
 
-  // Reset steps
   setStep("Pagespeed", "active", "Đang chạy Mobile &amp; Desktop...");
   setStep("GSC", "idle", "Chờ PageSpeed hoàn tất...");
   setStep("Email", "idle", "Chờ các bước trước...");
@@ -226,19 +239,14 @@ async function handleRun() {
     const data = await callScript({ token: GSC_TOKEN, action: "pagespeed", url: currentUrl });
     if (!data.success) throw new Error(data.error || "Lỗi không xác định");
     resultData = { mobile: data.mobile, desktop: data.desktop };
-
     document.getElementById("mobileCard").innerHTML = renderDevice(data.mobile, "📱 Mobile");
     document.getElementById("desktopCard").innerHTML = renderDevice(data.desktop, "🖥 Desktop");
     document.getElementById("scoreGrid").style.display = "flex";
-
-    const ms = getScore(data.mobile), ds = getScore(data.desktop);
-    setStep("Pagespeed", "done", `Mobile: ${ms}/100 · Desktop: ${ds}/100`);
+    setStep("Pagespeed", "done", `Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
   } catch(e) {
     setStep("Pagespeed", "error", e.message);
-    setStep("GSC", "error", "Bỏ qua do PageSpeed thất bại");
-    setStep("Email", "error", "Bỏ qua do PageSpeed thất bại");
-    document.getElementById("errorBox").style.display = "block";
-    document.getElementById("errorBox").textContent = "❌ " + e.message;
+    setStep("GSC", "error", "Bỏ qua");
+    setStep("Email", "error", "Bỏ qua");
     btnRun.disabled = false; btnRun.textContent = "Kiểm tra";
     return;
   }
@@ -261,7 +269,7 @@ async function handleRun() {
   } catch(e) {
     gscStatusText = "⚠️ Lỗi kết nối";
     gscMsg = e.message;
-    setStep("GSC", "error", "Lỗi kết nối: " + e.message);
+    setStep("GSC", "error", e.message);
   }
 
   // ── Bước 3: Email ──
@@ -270,9 +278,7 @@ async function handleRun() {
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
     const now = new Date().toLocaleString("vi-VN");
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email: REPORT_EMAIL,
-      url: currentUrl,
-      checked_at: now,
+      to_email: REPORT_EMAIL, url: currentUrl, checked_at: now,
       gsc_status: gscStatusText + (gscMsg ? "\n" + gscMsg : ""),
       mobile_score: getScore(resultData.mobile),
       mobile_lcp: getMetric(resultData.mobile, "largest-contentful-paint"),
