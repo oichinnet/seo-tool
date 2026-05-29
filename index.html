@@ -9,8 +9,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#080c12;font-family:'Syne',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:48px 16px}
 ::placeholder{color:#3a4252}
-input{font-family:'DM Mono',monospace;font-size:14px;background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px 16px;color:#e8eaf0;width:100%;transition:border .2s}
-input:focus{outline:none;border-color:#3b82f6}
+textarea{font-family:'DM Mono',monospace;font-size:13px;background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px 16px;color:#e8eaf0;width:100%;transition:border .2s;resize:vertical;line-height:1.8}
+textarea:focus{outline:none;border-color:#3b82f6}
 button{cursor:pointer;border:none;transition:all .2s;font-family:'Syne',sans-serif}
 button:hover:not(:disabled){opacity:.85;transform:translateY(-1px)}
 button:disabled{cursor:not-allowed}
@@ -18,35 +18,41 @@ button:disabled{cursor:not-allowed}
 h1{color:#e8eaf0;font-size:clamp(24px,5vw,38px);font-weight:800;line-height:1.15;margin-bottom:10px;text-align:center}
 h1 span{color:#3b82f6}
 .subtitle{color:#4a5568;font-size:14px;font-family:'DM Mono',monospace;text-align:center;margin-bottom:40px}
-.card{width:100%;max-width:680px;background:#0d1117;border:1px solid #1e2533;border-radius:16px;padding:32px;margin-bottom:24px}
+.card{width:100%;max-width:720px;background:#0d1117;border:1px solid #1e2533;border-radius:16px;padding:32px;margin-bottom:24px}
 .label{display:block;color:#4a5568;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
-.input-row{display:flex;gap:10px}
-.input-row input{flex:1}
-.btn-primary{background:#3b82f6;color:#fff;border-radius:8px;padding:12px 24px;font-size:14px;font-weight:700;white-space:nowrap}
+.hint{color:#3a4252;font-size:11px;font-family:'DM Mono',monospace;margin-top:8px}
+.btn-primary{background:#3b82f6;color:#fff;border-radius:8px;padding:14px 24px;font-size:14px;font-weight:700;width:100%;margin-top:16px}
 .btn-primary:disabled{background:#1e2533;opacity:.6}
-.error-box{width:100%;max-width:680px;background:#1a0a0a;border:1px solid #ff4e42;border-radius:12px;padding:20px;color:#ff4e42;font-family:'DM Mono',monospace;font-size:13px;margin-bottom:16px}
-.results{width:100%;max-width:680px;animation:fadeIn .5s ease}
-.score-grid{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
-.device-card{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:24px;flex:1;min-width:260px}
-.device-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.device-label{color:#e8eaf0;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace}
-.metric-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1e2533}
-.metric-name{color:#8892a4;font-size:13px;font-family:'DM Mono',monospace}
-.metric-val{display:flex;align-items:center;gap:8px}
-.metric-val span{color:#e8eaf0;font-size:13px;font-weight:600;font-family:'DM Mono',monospace}
-.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.progress-card{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:8px}
-.progress-label{color:#4a5568;font-size:12px;font-family:'DM Mono',monospace;margin-bottom:4px}
-.step{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:8px;font-family:'DM Mono',monospace;font-size:12px;background:#080c12;border:1px solid #1e2533;color:#4a5568;transition:all .3s}
+.results{width:100%;max-width:720px}
+.url-block{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
+.url-title{color:#e8eaf0;font-size:13px;font-weight:700;font-family:'DM Mono',monospace;margin-bottom:12px;word-break:break-all}
+.score-row{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.score-box{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px 16px;flex:1;min-width:200px}
+.score-box-label{color:#4a5568;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
+.score-num{font-size:28px;font-weight:800;font-family:'DM Mono',monospace}
+.metrics{display:flex;flex-direction:column;gap:2px}
+.metric-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #1e2533}
+.metric-row:last-child{border:none}
+.metric-name{color:#8892a4;font-size:11px;font-family:'DM Mono',monospace}
+.metric-val{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;color:#e8eaf0}
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.steps{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.step{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;background:#080c12;border:1px solid #1e2533;color:#4a5568;transition:all .3s}
 .step.active{border-color:#3b82f6;color:#3b82f6;background:#0a1020}
 .step.done{border-color:#0cce6b44;color:#0cce6b;background:#0a1a0a}
 .step.error{border-color:#ff4e42;color:#ff4e42;background:#1a0808}
-.step-icon{font-size:16px;min-width:20px;text-align:center;margin-top:1px}
-.step-text{flex:1}
-.step-title{font-weight:600}
-.step-detail{font-size:11px;opacity:.8;margin-top:4px;line-height:1.6;white-space:pre-line}
-.btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:4px}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step-icon{min-width:16px;text-align:center}
+.step-detail{opacity:.8;margin-top:2px;white-space:pre-line}
+.summary-card{background:#0d1117;border:1px solid #0cce6b44;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
+.summary-title{color:#0cce6b;font-size:12px;font-family:'DM Mono',monospace;font-weight:700;margin-bottom:12px;letter-spacing:.1em}
+.summary-row{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid #1e2533;font-family:'DM Mono',monospace;font-size:11px}
+.summary-row:last-child{border:none}
+.summary-url{color:#8892a4;flex:1;word-break:break-all}
+.summary-scores{color:#e8eaf0;white-space:nowrap}
+.summary-gsc{font-size:11px}
+.btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:8px}
+.progress-label{color:#4a5568;font-size:11px;font-family:'DM Mono',monospace;margin-bottom:8px;letter-spacing:.08em}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .spin{animation:spin 1s linear infinite;display:inline-block}
 </style>
@@ -55,49 +61,18 @@ h1 span{color:#3b82f6}
 
 <div class="badge">Oichin SEO Toolkit</div>
 <h1>PageSpeed &amp; GSC<br><span>Inspector</span></h1>
-<p class="subtitle">Nhập URL → Kiểm tra → Xong</p>
+<p class="subtitle">Nhập URL → Kiểm tra → Nhận báo cáo</p>
 
 <div class="card">
-  <label class="label">URL cần kiểm tra</label>
-  <div class="input-row">
-    <input type="text" id="urlInput" placeholder="https://oichin.net/san-pham/..." />
-    <button class="btn-primary" id="btnRun" onclick="handleRun()">Kiểm tra</button>
-  </div>
+  <label class="label">Danh sách URL cần kiểm tra</label>
+  <textarea id="urlInput" rows="4" placeholder="https://oichin.net/san-pham/abc
+https://oichin.net/san-pham/xyz
+https://oichin.net/danh-muc/abc"></textarea>
+  <p class="hint">⚡ Tối đa 3 URL — mỗi URL một dòng</p>
+  <button class="btn-primary" id="btnRun" onclick="handleRun()">Kiểm tra tất cả</button>
 </div>
 
-<div id="errorBox" style="display:none" class="error-box"></div>
-
-<div id="results" style="display:none" class="results">
-  <div class="score-grid" id="scoreGrid" style="display:none">
-    <div class="device-card" id="mobileCard"></div>
-    <div class="device-card" id="desktopCard"></div>
-  </div>
-  <div class="progress-card">
-    <p class="progress-label">TIẾN TRÌNH</p>
-    <div class="step" id="stepPagespeed">
-      <span class="step-icon" id="iconPagespeed">⏳</span>
-      <div class="step-text">
-        <div class="step-title">Phân tích PageSpeed</div>
-        <div class="step-detail" id="detailPagespeed">Đang chạy Mobile &amp; Desktop...</div>
-      </div>
-    </div>
-    <div class="step" id="stepGSC">
-      <span class="step-icon" id="iconGSC">⏳</span>
-      <div class="step-text">
-        <div class="step-title">Submit Google Search Console</div>
-        <div class="step-detail" id="detailGSC">Chờ PageSpeed hoàn tất...</div>
-      </div>
-    </div>
-    <div class="step" id="stepEmail">
-      <span class="step-icon" id="iconEmail">⏳</span>
-      <div class="step-text">
-        <div class="step-title">Gửi báo cáo email</div>
-        <div class="step-detail" id="detailEmail">Chờ các bước trước...</div>
-      </div>
-    </div>
-    <button class="btn-copy" id="btnCopy" style="display:none" onclick="handleCopy()">📋 Copy báo cáo dạng text</button>
-  </div>
-</div>
+<div id="results" style="display:none" class="results"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
@@ -108,10 +83,7 @@ const EMAILJS_TEMPLATE_ID = "template_hrn1opm";
 const EMAILJS_PUBLIC_KEY = "Cyt1d0NbVmXtKGx9x";
 const REPORT_EMAIL = "quypham.adw@gmail.com";
 
-let resultData = { mobile: null, desktop: null };
-let gscStatusText = "Chưa submit";
-let gscMsg = "";
-let currentUrl = "";
+let allResults = [];
 
 function normalizeUrl(u) {
   u = u.trim();
@@ -119,7 +91,6 @@ function normalizeUrl(u) {
   return u;
 }
 
-// JSONP — bypass CORS hoàn toàn
 function callScript(params) {
   return new Promise((resolve, reject) => {
     const cbName = "cb_" + Math.random().toString(36).slice(2);
@@ -129,18 +100,15 @@ function callScript(params) {
     const timer = setTimeout(() => {
       delete window[cbName];
       document.head.removeChild(script);
-      reject(new Error("Timeout sau 60 giây"));
-    }, 60000);
+      reject(new Error("Timeout sau 90 giây"));
+    }, 90000);
     window[cbName] = (data) => {
       clearTimeout(timer);
       delete window[cbName];
       document.head.removeChild(script);
       resolve(data);
     };
-    script.onerror = () => {
-      clearTimeout(timer);
-      reject(new Error("Không kết nối được Apps Script"));
-    };
+    script.onerror = () => { clearTimeout(timer); reject(new Error("Không kết nối được")); };
     script.src = url;
     document.head.appendChild(script);
   });
@@ -148,171 +116,205 @@ function callScript(params) {
 
 function metricColor(s) { return s >= 0.9 ? "#0cce6b" : s >= 0.5 ? "#ffa400" : "#ff4e42"; }
 function scoreColor(s) { return s >= 90 ? "#0cce6b" : s >= 50 ? "#ffa400" : "#ff4e42"; }
+function getScore(d) { return d ? Math.round((d.lighthouseResult?.categories?.performance?.score ?? 0) * 100) : "N/A"; }
+function getMetric(d, key) { return d?.lighthouseResult?.audits?.[key]?.displayValue ?? "N/A"; }
 
-function renderRing(score) {
-  const c = scoreColor(score);
-  const r = 28, circ = 2 * Math.PI * r, dash = (score / 100) * circ;
-  return `<svg width="72" height="72" viewBox="0 0 72 72">
-    <circle cx="36" cy="36" r="${r}" fill="none" stroke="#1e2533" stroke-width="6"/>
-    <circle cx="36" cy="36" r="${r}" fill="none" stroke="${c}" stroke-width="6"
-      stroke-dasharray="${dash} ${circ}" stroke-linecap="round" transform="rotate(-90 36 36)"/>
-    <text x="36" y="41" text-anchor="middle" fill="${c}" font-size="15" font-weight="700" font-family="'DM Mono',monospace">${score}</text>
-  </svg>`;
-}
-
-function renderDevice(data, label) {
-  const score = Math.round((data?.lighthouseResult?.categories?.performance?.score ?? 0) * 100);
+function renderScoreBox(data, label) {
+  const score = getScore(data);
   const audits = data?.lighthouseResult?.audits ?? {};
   const metrics = [
     { name: "LCP", key: "largest-contentful-paint" },
     { name: "CLS", key: "cumulative-layout-shift" },
     { name: "TBT", key: "total-blocking-time" },
     { name: "FCP", key: "first-contentful-paint" },
-    { name: "Speed Index", key: "speed-index" },
   ];
   const rows = metrics.map(m => {
     const a = audits[m.key];
     if (!a) return "";
     return `<div class="metric-row">
       <span class="metric-name">${m.name}</span>
-      <div class="metric-val"><span>${a.displayValue ?? "—"}</span>
-      <span class="dot" style="background:${metricColor(a.score ?? 0)}"></span></div>
+      <div class="metric-val">${a.displayValue ?? "—"}<span class="dot" style="background:${metricColor(a.score??0)}"></span></div>
     </div>`;
   }).join("");
-  return `<div class="device-header"><span class="device-label">${label}</span>${renderRing(score)}</div>${rows}`;
+  return `<div class="score-box">
+    <div class="score-box-label">${label}</div>
+    <div class="score-num" style="color:${scoreColor(score)}">${score}</div>
+    <div class="metrics" style="margin-top:8px">${rows}</div>
+  </div>`;
 }
 
-function getMetric(d, key) { return d?.lighthouseResult?.audits?.[key]?.displayValue ?? "N/A"; }
-function getScore(d) { return d ? Math.round((d.lighthouseResult?.categories?.performance?.score ?? 0) * 100) : "N/A"; }
+function createUrlBlock(url, index) {
+  const div = document.createElement("div");
+  div.className = "url-block";
+  div.id = "block_" + index;
+  div.innerHTML = `
+    <div class="url-title">🔗 ${url}</div>
+    <div class="progress-label">TIẾN TRÌNH</div>
+    <div class="steps">
+      <div class="step active" id="s_ps_${index}"><span class="step-icon"><span class="spin">⟳</span></span><div><div>Phân tích PageSpeed...</div></div></div>
+      <div class="step" id="s_gsc_${index}"><span class="step-icon">⏳</span><div><div>Submit Google Search Console</div></div></div>
+      <div class="step" id="s_em_${index}"><span class="step-icon">⏳</span><div><div>Chờ gửi email tổng hợp</div></div></div>
+    </div>
+    <div id="scores_${index}" style="display:none" class="score-row"></div>
+  `;
+  return div;
+}
 
-function setStep(id, state, detail) {
-  document.getElementById("step" + id).className = "step " + state;
+function setStep(index, id, state, detail) {
+  const el = document.getElementById(`s_${id}_${index}`);
+  if (!el) return;
+  el.className = "step " + state;
   const icons = { active: '<span class="spin">⟳</span>', done: "✅", error: "❌", idle: "⏳" };
-  document.getElementById("icon" + id).innerHTML = icons[state] || "⏳";
-  if (detail !== undefined) document.getElementById("detail" + id).innerHTML = detail;
+  const divs = el.querySelectorAll("div > div");
+  el.querySelector(".step-icon").innerHTML = icons[state] || "⏳";
+  if (detail && divs[1]) { divs[1].className = "step-detail"; divs[1].textContent = detail; }
+  else if (divs[1]) divs[1].textContent = "";
 }
 
-function buildReport() {
+function buildReportText() {
   const now = new Date().toLocaleString("vi-VN");
-  return `📊 BÁO CÁO PAGESPEED
-━━━━━━━━━━━━━━━━━━━━━━━
-URL: ${currentUrl}
-Thời gian: ${now}
-GSC Submit: ${gscStatusText}${gscMsg ? "\n" + gscMsg : ""}
+  let text = `📊 BÁO CÁO PAGESPEED & GSC\n━━━━━━━━━━━━━━━━━━━━━━━\nThời gian: ${now}\nSố URL: ${allResults.length}\n\n`;
+  allResults.forEach((r, i) => {
+    text += `[${i+1}] ${r.url}\n`;
+    text += `📱 Mobile: ${getScore(r.mobile)}/100 | 🖥 Desktop: ${getScore(r.desktop)}/100\n`;
+    text += `GSC: ${r.gscStatus}\n`;
+    if (r.gscMsg) text += `${r.gscMsg}\n`;
+    text += `LCP Mobile: ${getMetric(r.mobile,"largest-contentful-paint")} | LCP Desktop: ${getMetric(r.desktop,"largest-contentful-paint")}\n\n`;
+  });
+  return text.trim();
+}
 
-📱 MOBILE
-Score: ${getScore(resultData.mobile)}/100
-LCP: ${getMetric(resultData.mobile, "largest-contentful-paint")}
-CLS: ${getMetric(resultData.mobile, "cumulative-layout-shift")}
-TBT: ${getMetric(resultData.mobile, "total-blocking-time")}
-FCP: ${getMetric(resultData.mobile, "first-contentful-paint")}
-
-🖥 DESKTOP
-Score: ${getScore(resultData.desktop)}/100
-LCP: ${getMetric(resultData.desktop, "largest-contentful-paint")}
-CLS: ${getMetric(resultData.desktop, "cumulative-layout-shift")}
-TBT: ${getMetric(resultData.desktop, "total-blocking-time")}
-FCP: ${getMetric(resultData.desktop, "first-contentful-paint")}`.trim();
+function buildEmailBody() {
+  let rows = allResults.map((r, i) => `
+URL ${i+1}: ${r.url}
+📱 Mobile: ${getScore(r.mobile)}/100 | 🖥 Desktop: ${getScore(r.desktop)}/100
+GSC: ${r.gscStatus}${r.gscMsg ? "\n" + r.gscMsg : ""}
+LCP M: ${getMetric(r.mobile,"largest-contentful-paint")} | LCP D: ${getMetric(r.desktop,"largest-contentful-paint")}
+CLS M: ${getMetric(r.mobile,"cumulative-layout-shift")} | CLS D: ${getMetric(r.desktop,"cumulative-layout-shift")}
+TBT M: ${getMetric(r.mobile,"total-blocking-time")} | TBT D: ${getMetric(r.desktop,"total-blocking-time")}
+`).join("\n---\n");
+  return rows;
 }
 
 async function handleRun() {
   const raw = document.getElementById("urlInput").value;
-  if (!raw.trim()) return;
-  currentUrl = normalizeUrl(raw);
-  gscStatusText = "Chưa submit"; gscMsg = "";
+  const urls = raw.split("\n").map(u => u.trim()).filter(u => u.length > 0).slice(0, 3).map(normalizeUrl);
 
+  if (urls.length === 0) return;
+
+  allResults = [];
   const btnRun = document.getElementById("btnRun");
   btnRun.disabled = true;
-  btnRun.innerHTML = '<span class="spin">⟳</span>';
+  btnRun.innerHTML = '<span class="spin">⟳</span> Đang xử lý...';
 
-  document.getElementById("errorBox").style.display = "none";
-  document.getElementById("scoreGrid").style.display = "none";
-  document.getElementById("btnCopy").style.display = "none";
-  document.getElementById("results").style.display = "block";
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
+  resultsDiv.style.display = "block";
 
-  setStep("Pagespeed", "active", "Đang chạy Mobile &amp; Desktop...");
-  setStep("GSC", "idle", "Chờ PageSpeed hoàn tất...");
-  setStep("Email", "idle", "Chờ các bước trước...");
+  // Tạo block cho từng URL
+  urls.forEach((url, i) => {
+    resultsDiv.appendChild(createUrlBlock(url, i));
+  });
 
-  // ── Bước 1: PageSpeed ──
-  try {
-    const data = await callScript({ token: GSC_TOKEN, action: "pagespeed", url: currentUrl });
-    if (!data.success) throw new Error(data.error || "Lỗi không xác định");
-    resultData = { mobile: data.mobile, desktop: data.desktop };
-    document.getElementById("mobileCard").innerHTML = renderDevice(data.mobile, "📱 Mobile");
-    document.getElementById("desktopCard").innerHTML = renderDevice(data.desktop, "🖥 Desktop");
-    document.getElementById("scoreGrid").style.display = "flex";
-    setStep("Pagespeed", "done", `Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
-  } catch(e) {
-    setStep("Pagespeed", "error", e.message);
-    setStep("GSC", "error", "Bỏ qua");
-    setStep("Email", "error", "Bỏ qua");
-    btnRun.disabled = false; btnRun.textContent = "Kiểm tra";
-    return;
-  }
+  // Xử lý tuần tự từng URL
+  for (let i = 0; i < urls.length; i++) {
+    const url = urls[i];
+    const result = { url, mobile: null, desktop: null, gscStatus: "Chưa submit", gscMsg: "" };
 
-  // ── Bước 2: GSC ──
-  setStep("GSC", "active", "Đang gọi GSC API...");
-  try {
-    const data = await callScript({ token: GSC_TOKEN, action: "gsc", url: currentUrl });
-    if (data.success) {
-      const cs = data.data?.inspectionResult?.indexStatusResult?.coverageState ?? "";
-      const is = data.data?.inspectionResult?.indexStatusResult?.indexingState ?? "";
-      gscMsg = [cs ? "Trạng thái: " + cs : "", is ? "Indexing: " + is : ""].filter(Boolean).join("\n") || "Đã gửi yêu cầu thành công";
-      gscStatusText = "✅ Đã submit thành công";
-      setStep("GSC", "done", gscMsg);
-    } else {
-      gscStatusText = "⚠️ Lỗi submit";
-      gscMsg = data.error || "Lỗi không xác định";
-      setStep("GSC", "error", gscMsg);
+    // PageSpeed
+    try {
+      const data = await callScript({ token: GSC_TOKEN, action: "pagespeed", url });
+      if (!data.success) throw new Error(data.error);
+      result.mobile = data.mobile;
+      result.desktop = data.desktop;
+      setStep(i, "ps", "done", `Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
+      const scoresDiv = document.getElementById("scores_" + i);
+      scoresDiv.innerHTML = renderScoreBox(data.mobile, "📱 Mobile") + renderScoreBox(data.desktop, "🖥 Desktop");
+      scoresDiv.style.display = "flex";
+    } catch(e) {
+      setStep(i, "ps", "error", e.message);
+      setStep(i, "gsc", "error", "Bỏ qua");
+      setStep(i, "em", "idle", "Chờ gửi email tổng hợp");
+      allResults.push(result);
+      continue;
     }
-  } catch(e) {
-    gscStatusText = "⚠️ Lỗi kết nối";
-    gscMsg = e.message;
-    setStep("GSC", "error", e.message);
+
+    // GSC
+    setStep(i, "gsc", "active", "Đang gọi GSC API...");
+    try {
+      const data = await callScript({ token: GSC_TOKEN, action: "gsc", url });
+      if (data.success) {
+        const cs = data.data?.inspectionResult?.indexStatusResult?.coverageState ?? "";
+        const v = data.data?.inspectionResult?.indexStatusResult?.verdict ?? "";
+        result.gscMsg = [cs ? "Trạng thái: " + cs : "", v ? "Verdict: " + v : ""].filter(Boolean).join("\n") || "Đã gửi thành công";
+        result.gscStatus = "✅ Đã submit";
+        setStep(i, "gsc", "done", result.gscMsg);
+      } else {
+        result.gscStatus = "⚠️ Lỗi";
+        result.gscMsg = data.error || "Lỗi không xác định";
+        setStep(i, "gsc", "error", result.gscMsg);
+      }
+    } catch(e) {
+      result.gscStatus = "⚠️ Timeout";
+      result.gscMsg = e.message;
+      setStep(i, "gsc", "error", e.message);
+    }
+
+    setStep(i, "em", "idle", "Chờ gửi email tổng hợp...");
+    allResults.push(result);
   }
 
-  // ── Bước 3: Email ──
-  setStep("Email", "active", "Đang gửi...");
+  // Gửi 1 email tổng hợp
+  const emailStep = urls.length - 1;
+  urls.forEach((_, i) => setStep(i, "em", i === emailStep ? "active" : "idle", i === emailStep ? "Đang gửi email tổng hợp..." : ""));
+
   try {
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
     const now = new Date().toLocaleString("vi-VN");
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email: REPORT_EMAIL, url: currentUrl, checked_at: now,
-      gsc_status: gscStatusText + (gscMsg ? "\n" + gscMsg : ""),
-      mobile_score: getScore(resultData.mobile),
-      mobile_lcp: getMetric(resultData.mobile, "largest-contentful-paint"),
-      mobile_cls: getMetric(resultData.mobile, "cumulative-layout-shift"),
-      mobile_tbt: getMetric(resultData.mobile, "total-blocking-time"),
-      mobile_fcp: getMetric(resultData.mobile, "first-contentful-paint"),
-      desktop_score: getScore(resultData.desktop),
-      desktop_lcp: getMetric(resultData.desktop, "largest-contentful-paint"),
-      desktop_cls: getMetric(resultData.desktop, "cumulative-layout-shift"),
-      desktop_tbt: getMetric(resultData.desktop, "total-blocking-time"),
-      desktop_fcp: getMetric(resultData.desktop, "first-contentful-paint"),
-      report_text: buildReport(),
+      to_email: REPORT_EMAIL,
+      url: allResults.map((r,i) => `[${i+1}] ${r.url}`).join("\n"),
+      checked_at: now,
+      gsc_status: allResults.map((r,i) => `[${i+1}] ${r.gscStatus}`).join("\n"),
+      mobile_score: allResults.map((r,i) => `[${i+1}] ${getScore(r.mobile)}`).join(" | "),
+      desktop_score: allResults.map((r,i) => `[${i+1}] ${getScore(r.desktop)}`).join(" | "),
+      mobile_lcp: allResults.map((r,i) => `[${i+1}] ${getMetric(r.mobile,"largest-contentful-paint")}`).join(" | "),
+      mobile_cls: allResults.map((r,i) => `[${i+1}] ${getMetric(r.mobile,"cumulative-layout-shift")}`).join(" | "),
+      mobile_tbt: allResults.map((r,i) => `[${i+1}] ${getMetric(r.mobile,"total-blocking-time")}`).join(" | "),
+      mobile_fcp: allResults.map((r,i) => `[${i+1}] ${getMetric(r.mobile,"first-contentful-paint")}`).join(" | "),
+      desktop_lcp: allResults.map((r,i) => `[${i+1}] ${getMetric(r.desktop,"largest-contentful-paint")}`).join(" | "),
+      desktop_cls: allResults.map((r,i) => `[${i+1}] ${getMetric(r.desktop,"cumulative-layout-shift")}`).join(" | "),
+      desktop_tbt: allResults.map((r,i) => `[${i+1}] ${getMetric(r.desktop,"total-blocking-time")}`).join(" | "),
+      desktop_fcp: allResults.map((r,i) => `[${i+1}] ${getMetric(r.desktop,"first-contentful-paint")}`).join(" | "),
+      report_text: buildEmailBody(),
     });
-    setStep("Email", "done", "Đã gửi tới " + REPORT_EMAIL);
+    urls.forEach((_, i) => setStep(i, "em", "done", i === emailStep ? "Đã gửi tổng hợp tới " + REPORT_EMAIL : "✓"));
   } catch(e) {
-    setStep("Email", "error", "Gửi thất bại: " + (e?.text || e?.message));
+    urls.forEach((_, i) => setStep(i, "em", "error", i === emailStep ? "Gửi thất bại: " + (e?.text || e?.message) : ""));
   }
 
-  document.getElementById("btnCopy").style.display = "block";
+  // Summary card
+  const summary = document.createElement("div");
+  summary.className = "summary-card";
+  summary.innerHTML = `<div class="summary-title">📋 TỔNG KẾT — ${allResults.length} URL</div>` +
+    allResults.map((r,i) => `<div class="summary-row">
+      <span class="summary-url">[${i+1}] ${r.url}</span>
+      <span class="summary-scores">📱${getScore(r.mobile)} 🖥${getScore(r.desktop)}</span>
+      <span class="summary-gsc">${r.gscStatus}</span>
+    </div>`).join("") +
+    `<button class="btn-copy" onclick="handleCopy()">📋 Copy báo cáo</button>`;
+  resultsDiv.appendChild(summary);
+
   btnRun.disabled = false;
-  btnRun.textContent = "Kiểm tra";
+  btnRun.textContent = "Kiểm tra tất cả";
 }
 
 function handleCopy() {
-  navigator.clipboard.writeText(buildReport()).then(() => {
-    const btn = event.target;
-    btn.textContent = "✅ Đã copy!";
-    setTimeout(() => btn.textContent = "📋 Copy báo cáo dạng text", 2000);
+  navigator.clipboard.writeText(buildReportText()).then(() => {
+    event.target.textContent = "✅ Đã copy!";
+    setTimeout(() => event.target.textContent = "📋 Copy báo cáo", 2000);
   });
 }
-
-document.getElementById("urlInput").addEventListener("keydown", e => {
-  if (e.key === "Enter") handleRun();
-});
 </script>
 </body>
 </html>
