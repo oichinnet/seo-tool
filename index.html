@@ -18,44 +18,69 @@ button:disabled{cursor:not-allowed}
 h1{color:#e8eaf0;font-size:clamp(24px,5vw,38px);font-weight:800;line-height:1.15;margin-bottom:10px;text-align:center}
 h1 span{color:#3b82f6}
 .subtitle{color:#4a5568;font-size:14px;font-family:'DM Mono',monospace;text-align:center;margin-bottom:40px}
-.card{width:100%;max-width:720px;background:#0d1117;border:1px solid #1e2533;border-radius:16px;padding:32px;margin-bottom:24px}
+.tabs{display:flex;gap:8px;width:100%;max-width:720px;margin-bottom:24px}
+.tab{flex:1;padding:12px;border-radius:8px;font-size:13px;font-weight:700;text-align:center;background:#0d1117;border:1px solid #1e2533;color:#4a5568;transition:all .2s}
+.tab.active{background:#0f1f3d;border-color:#3b82f6;color:#3b82f6}
+.tab-content{display:none;width:100%;max-width:720px}
+.tab-content.active{display:block}
+.card{background:#0d1117;border:1px solid #1e2533;border-radius:16px;padding:32px;margin-bottom:24px}
 .label{display:block;color:#4a5568;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
 .hint{color:#3a4252;font-size:11px;font-family:'DM Mono',monospace;margin-top:8px}
 .btn-primary{background:#3b82f6;color:#fff;border-radius:8px;padding:14px 24px;font-size:14px;font-weight:700;width:100%;margin-top:16px}
 .btn-primary:disabled{background:#1e2533;opacity:.6}
-.results{width:100%;max-width:720px}
+.btn-green{background:#0cce6b22;border:1px solid #0cce6b;color:#0cce6b;border-radius:8px;padding:14px 24px;font-size:14px;font-weight:700;width:100%;margin-top:16px}
+.btn-green:disabled{opacity:.4}
+
+/* URL Block */
 .url-block{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
-.url-tag{font-size:10px;font-weight:700;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:4px;margin-right:6px}
+.url-tag{font-size:10px;font-weight:700;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:4px}
 .url-tag-num{background:#1e2533;color:#3b82f6}
-.url-tag-index{padding:2px 10px;border-radius:4px;font-size:10px;font-weight:700;font-family:'DM Mono',monospace}
 .url-tag-indexed{background:#0a1a0a;color:#0cce6b}
 .url-tag-noindex{background:#1a0808;color:#ff4e42}
 .url-text{color:#e8eaf0;font-size:12px;font-family:'DM Mono',monospace;word-break:break-all;margin-top:6px;margin-bottom:12px}
-.score-row{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.score-row{display:flex;gap:12px;flex-wrap:wrap}
 .score-box{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px 16px;flex:1;min-width:200px}
 .score-box-label{color:#4a5568;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
 .score-num{font-size:28px;font-weight:800;font-family:'DM Mono',monospace}
-.metrics{display:flex;flex-direction:column}
 .metric-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1e2533}
 .metric-row:last-child{border:none}
 .metric-name{color:#8892a4;font-size:11px;font-family:'DM Mono',monospace}
 .metric-val{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;color:#e8eaf0}
 .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
-.steps{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
 .step{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;background:#080c12;border:1px solid #1e2533;color:#4a5568;transition:all .3s}
 .step.active{border-color:#3b82f6;color:#3b82f6;background:#0a1020}
 .step.done{border-color:#0cce6b44;color:#0cce6b;background:#0a1a0a}
 .step.error{border-color:#ff4e42;color:#ff4e42;background:#1a0808}
 .step.warn{border-color:#ffa40044;color:#ffa400;background:#1a1200}
 .step-icon{min-width:16px;text-align:center}
-.step-detail{opacity:.8;margin-top:2px;white-space:pre-line}
+.step-detail{opacity:.8;margin-top:2px}
+
+/* Summary */
 .summary-card{background:#0d1117;border:1px solid #0cce6b44;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
 .summary-title{color:#0cce6b;font-size:11px;font-family:'DM Mono',monospace;font-weight:700;margin-bottom:12px;letter-spacing:.1em}
 .summary-row{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #1e2533;font-family:'DM Mono',monospace;font-size:11px}
 .summary-row:last-child{border:none}
-.summary-url{color:#8892a4;flex:1;word-break:break-all}
 .btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:12px}
-.noindex-banner{background:#1a0808;border:1px solid #ff4e4244;border-radius:8px;padding:10px 16px;margin-top:8px;color:#ff4e42;font-size:11px;font-family:'DM Mono',monospace}
+
+/* Tab 2 - No Index checker */
+.noindex-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;background:#080c12;border:1px solid #1e2533;margin-bottom:8px;font-family:'DM Mono',monospace;font-size:12px;transition:all .3s}
+.noindex-item.checking{border-color:#3b82f6}
+.noindex-item.indexed{border-color:#0cce6b44;background:#0a1a0a}
+.noindex-item.noindex{border-color:#1e2533}
+.noindex-item.error{border-color:#ff4e4244}
+.noindex-url{flex:1;color:#8892a4;word-break:break-all;font-size:11px}
+.noindex-status{font-size:11px;font-weight:700;white-space:nowrap}
+.noindex-time{color:#3a4252;font-size:10px;white-space:nowrap}
+.progress-bar{height:3px;background:#1e2533;border-radius:2px;margin-bottom:16px;overflow:hidden}
+.progress-fill{height:100%;background:#3b82f6;border-radius:2px;transition:width .3s}
+.stat-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.stat-box{flex:1;min-width:100px;background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px;text-align:center}
+.stat-num{font-size:24px;font-weight:800;font-family:'DM Mono',monospace}
+.stat-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
+
 .progress-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-bottom:6px;letter-spacing:.1em;text-transform:uppercase}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
@@ -66,24 +91,53 @@ h1 span{color:#3b82f6}
 
 <div class="badge">Oichin SEO Toolkit</div>
 <h1>PageSpeed &amp; Index<br><span>Inspector</span></h1>
-<p class="subtitle">Nhập URL → Kiểm tra → Nhận báo cáo</p>
+<p class="subtitle">Kiểm tra hiệu suất và tình trạng index</p>
 
-<div class="card">
-  <label class="label">Danh sách URL cần kiểm tra</label>
-  <textarea id="urlInput" rows="4" placeholder="https://oichin.net/san-pham/abc
-https://oichin.net/san-pham/xyz
-https://oichin.net/danh-muc/abc"></textarea>
-  <p class="hint">⚡ Tối đa 3 URL — mỗi URL một dòng</p>
-  <button class="btn-primary" id="btnRun" onclick="handleRun()">Kiểm tra tất cả</button>
+<!-- Tabs -->
+<div class="tabs" style="max-width:720px;width:100%">
+  <div class="tab active" onclick="switchTab(1)">⚡ Check PageSpeed + Index</div>
+  <div class="tab" onclick="switchTab(2)">📋 Kiểm tra danh sách No Index</div>
 </div>
 
-<div id="results" style="display:none" class="results"></div>
+<!-- TAB 1: PageSpeed + Index -->
+<div class="tab-content active" id="tab1">
+  <div class="card">
+    <label class="label">Danh sách URL cần kiểm tra</label>
+    <textarea id="urlInput" rows="4" placeholder="https://oichin.net/san-pham/abc
+https://oichin.net/san-pham/xyz
+https://oichin.net/danh-muc/abc"></textarea>
+    <p class="hint">⚡ Tối đa 3 URL — mỗi URL một dòng</p>
+    <button class="btn-primary" id="btnRun" onclick="handleRun()">Kiểm tra tất cả</button>
+  </div>
+  <div id="results1" style="display:none"></div>
+</div>
+
+<!-- TAB 2: No Index List -->
+<div class="tab-content" id="tab2">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div>
+        <div class="label" style="margin-bottom:4px">Danh sách No Index từ Google Sheet</div>
+        <div style="color:#3a4252;font-size:11px;font-family:'DM Mono',monospace">URL chưa được index sẽ giữ nguyên · URL đã index sẽ được xóa & lưu vào Index History</div>
+      </div>
+    </div>
+    <button class="btn-green" id="btnLoadSheet" onclick="handleLoadSheet()">📋 Tải danh sách từ Sheet</button>
+  </div>
+  <div id="results2" style="display:none"></div>
+</div>
 
 <script>
 const GSC_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8Y5wQrXhJxXWtwOJGol-sd8N_m5JSGSuQO0MVR4zNo7eevHzB9sMxNhC-_6HBP-e3/exec";
 const GSC_TOKEN = "oichin2024gsc";
 
 let allResults = [];
+let sheetRows = [];
+let checkResults = [];
+
+function switchTab(n) {
+  document.querySelectorAll(".tab").forEach((t,i) => t.className = "tab" + (i===n-1?" active":""));
+  document.querySelectorAll(".tab-content").forEach((t,i) => t.className = "tab-content" + (i===n-1?" active":""));
+}
 
 function normalizeUrl(u) {
   u = u.trim();
@@ -99,13 +153,13 @@ function callScript(params) {
     const script = document.createElement("script");
     const timer = setTimeout(() => {
       delete window[cbName];
-      document.head.removeChild(script);
-      reject(new Error("Timeout sau 90 giây"));
+      try { document.head.removeChild(script); } catch(e) {}
+      reject(new Error("Timeout"));
     }, 90000);
     window[cbName] = (data) => {
       clearTimeout(timer);
       delete window[cbName];
-      document.head.removeChild(script);
+      try { document.head.removeChild(script); } catch(e) {}
       resolve(data);
     };
     script.onerror = () => { clearTimeout(timer); reject(new Error("Không kết nối được")); };
@@ -133,46 +187,9 @@ function renderScoreBox(data, label) {
   const rows = metrics.map(m => {
     const a = audits[m.key];
     if (!a) return "";
-    return `<div class="metric-row">
-      <span class="metric-name">${m.name}</span>
-      <div class="metric-val">${a.displayValue ?? "—"}<span class="dot" style="background:${metricColor(a.score??0)}"></span></div>
-    </div>`;
+    return `<div class="metric-row"><span class="metric-name">${m.name}</span><div class="metric-val">${a.displayValue??'—'}<span class="dot" style="background:${metricColor(a.score??0)}"></span></div></div>`;
   }).join("");
-  return `<div class="score-box">
-    <div class="score-box-label">${label}</div>
-    <div class="score-num" style="color:${scoreColor(score)}">${score}</div>
-    <div class="metrics" style="margin-top:8px">${rows}</div>
-  </div>`;
-}
-
-function createUrlBlock(url, index) {
-  const div = document.createElement("div");
-  div.className = "url-block";
-  div.id = "block_" + index;
-  div.innerHTML = `
-    <div style="margin-bottom:4px">
-      <span class="url-tag url-tag-num">URL ${index + 1}</span>
-      <span class="url-tag-index url-tag-noindex" id="indextag_${index}" style="display:none"></span>
-    </div>
-    <div class="url-text">${url}</div>
-    <div class="progress-label">Tiến trình</div>
-    <div class="steps">
-      <div class="step active" id="s_ps_${index}">
-        <span class="step-icon"><span class="spin">⟳</span></span>
-        <div><div>Phân tích PageSpeed</div><div class="step-detail" id="d_ps_${index}">Đang chạy Mobile & Desktop...</div></div>
-      </div>
-      <div class="step" id="s_idx_${index}">
-        <span class="step-icon">⏳</span>
-        <div><div>Kiểm tra Index trên Google</div><div class="step-detail" id="d_idx_${index}">Chờ PageSpeed hoàn tất...</div></div>
-      </div>
-      <div class="step" id="s_em_${index}">
-        <span class="step-icon">⏳</span>
-        <div><div>Gửi email & lưu Sheet</div><div class="step-detail" id="d_em_${index}">Chờ xử lý xong tất cả URL...</div></div>
-      </div>
-    </div>
-    <div id="scores_${index}" style="display:none" class="score-row"></div>
-  `;
-  return div;
+  return `<div class="score-box"><div class="score-box-label">${label}</div><div class="score-num" style="color:${scoreColor(score)}">${score}</div><div style="margin-top:8px">${rows}</div></div>`;
 }
 
 function setStep(index, id, state, detail) {
@@ -185,55 +202,44 @@ function setStep(index, id, state, detail) {
   if (d && detail !== undefined) d.textContent = detail;
 }
 
-function buildMinData() {
-  return allResults.map(r => ({
-    url: r.url,
-    indexed: r.indexed,
-    mScore: getScore(r.mobile),
-    dScore: getScore(r.desktop),
-    mLCP: getMetric(r.mobile, "largest-contentful-paint"),
-    mCLS: getMetric(r.mobile, "cumulative-layout-shift"),
-    mTBT: getMetric(r.mobile, "total-blocking-time"),
-    mFCP: getMetric(r.mobile, "first-contentful-paint"),
-    mSI:  getMetric(r.mobile, "speed-index"),
-    dLCP: getMetric(r.desktop, "largest-contentful-paint"),
-    dCLS: getMetric(r.desktop, "cumulative-layout-shift"),
-    dTBT: getMetric(r.desktop, "total-blocking-time"),
-    dFCP: getMetric(r.desktop, "first-contentful-paint"),
-    dSI:  getMetric(r.desktop, "speed-index"),
-    mScore_raw: r.mobile?.lighthouseResult?.categories?.performance?.score ?? 0,
-    dScore_raw: r.desktop?.lighthouseResult?.categories?.performance?.score ?? 0,
-    mLCP_s: getMetricScore(r.mobile, "largest-contentful-paint"),
-    mCLS_s: getMetricScore(r.mobile, "cumulative-layout-shift"),
-    mTBT_s: getMetricScore(r.mobile, "total-blocking-time"),
-    mFCP_s: getMetricScore(r.mobile, "first-contentful-paint"),
-    mSI_s:  getMetricScore(r.mobile, "speed-index"),
-    dLCP_s: getMetricScore(r.desktop, "largest-contentful-paint"),
-    dCLS_s: getMetricScore(r.desktop, "cumulative-layout-shift"),
-    dTBT_s: getMetricScore(r.desktop, "total-blocking-time"),
-    dFCP_s: getMetricScore(r.desktop, "first-contentful-paint"),
-    dSI_s:  getMetricScore(r.desktop, "speed-index"),
-  }));
-}
-
+// ── TAB 1: PageSpeed + Index ──
 async function handleRun() {
   const raw = document.getElementById("urlInput").value;
-  const urls = raw.split("\n").map(u => u.trim()).filter(u => u.length > 0).slice(0, 3).map(normalizeUrl);
-  if (urls.length === 0) return;
+  const urls = raw.split("\n").map(u => u.trim()).filter(u => u).slice(0, 3).map(normalizeUrl);
+  if (!urls.length) return;
 
   allResults = [];
-  const btnRun = document.getElementById("btnRun");
-  btnRun.disabled = true;
-  btnRun.innerHTML = '<span class="spin">⟳</span> Đang xử lý...';
+  const btn = document.getElementById("btnRun");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin">⟳</span> Đang xử lý...';
 
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "";
-  resultsDiv.style.display = "block";
-  urls.forEach((url, i) => resultsDiv.appendChild(createUrlBlock(url, i)));
+  const div = document.getElementById("results1");
+  div.innerHTML = "";
+  div.style.display = "block";
+
+  urls.forEach((url, i) => {
+    const block = document.createElement("div");
+    block.className = "url-block";
+    block.id = "block_" + i;
+    block.innerHTML = `
+      <div style="margin-bottom:4px">
+        <span class="url-tag url-tag-num">URL ${i+1}</span>
+        <span id="indextag_${i}" style="display:none;margin-left:6px" class="url-tag"></span>
+      </div>
+      <div class="url-text">${url}</div>
+      <div class="progress-label">Tiến trình</div>
+      <div class="steps">
+        <div class="step active" id="s_ps_${i}"><span class="step-icon"><span class="spin">⟳</span></span><div><div>Phân tích PageSpeed</div><div class="step-detail" id="d_ps_${i}">Đang chạy Mobile & Desktop...</div></div></div>
+        <div class="step" id="s_idx_${i}"><span class="step-icon">⏳</span><div><div>Kiểm tra Index</div><div class="step-detail" id="d_idx_${i}">Chờ PageSpeed...</div></div></div>
+        <div class="step" id="s_em_${i}"><span class="step-icon">⏳</span><div><div>Gửi email & lưu Sheet</div><div class="step-detail" id="d_em_${i}">Chờ xử lý...</div></div></div>
+      </div>
+      <div id="scores_${i}" style="display:none" class="score-row"></div>`;
+    div.appendChild(block);
+  });
 
   for (let i = 0; i < urls.length; i++) {
     const url = urls[i];
-    const result = { url, mobile: null, desktop: null, indexed: null };
+    const result = { url, mobile: null, desktop: null, indexed: null, coverageState: "" };
 
     // PageSpeed
     try {
@@ -242,106 +248,262 @@ async function handleRun() {
       result.mobile = data.mobile;
       result.desktop = data.desktop;
       setStep(i, "ps", "done", `Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
-      const scoresDiv = document.getElementById("scores_" + i);
-      scoresDiv.innerHTML = renderScoreBox(data.mobile, "Mobile") + renderScoreBox(data.desktop, "Desktop");
-      scoresDiv.style.display = "flex";
+      const sd = document.getElementById("scores_" + i);
+      sd.innerHTML = renderScoreBox(data.mobile, "Mobile") + renderScoreBox(data.desktop, "Desktop");
+      sd.style.display = "flex";
     } catch(e) {
       setStep(i, "ps", "error", e.message);
-      setStep(i, "idx", "error", "Bỏ qua");
-      setStep(i, "em", "idle", "Chờ...");
-      allResults.push(result);
-      continue;
+      setStep(i, "idx", "error", "Bỏ qua"); setStep(i, "em", "idle", "Chờ...");
+      allResults.push(result); continue;
     }
 
     // Check Index
-    setStep(i, "idx", "active", "Đang kiểm tra site:URL trên Google...");
+    setStep(i, "idx", "active", "Đang kiểm tra...");
     try {
       const data = await callScript({ token: GSC_TOKEN, action: "checkindex", url });
       if (!data.success) throw new Error(data.error);
       result.indexed = data.indexed;
+      result.coverageState = data.coverageState || "";
       const tag = document.getElementById("indextag_" + i);
       tag.style.display = "inline";
       if (data.indexed) {
-        tag.className = "url-tag-index url-tag-indexed";
-        tag.textContent = "Đã Index";
-        setStep(i, "idx", "done", "Tìm thấy trên Google ✓");
+        tag.className = "url-tag url-tag-indexed"; tag.textContent = "Đã Index";
+        setStep(i, "idx", "done", data.coverageState || "Đã index ✓");
       } else {
-        tag.className = "url-tag-index url-tag-noindex";
-        tag.textContent = "Chưa Index";
-        setStep(i, "idx", "warn", "Không tìm thấy trên Google → sẽ lưu vào Sheet");
+        tag.className = "url-tag url-tag-noindex"; tag.textContent = "Chưa Index";
+        setStep(i, "idx", "warn", (data.coverageState || "Chưa index") + " → sẽ lưu vào Sheet");
       }
     } catch(e) {
       result.indexed = null;
       setStep(i, "idx", "error", e.message);
     }
 
-    setStep(i, "em", "idle", "Chờ gửi email & lưu Sheet...");
+    setStep(i, "em", "idle", "Chờ gửi email...");
     allResults.push(result);
   }
 
   // Email + Sheet
   urls.forEach((_, i) => setStep(i, "em", "active", "Đang xử lý..."));
   const now = new Date().toLocaleString("vi-VN");
-  const minData = buildMinData();
   const noIndexUrls = allResults.filter(r => r.indexed === false).map(r => ({ url: r.url, timeAdded: now }));
 
-  // Gửi email
-  try {
-    const reportData = { checkedAt: now, results: minData };
-    const data = await callScript({ token: GSC_TOKEN, action: "email", reportData: encodeURIComponent(JSON.stringify(reportData)) });
-    if (!data.success) throw new Error(data.error);
-  } catch(e) {
-    urls.forEach((_, i) => setStep(i, "em", "error", "Email thất bại: " + e.message));
-    btnRun.disabled = false; btnRun.textContent = "Kiểm tra tất cả";
-    return;
-  }
+  const minData = allResults.map(r => ({
+    url: r.url, indexed: r.indexed, coverageState: r.coverageState,
+    mScore: getScore(r.mobile), dScore: getScore(r.desktop),
+    mLCP: getMetric(r.mobile,"largest-contentful-paint"), mCLS: getMetric(r.mobile,"cumulative-layout-shift"),
+    mTBT: getMetric(r.mobile,"total-blocking-time"), mFCP: getMetric(r.mobile,"first-contentful-paint"), mSI: getMetric(r.mobile,"speed-index"),
+    dLCP: getMetric(r.desktop,"largest-contentful-paint"), dCLS: getMetric(r.desktop,"cumulative-layout-shift"),
+    dTBT: getMetric(r.desktop,"total-blocking-time"), dFCP: getMetric(r.desktop,"first-contentful-paint"), dSI: getMetric(r.desktop,"speed-index"),
+    mLCP_s: getMetricScore(r.mobile,"largest-contentful-paint"), mCLS_s: getMetricScore(r.mobile,"cumulative-layout-shift"),
+    mTBT_s: getMetricScore(r.mobile,"total-blocking-time"), mFCP_s: getMetricScore(r.mobile,"first-contentful-paint"), mSI_s: getMetricScore(r.mobile,"speed-index"),
+    dLCP_s: getMetricScore(r.desktop,"largest-contentful-paint"), dCLS_s: getMetricScore(r.desktop,"cumulative-layout-shift"),
+    dTBT_s: getMetricScore(r.desktop,"total-blocking-time"), dFCP_s: getMetricScore(r.desktop,"first-contentful-paint"), dSI_s: getMetricScore(r.desktop,"speed-index"),
+  }));
 
-  // Lưu Sheet nếu có URL chưa index
-  let sheetMsg = "Email đã gửi tới quypham.adw@gmail.com";
+  try {
+    await callScript({ token: GSC_TOKEN, action: "email", reportData: encodeURIComponent(JSON.stringify({ checkedAt: now, results: minData })) });
+  } catch(e) {}
+
+  let sheetMsg = "Email đã gửi";
   if (noIndexUrls.length > 0) {
     try {
-      const data = await callScript({ token: GSC_TOKEN, action: "savesheet", sheetData: encodeURIComponent(JSON.stringify(noIndexUrls)) });
-      if (data.success) {
-        sheetMsg = `Email đã gửi · ${noIndexUrls.length} URL chưa index → đã lưu Google Sheet`;
-      }
-    } catch(e) {
-      sheetMsg = `Email đã gửi · Lưu Sheet thất bại: ${e.message}`;
-    }
+      await callScript({ token: GSC_TOKEN, action: "savesheet", sheetData: encodeURIComponent(JSON.stringify(noIndexUrls)) });
+      sheetMsg = `Email đã gửi · ${noIndexUrls.length} URL chưa index → lưu Sheet`;
+    } catch(e) {}
   }
-
-  urls.forEach((_, i) => setStep(i, "em", "done", i === urls.length - 1 ? sheetMsg : "✓"));
+  urls.forEach((_, i) => setStep(i, "em", "done", i === urls.length-1 ? sheetMsg : "✓"));
 
   // Summary
   const noIndexCount = allResults.filter(r => r.indexed === false).length;
-  const summary = document.createElement("div");
-  summary.className = "summary-card";
-  summary.innerHTML = `<div class="summary-title">TỔNG KẾT — ${allResults.length} URL</div>` +
-    allResults.map((r, i) => `<div class="summary-row">
-      <span class="summary-url">[${i+1}] ${r.url}</span>
-      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.mobile))};font-size:12px">M:${getScore(r.mobile)}</span>
-      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.desktop))};font-size:12px">D:${getScore(r.desktop)}</span>
-      <span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:700;color:${r.indexed===true?"#0cce6b":r.indexed===false?"#ff4e42":"#4a5568"}">${r.indexed===true?"Đã Index":r.indexed===false?"Chưa Index":"?"}</span>
+  const sumDiv = document.createElement("div");
+  sumDiv.className = "summary-card";
+  sumDiv.innerHTML = `<div class="summary-title">TỔNG KẾT — ${allResults.length} URL</div>` +
+    allResults.map((r,i) => `<div class="summary-row">
+      <span style="color:#4a5568;font-family:'DM Mono',monospace;font-size:11px;min-width:40px">[${i+1}]</span>
+      <span style="flex:1;color:#8892a4;font-family:'DM Mono',monospace;font-size:11px;word-break:break-all">${r.url}</span>
+      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.mobile))};font-size:12px;margin:0 4px">M:${getScore(r.mobile)}</span>
+      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.desktop))};font-size:12px;margin:0 4px">D:${getScore(r.desktop)}</span>
+      <span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:700;color:${r.indexed===true?"#0cce6b":r.indexed===false?"#ff4e42":"#4a5568"}">${r.indexed===true?"✅ Index":r.indexed===false?"❌ No Index":"?"}</span>
     </div>`).join("") +
-    (noIndexCount > 0 ? `<div class="noindex-banner">⚠️ ${noIndexCount} URL chưa index đã được lưu vào Google Sheet để theo dõi</div>` : "") +
-    `<button class="btn-copy" onclick="handleCopy(event)">📋 Copy báo cáo</button>`;
-  resultsDiv.appendChild(summary);
+    (noIndexCount > 0 ? `<div style="background:#1a0808;border:1px solid #ff4e4244;border-radius:6px;padding:8px 12px;margin-top:10px;color:#ff4e42;font-size:11px;font-family:'DM Mono',monospace">⚠️ ${noIndexCount} URL chưa index đã lưu vào Google Sheet</div>` : "") +
+    `<button class="btn-copy" onclick="handleCopy1(event)">📋 Copy báo cáo</button>`;
+  div.appendChild(sumDiv);
 
-  btnRun.disabled = false;
-  btnRun.textContent = "Kiểm tra tất cả";
+  btn.disabled = false; btn.textContent = "Kiểm tra tất cả";
 }
 
-function handleCopy(e) {
+function handleCopy1(e) {
   const now = new Date().toLocaleString("vi-VN");
-  let text = `📊 BÁO CÁO SEO — ${now}\n━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-  allResults.forEach((r, i) => {
-    text += `[${i+1}] ${r.url}\n`;
-    text += `PageSpeed — Mobile: ${getScore(r.mobile)}/100 | Desktop: ${getScore(r.desktop)}/100\n`;
-    text += `Index: ${r.indexed===true?"✅ Đã Index":r.indexed===false?"❌ Chưa Index":"Không xác định"}\n\n`;
+  let text = `📊 BÁO CÁO SEO — ${now}\n━━━━━━━━━━━━━━━━━━━\n\n`;
+  allResults.forEach((r,i) => {
+    text += `[${i+1}] ${r.url}\nPageSpeed — Mobile: ${getScore(r.mobile)} | Desktop: ${getScore(r.desktop)}\nIndex: ${r.indexed===true?"✅ Đã Index":r.indexed===false?"❌ Chưa Index":"Không xác định"}${r.coverageState?" ("+r.coverageState+")":""}\n\n`;
   });
   navigator.clipboard.writeText(text.trim()).then(() => {
     e.target.textContent = "✅ Đã copy!";
     setTimeout(() => e.target.textContent = "📋 Copy báo cáo", 2000);
   });
+}
+
+// ── TAB 2: No Index List ──
+async function handleLoadSheet() {
+  const btn = document.getElementById("btnLoadSheet");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin">⟳</span> Đang tải...';
+
+  const div = document.getElementById("results2");
+  div.innerHTML = "";
+  div.style.display = "block";
+
+  try {
+    const data = await callScript({ token: GSC_TOKEN, action: "readsheet" });
+    if (!data.success) throw new Error(data.error);
+    sheetRows = data.rows || [];
+
+    if (sheetRows.length === 0) {
+      div.innerHTML = `<div style="background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:32px;text-align:center;color:#4a5568;font-family:'DM Mono',monospace;font-size:13px">✅ Không có URL nào trong danh sách No Index</div>`;
+      btn.disabled = false; btn.textContent = "📋 Tải danh sách từ Sheet";
+      return;
+    }
+
+    // Render danh sách
+    const listCard = document.createElement("div");
+    listCard.className = "card";
+    listCard.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div>
+          <div style="color:#e8eaf0;font-size:14px;font-weight:700">Danh sách No Index</div>
+          <div style="color:#4a5568;font-size:11px;font-family:'DM Mono',monospace;margin-top:2px">${sheetRows.length} URL cần kiểm tra</div>
+        </div>
+        <button onclick="handleCheckAll()" id="btnCheckAll" style="background:#3b82f6;color:#fff;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700">Kiểm tra tất cả</button>
+      </div>
+      <div class="progress-bar" id="progressBar" style="display:none"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="stat-row" id="statRow" style="display:none">
+        <div class="stat-box"><div class="stat-num" id="statTotal" style="color:#e8eaf0">0</div><div class="stat-label">Tổng</div></div>
+        <div class="stat-box"><div class="stat-num" id="statDone" style="color:#4a5568">0</div><div class="stat-label">Đã check</div></div>
+        <div class="stat-box"><div class="stat-num" id="statIndexed" style="color:#0cce6b">0</div><div class="stat-label">Đã Index</div></div>
+        <div class="stat-box"><div class="stat-num" id="statNoIndex" style="color:#ff4e42">0</div><div class="stat-label">Chưa Index</div></div>
+      </div>
+      <div id="urlList"></div>
+      <div id="finalActions" style="display:none;margin-top:12px">
+        <button onclick="handleUpdateSheet()" style="background:#0cce6b22;border:1px solid #0cce6b;color:#0cce6b;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:700;width:100%">
+          ✅ Xóa URL đã Index khỏi Sheet & lưu vào History
+        </button>
+      </div>`;
+    div.appendChild(listCard);
+
+    const urlList = document.getElementById("urlList");
+    sheetRows.forEach((row, i) => {
+      const item = document.createElement("div");
+      item.className = "noindex-item";
+      item.id = "ni_" + i;
+      item.innerHTML = `
+        <span class="step-icon" id="ni_icon_${i}">⏳</span>
+        <span class="noindex-url">${row.url}</span>
+        <span class="noindex-time">${row.timeAdded || ""}</span>
+        <span class="noindex-status" id="ni_status_${i}" style="color:#4a5568">Chờ...</span>`;
+      urlList.appendChild(item);
+    });
+
+  } catch(e) {
+    div.innerHTML = `<div style="background:#1a0808;border:1px solid #ff4e42;border-radius:12px;padding:20px;color:#ff4e42;font-family:'DM Mono',monospace;font-size:13px">❌ ${e.message}</div>`;
+  }
+
+  btn.disabled = false; btn.textContent = "📋 Tải lại danh sách";
+}
+
+async function handleCheckAll() {
+  const btn = document.getElementById("btnCheckAll");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin">⟳</span> Đang kiểm tra...';
+
+  checkResults = [];
+  const total = sheetRows.length;
+  let done = 0, indexed = 0, noindex = 0;
+
+  document.getElementById("progressBar").style.display = "block";
+  document.getElementById("statRow").style.display = "flex";
+  document.getElementById("statTotal").textContent = total;
+
+  for (let i = 0; i < sheetRows.length; i++) {
+    const row = sheetRows[i];
+    const item = document.getElementById("ni_" + i);
+    const icon = document.getElementById("ni_icon_" + i);
+    const status = document.getElementById("ni_status_" + i);
+
+    item.className = "noindex-item checking";
+    icon.innerHTML = '<span class="spin">⟳</span>';
+    status.textContent = "Đang kiểm tra...";
+    status.style.color = "#3b82f6";
+
+    try {
+      const data = await callScript({ token: GSC_TOKEN, action: "checkindex", url: row.url });
+      const result = { ...row, indexed: data.indexed, coverageState: data.coverageState || "" };
+      checkResults.push(result);
+
+      if (data.indexed) {
+        indexed++;
+        item.className = "noindex-item indexed";
+        icon.textContent = "✅";
+        status.textContent = "Đã Index";
+        status.style.color = "#0cce6b";
+      } else {
+        noindex++;
+        item.className = "noindex-item noindex";
+        icon.textContent = "❌";
+        status.textContent = data.coverageState || "Chưa Index";
+        status.style.color = "#ff4e42";
+      }
+    } catch(e) {
+      checkResults.push({ ...row, indexed: null, coverageState: "Lỗi" });
+      item.className = "noindex-item error";
+      icon.textContent = "⚠️";
+      status.textContent = "Lỗi";
+      status.style.color = "#ffa400";
+    }
+
+    done++;
+    document.getElementById("statDone").textContent = done;
+    document.getElementById("statIndexed").textContent = indexed;
+    document.getElementById("statNoIndex").textContent = noindex;
+    document.getElementById("progressFill").style.width = (done/total*100) + "%";
+  }
+
+  btn.disabled = false; btn.textContent = "🔄 Kiểm tra lại";
+
+  if (indexed > 0) {
+    document.getElementById("finalActions").style.display = "block";
+  }
+}
+
+async function handleUpdateSheet() {
+  const btn = document.querySelector("#finalActions button");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin">⟳</span> Đang cập nhật Sheet...';
+
+  const now = new Date().toLocaleString("vi-VN");
+  const indexedRows = checkResults.filter(r => r.indexed === true);
+  const toDelete = indexedRows.map(r => r.rowIndex);
+  const indexed = indexedRows.map(r => ({ url: r.url, timeAdded: r.timeAdded || "", timeIndexed: now }));
+
+  try {
+    const data = await callScript({
+      token: GSC_TOKEN,
+      action: "updatesheet",
+      updateData: encodeURIComponent(JSON.stringify({ indexed, toDelete }))
+    });
+    if (data.success) {
+      btn.style.background = "#0a1a0a";
+      btn.style.color = "#0cce6b88";
+      btn.textContent = `✅ Đã xóa ${indexed.length} URL đã index · Lưu vào Index History`;
+      // Reload sheet
+      setTimeout(() => handleLoadSheet(), 1500);
+    } else {
+      throw new Error(data.error);
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = "❌ Lỗi: " + e.message;
+  }
 }
 </script>
 </body>
