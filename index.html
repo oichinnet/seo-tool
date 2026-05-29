@@ -24,9 +24,7 @@ h1 span{color:#3b82f6}
 .input-row input{flex:1}
 .btn-primary{background:#3b82f6;color:#fff;border-radius:8px;padding:12px 24px;font-size:14px;font-weight:700;white-space:nowrap}
 .btn-primary:disabled{background:#1e2533;opacity:.6}
-.loading{text-align:center;padding:40px;color:#4a5568;font-family:'DM Mono',monospace;font-size:13px}
-.loading .icon{font-size:32px;margin-bottom:12px;animation:pulse 2s infinite}
-.error-box{width:100%;max-width:680px;background:#1a0a0a;border:1px solid #ff4e42;border-radius:12px;padding:20px;color:#ff4e42;font-family:'DM Mono',monospace;font-size:13px}
+.error-box{width:100%;max-width:680px;background:#1a0a0a;border:1px solid #ff4e42;border-radius:12px;padding:20px;color:#ff4e42;font-family:'DM Mono',monospace;font-size:13px;margin-bottom:16px}
 .results{width:100%;max-width:680px;animation:fadeIn .5s ease}
 .score-grid{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
 .device-card{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:24px;flex:1;min-width:260px}
@@ -37,13 +35,17 @@ h1 span{color:#3b82f6}
 .metric-val{display:flex;align-items:center;gap:8px}
 .metric-val span{color:#e8eaf0;font-size:13px;font-weight:600;font-family:'DM Mono',monospace}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.actions{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:12px}
-.action-label{color:#4a5568;font-size:12px;font-family:'DM Mono',monospace;margin-bottom:4px}
-.action-btn{border-radius:8px;padding:14px 20px;font-size:14px;font-weight:700;text-align:left;display:flex;align-items:flex-start;gap:10px;width:100%}
-.action-btn .icon{font-size:18px;margin-top:1px;min-width:24px}
-.action-btn .title{display:block}
-.action-btn .sub{display:block;font-size:11px;font-weight:400;opacity:.75;font-family:'DM Mono',monospace;margin-top:4px;line-height:1.6;white-space:pre-line}
-.btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%}
+.progress-card{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:8px}
+.progress-label{color:#4a5568;font-size:12px;font-family:'DM Mono',monospace;margin-bottom:4px}
+.step{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:8px;font-family:'DM Mono',monospace;font-size:12px;background:#080c12;border:1px solid #1e2533;color:#4a5568;transition:all .3s}
+.step.active{border-color:#3b82f6;color:#3b82f6;background:#0a1020}
+.step.done{border-color:#0cce6b44;color:#0cce6b;background:#0a1a0a}
+.step.error{border-color:#ff4e42;color:#ff4e42;background:#1a0808}
+.step-icon{font-size:16px;min-width:20px;text-align:center;margin-top:1px}
+.step-text{flex:1}
+.step-title{font-weight:600}
+.step-detail{font-size:11px;opacity:.8;margin-top:4px;line-height:1.6;white-space:pre-line}
+.btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:4px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
@@ -54,7 +56,7 @@ h1 span{color:#3b82f6}
 
 <div class="badge">Oichin SEO Toolkit</div>
 <h1>PageSpeed &amp; GSC<br><span>Inspector</span></h1>
-<p class="subtitle">Check → Submit → Report — tất cả trong một bước</p>
+<p class="subtitle">Nhập URL → Kiểm tra → Xong</p>
 
 <div class="card">
   <label class="label">URL cần kiểm tra</label>
@@ -64,38 +66,40 @@ h1 span{color:#3b82f6}
   </div>
 </div>
 
-<div id="loading" style="display:none" class="loading">
-  <div class="icon">⚡</div>
-  Đang phân tích Mobile &amp; Desktop...<br>
-  <span style="font-size:11px">Quá trình mất 15–30 giây</span>
-</div>
-
 <div id="errorBox" style="display:none" class="error-box"></div>
 
 <div id="results" style="display:none" class="results">
-  <div class="score-grid">
+  <!-- Score cards (hiện sau khi pagespeed xong) -->
+  <div class="score-grid" id="scoreGrid" style="display:none">
     <div class="device-card" id="mobileCard"></div>
     <div class="device-card" id="desktopCard"></div>
   </div>
-  <div class="actions">
-    <p class="action-label">BƯỚC TIẾP THEO</p>
-    <button class="action-btn" id="btnGSC" onclick="handleGSC()"
-      style="background:#0f2d1a;border:1px solid #0cce6b;color:#0cce6b">
-      <span class="icon">🔍</span>
-      <div>
-        <span class="title">Submit URL lên Google Search Console</span>
-        <span class="sub" id="gscSub">→ Tự động gọi GSC API, trả kết quả thật</span>
+
+  <!-- Progress steps -->
+  <div class="progress-card">
+    <p class="progress-label">TIẾN TRÌNH</p>
+    <div class="step" id="stepPagespeed">
+      <span class="step-icon" id="iconPagespeed">⏳</span>
+      <div class="step-text">
+        <div class="step-title">Phân tích PageSpeed</div>
+        <div class="step-detail" id="detailPagespeed">Đang chạy Mobile &amp; Desktop...</div>
       </div>
-    </button>
-    <button class="action-btn" id="btnEmail" onclick="handleEmail()"
-      style="background:#0f1f3d;border:1px solid #3b82f6;color:#3b82f6">
-      <span class="icon">📧</span>
-      <div>
-        <span class="title" id="emailTitle">Gửi báo cáo qua email</span>
-        <span class="sub">→ Gửi kết quả tới quypham.adw@gmail.com</span>
+    </div>
+    <div class="step" id="stepGSC">
+      <span class="step-icon" id="iconGSC">⏳</span>
+      <div class="step-text">
+        <div class="step-title">Submit Google Search Console</div>
+        <div class="step-detail" id="detailGSC">Chờ PageSpeed hoàn tất...</div>
       </div>
-    </button>
-    <button class="btn-copy" onclick="handleCopy()">📋 Copy báo cáo dạng text</button>
+    </div>
+    <div class="step" id="stepEmail">
+      <span class="step-icon" id="iconEmail">⏳</span>
+      <div class="step-text">
+        <div class="step-title">Gửi báo cáo email</div>
+        <div class="step-detail" id="detailEmail">Chờ các bước trước...</div>
+      </div>
+    </div>
+    <button class="btn-copy" id="btnCopy" style="display:none" onclick="handleCopy()">📋 Copy báo cáo dạng text</button>
   </div>
 </div>
 
@@ -127,12 +131,8 @@ function callScript(body) {
   }).then(r => r.json());
 }
 
-function scoreColor(s) {
-  return s >= 90 ? "#0cce6b" : s >= 50 ? "#ffa400" : "#ff4e42";
-}
-function metricColor(s) {
-  return s >= 0.9 ? "#0cce6b" : s >= 0.5 ? "#ffa400" : "#ff4e42";
-}
+function metricColor(s) { return s >= 0.9 ? "#0cce6b" : s >= 0.5 ? "#ffa400" : "#ff4e42"; }
+function scoreColor(s) { return s >= 90 ? "#0cce6b" : s >= 50 ? "#ffa400" : "#ff4e42"; }
 
 function renderRing(score) {
   const c = scoreColor(score);
@@ -160,20 +160,23 @@ function renderDevice(data, label) {
     if (!a) return "";
     return `<div class="metric-row">
       <span class="metric-name">${m.name}</span>
-      <div class="metric-val">
-        <span>${a.displayValue ?? "—"}</span>
-        <span class="dot" style="background:${metricColor(a.score ?? 0)}"></span>
-      </div>
+      <div class="metric-val"><span>${a.displayValue ?? "—"}</span>
+      <span class="dot" style="background:${metricColor(a.score ?? 0)}"></span></div>
     </div>`;
   }).join("");
-  return `<div class="device-header">
-    <span class="device-label">${label}</span>
-    ${renderRing(score)}
-  </div>${rows}`;
+  return `<div class="device-header"><span class="device-label">${label}</span>${renderRing(score)}</div>${rows}`;
 }
 
 function getMetric(d, key) { return d?.lighthouseResult?.audits?.[key]?.displayValue ?? "N/A"; }
 function getScore(d) { return d ? Math.round((d.lighthouseResult?.categories?.performance?.score ?? 0) * 100) : "N/A"; }
+
+function setStep(id, state, detail) {
+  const el = document.getElementById("step" + id);
+  el.className = "step " + state;
+  const iconMap = { active: '<span class="spin">⟳</span>', done: "✅", error: "❌", idle: "⏳" };
+  document.getElementById("icon" + id).innerHTML = iconMap[state] || "⏳";
+  if (detail !== undefined) document.getElementById("detail" + id).innerHTML = detail;
+}
 
 function buildReport() {
   const now = new Date().toLocaleString("vi-VN");
@@ -204,49 +207,44 @@ async function handleRun() {
   currentUrl = normalizeUrl(raw);
   gscStatusText = "Chưa submit"; gscMsg = "";
 
-  document.getElementById("btnRun").disabled = true;
-  document.getElementById("btnRun").innerHTML = '<span class="spin">⟳</span>';
-  document.getElementById("loading").style.display = "block";
-  document.getElementById("errorBox").style.display = "none";
-  document.getElementById("results").style.display = "none";
+  const btnRun = document.getElementById("btnRun");
+  btnRun.disabled = true;
+  btnRun.innerHTML = '<span class="spin">⟳</span>';
 
+  document.getElementById("errorBox").style.display = "none";
+  document.getElementById("scoreGrid").style.display = "none";
+  document.getElementById("btnCopy").style.display = "none";
+  document.getElementById("results").style.display = "block";
+
+  // Reset steps
+  setStep("Pagespeed", "active", "Đang chạy Mobile &amp; Desktop...");
+  setStep("GSC", "idle", "Chờ PageSpeed hoàn tất...");
+  setStep("Email", "idle", "Chờ các bước trước...");
+
+  // ── Bước 1: PageSpeed ──
   try {
     const data = await callScript({ token: GSC_TOKEN, action: "pagespeed", url: currentUrl });
     if (!data.success) throw new Error(data.error || "Lỗi không xác định");
     resultData = { mobile: data.mobile, desktop: data.desktop };
+
     document.getElementById("mobileCard").innerHTML = renderDevice(data.mobile, "📱 Mobile");
     document.getElementById("desktopCard").innerHTML = renderDevice(data.desktop, "🖥 Desktop");
+    document.getElementById("scoreGrid").style.display = "flex";
 
-    // Reset action buttons
-    const btnGSC = document.getElementById("btnGSC");
-    btnGSC.disabled = false;
-    btnGSC.style.cssText = "background:#0f2d1a;border:1px solid #0cce6b;color:#0cce6b";
-    document.getElementById("gscSub").textContent = "→ Tự động gọi GSC API, trả kết quả thật";
-    btnGSC.querySelector(".title").textContent = "Submit URL lên Google Search Console";
-    btnGSC.querySelector(".icon").textContent = "🔍";
-
-    const btnEmail = document.getElementById("btnEmail");
-    btnEmail.disabled = false;
-    btnEmail.style.cssText = "background:#0f1f3d;border:1px solid #3b82f6;color:#3b82f6";
-    document.getElementById("emailTitle").textContent = "Gửi báo cáo qua email";
-
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("results").style.display = "block";
+    const ms = getScore(data.mobile), ds = getScore(data.desktop);
+    setStep("Pagespeed", "done", `Mobile: ${ms}/100 · Desktop: ${ds}/100`);
   } catch(e) {
-    document.getElementById("loading").style.display = "none";
+    setStep("Pagespeed", "error", e.message);
+    setStep("GSC", "error", "Bỏ qua do PageSpeed thất bại");
+    setStep("Email", "error", "Bỏ qua do PageSpeed thất bại");
     document.getElementById("errorBox").style.display = "block";
     document.getElementById("errorBox").textContent = "❌ " + e.message;
+    btnRun.disabled = false; btnRun.textContent = "Kiểm tra";
+    return;
   }
-  document.getElementById("btnRun").disabled = false;
-  document.getElementById("btnRun").textContent = "Kiểm tra";
-}
 
-async function handleGSC() {
-  const btn = document.getElementById("btnGSC");
-  btn.disabled = true;
-  btn.querySelector(".icon").innerHTML = '<span class="spin">⟳</span>';
-  btn.querySelector(".title").textContent = "Đang submit lên GSC...";
-  document.getElementById("gscSub").textContent = "";
+  // ── Bước 2: GSC ──
+  setStep("GSC", "active", "Đang gọi GSC API...");
   try {
     const data = await callScript({ token: GSC_TOKEN, action: "gsc", url: currentUrl });
     if (data.success) {
@@ -254,34 +252,20 @@ async function handleGSC() {
       const is = data.data?.inspectionResult?.indexStatusResult?.indexingState ?? "";
       gscMsg = [cs ? "Trạng thái: " + cs : "", is ? "Indexing: " + is : ""].filter(Boolean).join("\n") || "Đã gửi yêu cầu thành công";
       gscStatusText = "✅ Đã submit thành công";
-      btn.style.cssText = "background:#0a1a0a;border:1px solid #0cce6b44;color:#0cce6b88";
-      btn.querySelector(".icon").textContent = "✅";
-      btn.querySelector(".title").textContent = "Đã submit Google Search Console";
-      document.getElementById("gscSub").textContent = gscMsg;
+      setStep("GSC", "done", gscMsg);
     } else {
       gscStatusText = "⚠️ Lỗi submit";
       gscMsg = data.error || "Lỗi không xác định";
-      btn.disabled = false;
-      btn.style.cssText = "background:#1a0808;border:1px solid #ff4e42;color:#ff4e42";
-      btn.querySelector(".icon").textContent = "❌";
-      btn.querySelector(".title").textContent = "Submit thất bại — thử lại";
-      document.getElementById("gscSub").textContent = gscMsg;
+      setStep("GSC", "error", gscMsg);
     }
   } catch(e) {
-    gscStatusText = "⚠️ Lỗi submit";
+    gscStatusText = "⚠️ Lỗi kết nối";
     gscMsg = e.message;
-    btn.disabled = false;
-    btn.style.cssText = "background:#1a0808;border:1px solid #ff4e42;color:#ff4e42";
-    btn.querySelector(".icon").textContent = "❌";
-    btn.querySelector(".title").textContent = "Lỗi kết nối — thử lại";
-    document.getElementById("gscSub").textContent = gscMsg;
+    setStep("GSC", "error", "Lỗi kết nối: " + e.message);
   }
-}
 
-async function handleEmail() {
-  const btn = document.getElementById("btnEmail");
-  btn.disabled = true;
-  document.getElementById("emailTitle").textContent = "Đang gửi...";
+  // ── Bước 3: Email ──
+  setStep("Email", "active", "Đang gửi...");
   try {
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
     const now = new Date().toLocaleString("vi-VN");
@@ -302,14 +286,14 @@ async function handleEmail() {
       desktop_fcp: getMetric(resultData.desktop, "first-contentful-paint"),
       report_text: buildReport(),
     });
-    btn.style.cssText = "background:#0a0f1a;border:1px solid #3b82f644;color:#3b82f688";
-    document.getElementById("emailTitle").textContent = "✅ Đã gửi báo cáo!";
-    btn.querySelector(".sub").textContent = "Đã gửi tới " + REPORT_EMAIL;
+    setStep("Email", "done", "Đã gửi tới " + REPORT_EMAIL);
   } catch(e) {
-    btn.disabled = false;
-    document.getElementById("emailTitle").textContent = "Gửi báo cáo qua email";
-    alert("Gửi email thất bại: " + (e?.text || e?.message || JSON.stringify(e)));
+    setStep("Email", "error", "Gửi thất bại: " + (e?.text || e?.message));
   }
+
+  document.getElementById("btnCopy").style.display = "block";
+  btnRun.disabled = false;
+  btnRun.textContent = "Kiểm tra";
 }
 
 function handleCopy() {
