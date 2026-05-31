@@ -13,25 +13,27 @@ textarea{font-family:'DM Mono',monospace;font-size:13px;background:#080c12;borde
 textarea:focus{outline:none;border-color:#3b82f6}
 button{cursor:pointer;border:none;transition:all .2s;font-family:'Syne',sans-serif}
 button:hover:not(:disabled){opacity:.85;transform:translateY(-1px)}
-button:disabled{cursor:not-allowed}
+button:disabled{cursor:not-allowed;transform:none!important}
 .badge{display:inline-block;background:#0d1117;border:1px solid #1e2533;border-radius:8px;padding:4px 14px;color:#3b82f6;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:16px}
 h1{color:#e8eaf0;font-size:clamp(24px,5vw,38px);font-weight:800;line-height:1.15;margin-bottom:10px;text-align:center}
 h1 span{color:#3b82f6}
 .subtitle{color:#4a5568;font-size:14px;font-family:'DM Mono',monospace;text-align:center;margin-bottom:40px}
 .tabs{display:flex;gap:8px;width:100%;max-width:720px;margin-bottom:24px}
-.tab{flex:1;padding:12px;border-radius:8px;font-size:13px;font-weight:700;text-align:center;background:#0d1117;border:1px solid #1e2533;color:#4a5568;transition:all .2s}
+.tab{flex:1;padding:12px;border-radius:8px;font-size:12px;font-weight:700;text-align:center;background:#0d1117;border:1px solid #1e2533;color:#4a5568;transition:all .2s;cursor:pointer}
 .tab.active{background:#0f1f3d;border-color:#3b82f6;color:#3b82f6}
 .tab-content{display:none;width:100%;max-width:720px}
 .tab-content.active{display:block}
-.card{background:#0d1117;border:1px solid #1e2533;border-radius:16px;padding:32px;margin-bottom:24px}
+.card{background:#0d1117;border:1px solid #1e2533;border-radius:16px;padding:28px;margin-bottom:20px}
 .label{display:block;color:#4a5568;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
 .hint{color:#3a4252;font-size:11px;font-family:'DM Mono',monospace;margin-top:8px}
-.btn-primary{background:#3b82f6;color:#fff;border-radius:8px;padding:14px 24px;font-size:14px;font-weight:700;width:100%;margin-top:16px}
-.btn-primary:disabled{background:#1e2533;opacity:.6}
-.btn-green{background:#0cce6b22;border:1px solid #0cce6b;color:#0cce6b;border-radius:8px;padding:14px 24px;font-size:14px;font-weight:700;width:100%;margin-top:16px}
+.btn-blue{background:#3b82f6;color:#fff;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:700;width:100%;margin-top:16px}
+.btn-blue:disabled{background:#1e2533;opacity:.5}
+.btn-green{background:#0cce6b22;border:1px solid #0cce6b;color:#0cce6b;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:700;width:100%}
 .btn-green:disabled{opacity:.4}
+.btn-purple{background:#7c3aed22;border:1px solid #7c3aed;color:#a78bfa;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:700;width:100%}
+.btn-purple:disabled{opacity:.4}
 
-/* URL Block */
+/* URL Block Tab1 */
 .url-block{background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
 .url-tag{font-size:10px;font-weight:700;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:4px}
 .url-tag-num{background:#1e2533;color:#3b82f6}
@@ -47,8 +49,6 @@ h1 span{color:#3b82f6}
 .metric-name{color:#8892a4;font-size:11px;font-family:'DM Mono',monospace}
 .metric-val{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;color:#e8eaf0}
 .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
-
-/* Steps */
 .steps{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
 .step{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;background:#080c12;border:1px solid #1e2533;color:#4a5568;transition:all .3s}
 .step.active{border-color:#3b82f6;color:#3b82f6;background:#0a1020}
@@ -57,31 +57,32 @@ h1 span{color:#3b82f6}
 .step.warn{border-color:#ffa40044;color:#ffa400;background:#1a1200}
 .step-icon{min-width:16px;text-align:center}
 .step-detail{opacity:.8;margin-top:2px}
-
-/* Summary */
 .summary-card{background:#0d1117;border:1px solid #0cce6b44;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
 .summary-title{color:#0cce6b;font-size:11px;font-family:'DM Mono',monospace;font-weight:700;margin-bottom:12px;letter-spacing:.1em}
 .summary-row{display:flex;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #1e2533;font-family:'DM Mono',monospace;font-size:11px}
 .summary-row:last-child{border:none}
 .btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:12px}
-
-/* Tab 2 - No Index checker */
-.noindex-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;background:#080c12;border:1px solid #1e2533;margin-bottom:8px;font-family:'DM Mono',monospace;font-size:12px;transition:all .3s}
-.noindex-item.checking{border-color:#3b82f6}
-.noindex-item.indexed{border-color:#0cce6b44;background:#0a1a0a}
-.noindex-item.noindex{border-color:#1e2533}
-.noindex-item.error{border-color:#ff4e4244}
-.noindex-url{flex:1;color:#8892a4;word-break:break-all;font-size:11px}
-.noindex-status{font-size:11px;font-weight:700;white-space:nowrap}
-.noindex-time{color:#3a4252;font-size:10px;white-space:nowrap}
-.progress-bar{height:3px;background:#1e2533;border-radius:2px;margin-bottom:16px;overflow:hidden}
-.progress-fill{height:100%;background:#3b82f6;border-radius:2px;transition:width .3s}
-.stat-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.stat-box{flex:1;min-width:100px;background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px;text-align:center}
-.stat-num{font-size:24px;font-weight:800;font-family:'DM Mono',monospace}
-.stat-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
-
 .progress-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-bottom:6px;letter-spacing:.1em;text-transform:uppercase}
+
+/* Tab2 list checker */
+.section-divider{display:flex;align-items:center;gap:12px;margin:24px 0 16px}
+.section-divider span{color:#4a5568;font-size:11px;font-family:'DM Mono',monospace;font-weight:700;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:#1e2533}
+.ni-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;background:#080c12;border:1px solid #1e2533;margin-bottom:6px;font-family:'DM Mono',monospace;font-size:11px;transition:all .3s}
+.ni-item.checking{border-color:#3b82f644}
+.ni-item.indexed{border-color:#0cce6b44;background:#0a1a0a}
+.ni-item.noindex{border-color:#1e2533}
+.ni-item.err{border-color:#ffa40044}
+.ni-url{flex:1;color:#8892a4;word-break:break-all}
+.ni-time{color:#3a4252;font-size:10px;white-space:nowrap;margin-left:4px}
+.ni-status{font-size:11px;font-weight:700;white-space:nowrap;margin-left:8px}
+.progress-bar{height:3px;background:#1e2533;border-radius:2px;margin-bottom:16px;overflow:hidden}
+.progress-fill{height:100%;border-radius:2px;transition:width .3s}
+.stat-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.stat-box{flex:1;min-width:80px;background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px;text-align:center}
+.stat-num{font-size:22px;font-weight:800;font-family:'DM Mono',monospace}
+.stat-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
+
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .spin{animation:spin 1s linear infinite;display:inline-block}
@@ -93,37 +94,89 @@ h1 span{color:#3b82f6}
 <h1>PageSpeed &amp; Index<br><span>Inspector</span></h1>
 <p class="subtitle">Kiểm tra hiệu suất và tình trạng index</p>
 
-<!-- Tabs -->
 <div class="tabs" style="max-width:720px;width:100%">
-  <div class="tab active" onclick="switchTab(1)">⚡ Check PageSpeed + Index</div>
-  <div class="tab" onclick="switchTab(2)">📋 Kiểm tra danh sách No Index</div>
+  <div class="tab active" onclick="switchTab(1)">⚡ PageSpeed + Index</div>
+  <div class="tab" onclick="switchTab(2)">📋 Danh sách No Index</div>
 </div>
 
-<!-- TAB 1: PageSpeed + Index -->
+<!-- TAB 1 -->
 <div class="tab-content active" id="tab1">
   <div class="card">
-    <label class="label">Danh sách URL cần kiểm tra</label>
+    <label class="label">URL cần kiểm tra (tối đa 3)</label>
     <textarea id="urlInput" rows="4" placeholder="https://oichin.net/san-pham/abc
 https://oichin.net/san-pham/xyz
 https://oichin.net/danh-muc/abc"></textarea>
-    <p class="hint">⚡ Tối đa 3 URL — mỗi URL một dòng</p>
-    <button class="btn-primary" id="btnRun" onclick="handleRun()">Kiểm tra tất cả</button>
+    <p class="hint">⚡ Mỗi URL một dòng · Tự động gửi email & lưu Sheet nếu có URL chưa index</p>
+    <button class="btn-blue" id="btnRun" onclick="handleRun()">Kiểm tra tất cả</button>
   </div>
   <div id="results1" style="display:none"></div>
 </div>
 
-<!-- TAB 2: No Index List -->
+<!-- TAB 2 -->
 <div class="tab-content" id="tab2">
+
+  <!-- Section: No Index -->
+  <div class="section-divider"><span>No Index — oichin.net</span></div>
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
       <div>
-        <div class="label" style="margin-bottom:4px">Danh sách No Index từ Google Sheet</div>
-        <div style="color:#3a4252;font-size:11px;font-family:'DM Mono',monospace">URL chưa được index sẽ giữ nguyên · URL đã index sẽ được xóa & lưu vào Index History</div>
+        <div style="color:#e8eaf0;font-size:14px;font-weight:700">Danh sách No Index</div>
+        <div style="color:#4a5568;font-size:11px;font-family:'DM Mono',monospace;margin-top:2px">URL tự động thêm từ Tab 1 · URL đã index sẽ bị xóa & lưu vào History</div>
       </div>
     </div>
-    <button class="btn-green" id="btnLoadSheet" onclick="handleLoadSheet()">📋 Tải danh sách từ Sheet</button>
+    <button class="btn-blue" id="btnLoadSheet" onclick="handleLoadSheet()">📋 Tải danh sách</button>
   </div>
-  <div id="results2" style="display:none"></div>
+  <div id="sheetSection" style="display:none">
+    <div class="card" style="padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span style="color:#e8eaf0;font-size:13px;font-weight:700" id="sheetCount"></span>
+        <button onclick="handleCheckAll('sheet')" id="btnCheckSheet" style="background:#3b82f6;color:#fff;border-radius:6px;padding:8px 16px;font-size:12px;font-weight:700">Kiểm tra tất cả</button>
+      </div>
+      <div class="progress-bar" id="pb_sheet" style="display:none"><div class="progress-fill" id="pf_sheet" style="width:0%;background:#3b82f6"></div></div>
+      <div class="stat-row" id="stats_sheet" style="display:none">
+        <div class="stat-box"><div class="stat-num" id="st_sheet_total" style="color:#e8eaf0">0</div><div class="stat-label">Tổng</div></div>
+        <div class="stat-box"><div class="stat-num" id="st_sheet_done" style="color:#4a5568">0</div><div class="stat-label">Đã check</div></div>
+        <div class="stat-box"><div class="stat-num" id="st_sheet_idx" style="color:#0cce6b">0</div><div class="stat-label">Đã Index</div></div>
+        <div class="stat-box"><div class="stat-num" id="st_sheet_noidx" style="color:#ff4e42">0</div><div class="stat-label">Chưa Index</div></div>
+      </div>
+      <div id="list_sheet"></div>
+      <div id="act_sheet" style="display:none;margin-top:12px">
+        <button onclick="handleUpdate('sheet')" class="btn-green">✅ Xóa URL đã Index · Lưu vào No Index History</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Entity No Index -->
+  <div class="section-divider"><span>Entity No Index</span></div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+      <div>
+        <div style="color:#e8eaf0;font-size:14px;font-weight:700">Danh sách Entity No Index</div>
+        <div style="color:#4a5568;font-size:11px;font-family:'DM Mono',monospace;margin-top:2px">Nhập URL thủ công vào Sheet "Entity No Index" · URL đã index sẽ bị xóa & lưu vào Entity History</div>
+      </div>
+    </div>
+    <button class="btn-purple" id="btnLoadEntity" onclick="handleLoadEntity()">📋 Tải danh sách Entity</button>
+  </div>
+  <div id="entitySection" style="display:none">
+    <div class="card" style="padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span style="color:#e8eaf0;font-size:13px;font-weight:700" id="entityCount"></span>
+        <button onclick="handleCheckAll('entity')" id="btnCheckEntity" style="background:#7c3aed;color:#fff;border-radius:6px;padding:8px 16px;font-size:12px;font-weight:700">Kiểm tra tất cả</button>
+      </div>
+      <div class="progress-bar" id="pb_entity" style="display:none"><div class="progress-fill" id="pf_entity" style="width:0%;background:#7c3aed"></div></div>
+      <div class="stat-row" id="stats_entity" style="display:none">
+        <div class="stat-box"><div class="stat-num" id="st_entity_total" style="color:#e8eaf0">0</div><div class="stat-label">Tổng</div></div>
+        <div class="stat-box"><div class="stat-num" id="st_entity_done" style="color:#4a5568">0</div><div class="stat-label">Đã check</div></div>
+        <div class="stat-box"><div class="stat-num" id="st_entity_idx" style="color:#0cce6b">0</div><div class="stat-label">Đã Index</div></div>
+        <div class="stat-box"><div class="stat-num" id="st_entity_noidx" style="color:#ff4e42">0</div><div class="stat-label">Chưa Index</div></div>
+      </div>
+      <div id="list_entity"></div>
+      <div id="act_entity" style="display:none;margin-top:12px">
+        <button onclick="handleUpdate('entity')" class="btn-purple">✅ Xóa URL đã Index · Lưu vào Entity Index History</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -131,12 +184,12 @@ const GSC_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8Y5wQrXhJxXWtw
 const GSC_TOKEN = "oichin2024gsc";
 
 let allResults = [];
-let sheetRows = [];
-let checkResults = [];
+let sheetRows = [], entityRows = [];
+let sheetCheckResults = [], entityCheckResults = [];
 
 function switchTab(n) {
-  document.querySelectorAll(".tab").forEach((t,i) => t.className = "tab" + (i===n-1?" active":""));
-  document.querySelectorAll(".tab-content").forEach((t,i) => t.className = "tab-content" + (i===n-1?" active":""));
+  document.querySelectorAll(".tab").forEach((t,i) => t.className="tab"+(i===n-1?" active":""));
+  document.querySelectorAll(".tab-content").forEach((t,i) => t.className="tab-content"+(i===n-1?" active":""));
 }
 
 function normalizeUrl(u) {
@@ -148,18 +201,18 @@ function normalizeUrl(u) {
 function callScript(params) {
   return new Promise((resolve, reject) => {
     const cbName = "cb_" + Math.random().toString(36).slice(2);
-    const qs = Object.entries(params).map(([k,v]) => k + "=" + encodeURIComponent(v)).join("&");
+    const qs = Object.entries(params).map(([k,v]) => k+"="+encodeURIComponent(v)).join("&");
     const url = GSC_SCRIPT_URL + "?" + qs + "&callback=" + cbName;
     const script = document.createElement("script");
     const timer = setTimeout(() => {
       delete window[cbName];
-      try { document.head.removeChild(script); } catch(e) {}
+      try{document.head.removeChild(script);}catch(e){}
       reject(new Error("Timeout"));
     }, 90000);
     window[cbName] = (data) => {
       clearTimeout(timer);
       delete window[cbName];
-      try { document.head.removeChild(script); } catch(e) {}
+      try{document.head.removeChild(script);}catch(e){}
       resolve(data);
     };
     script.onerror = () => { clearTimeout(timer); reject(new Error("Không kết nối được")); };
@@ -168,60 +221,46 @@ function callScript(params) {
   });
 }
 
-function metricColor(s) { return s >= 0.9 ? "#0cce6b" : s >= 0.5 ? "#ffa400" : "#ff4e42"; }
-function scoreColor(s) { return s >= 90 ? "#0cce6b" : s >= 50 ? "#ffa400" : "#ff4e42"; }
-function getScore(d) { return d ? Math.round((d.lighthouseResult?.categories?.performance?.score ?? 0) * 100) : "N/A"; }
-function getMetric(d, key) { return d?.lighthouseResult?.audits?.[key]?.displayValue ?? "N/A"; }
-function getMetricScore(d, key) { return d?.lighthouseResult?.audits?.[key]?.score ?? 0; }
+function metricColor(s){return s>=0.9?"#0cce6b":s>=0.5?"#ffa400":"#ff4e42"}
+function scoreColor(s){return s>=90?"#0cce6b":s>=50?"#ffa400":"#ff4e42"}
+function getScore(d){return d?Math.round((d.lighthouseResult?.categories?.performance?.score??0)*100):"N/A"}
+function getMetric(d,key){return d?.lighthouseResult?.audits?.[key]?.displayValue??"N/A"}
+function getMetricScore(d,key){return d?.lighthouseResult?.audits?.[key]?.score??0}
 
-function renderScoreBox(data, label) {
-  const score = getScore(data);
-  const audits = data?.lighthouseResult?.audits ?? {};
-  const metrics = [
-    { name: "LCP", key: "largest-contentful-paint" },
-    { name: "CLS", key: "cumulative-layout-shift" },
-    { name: "TBT", key: "total-blocking-time" },
-    { name: "FCP", key: "first-contentful-paint" },
-    { name: "Speed Index", key: "speed-index" },
+function renderScoreBox(data,label){
+  const score=getScore(data);
+  const audits=data?.lighthouseResult?.audits??{};
+  const metrics=[
+    {name:"LCP",key:"largest-contentful-paint"},{name:"CLS",key:"cumulative-layout-shift"},
+    {name:"TBT",key:"total-blocking-time"},{name:"FCP",key:"first-contentful-paint"},{name:"Speed Index",key:"speed-index"}
   ];
-  const rows = metrics.map(m => {
-    const a = audits[m.key];
-    if (!a) return "";
-    return `<div class="metric-row"><span class="metric-name">${m.name}</span><div class="metric-val">${a.displayValue??'—'}<span class="dot" style="background:${metricColor(a.score??0)}"></span></div></div>`;
-  }).join("");
-  return `<div class="score-box"><div class="score-box-label">${label}</div><div class="score-num" style="color:${scoreColor(score)}">${score}</div><div style="margin-top:8px">${rows}</div></div>`;
+  const rows=metrics.map(m=>{const a=audits[m.key];if(!a)return"";return`<div class="metric-row"><span class="metric-name">${m.name}</span><div class="metric-val">${a.displayValue??'—'}<span class="dot" style="background:${metricColor(a.score??0)}"></span></div></div>`;}).join("");
+  return`<div class="score-box"><div class="score-box-label">${label}</div><div class="score-num" style="color:${scoreColor(score)}">${score}</div><div style="margin-top:8px">${rows}</div></div>`;
 }
 
-function setStep(index, id, state, detail) {
-  const el = document.getElementById(`s_${id}_${index}`);
-  if (!el) return;
-  el.className = "step " + state;
-  const icons = { active: '<span class="spin">⟳</span>', done: "✅", error: "❌", idle: "⏳", warn: "⚠️" };
-  el.querySelector(".step-icon").innerHTML = icons[state] || "⏳";
-  const d = document.getElementById(`d_${id}_${index}`);
-  if (d && detail !== undefined) d.textContent = detail;
+function setStep(i,id,state,detail){
+  const el=document.getElementById(`s_${id}_${i}`);if(!el)return;
+  el.className="step "+state;
+  const icons={active:'<span class="spin">⟳</span>',done:"✅",error:"❌",idle:"⏳",warn:"⚠️"};
+  el.querySelector(".step-icon").innerHTML=icons[state]||"⏳";
+  const d=document.getElementById(`d_${id}_${i}`);if(d&&detail!==undefined)d.textContent=detail;
 }
 
-// ── TAB 1: PageSpeed + Index ──
+// ── TAB 1 ──
 async function handleRun() {
   const raw = document.getElementById("urlInput").value;
-  const urls = raw.split("\n").map(u => u.trim()).filter(u => u).slice(0, 3).map(normalizeUrl);
-  if (!urls.length) return;
+  const urls = raw.split("\n").map(u=>u.trim()).filter(u=>u).slice(0,3).map(normalizeUrl);
+  if(!urls.length) return;
+  allResults=[];
+  const btn=document.getElementById("btnRun");
+  btn.disabled=true; btn.innerHTML='<span class="spin">⟳</span> Đang xử lý...';
+  const div=document.getElementById("results1");
+  div.innerHTML=""; div.style.display="block";
 
-  allResults = [];
-  const btn = document.getElementById("btnRun");
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⟳</span> Đang xử lý...';
-
-  const div = document.getElementById("results1");
-  div.innerHTML = "";
-  div.style.display = "block";
-
-  urls.forEach((url, i) => {
-    const block = document.createElement("div");
-    block.className = "url-block";
-    block.id = "block_" + i;
-    block.innerHTML = `
+  urls.forEach((url,i)=>{
+    const block=document.createElement("div");
+    block.className="url-block"; block.id="block_"+i;
+    block.innerHTML=`
       <div style="margin-bottom:4px">
         <span class="url-tag url-tag-num">URL ${i+1}</span>
         <span id="indextag_${i}" style="display:none;margin-left:6px" class="url-tag"></span>
@@ -237,273 +276,215 @@ async function handleRun() {
     div.appendChild(block);
   });
 
-  for (let i = 0; i < urls.length; i++) {
-    const url = urls[i];
-    const result = { url, mobile: null, desktop: null, indexed: null, coverageState: "" };
-
-    // PageSpeed
-    try {
-      const data = await callScript({ token: GSC_TOKEN, action: "pagespeed", url });
-      if (!data.success) throw new Error(data.error);
-      result.mobile = data.mobile;
-      result.desktop = data.desktop;
-      setStep(i, "ps", "done", `Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
-      const sd = document.getElementById("scores_" + i);
-      sd.innerHTML = renderScoreBox(data.mobile, "Mobile") + renderScoreBox(data.desktop, "Desktop");
-      sd.style.display = "flex";
-    } catch(e) {
-      setStep(i, "ps", "error", e.message);
-      setStep(i, "idx", "error", "Bỏ qua"); setStep(i, "em", "idle", "Chờ...");
+  for(let i=0;i<urls.length;i++){
+    const url=urls[i];
+    const result={url,mobile:null,desktop:null,indexed:null,coverageState:""};
+    try{
+      const data=await callScript({token:GSC_TOKEN,action:"pagespeed",url});
+      if(!data.success)throw new Error(data.error);
+      result.mobile=data.mobile; result.desktop=data.desktop;
+      setStep(i,"ps","done",`Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
+      const sd=document.getElementById("scores_"+i);
+      sd.innerHTML=renderScoreBox(data.mobile,"Mobile")+renderScoreBox(data.desktop,"Desktop");
+      sd.style.display="flex";
+    }catch(e){
+      setStep(i,"ps","error",e.message);
+      setStep(i,"idx","error","Bỏ qua"); setStep(i,"em","idle","Chờ...");
       allResults.push(result); continue;
     }
-
-    // Check Index
-    setStep(i, "idx", "active", "Đang kiểm tra...");
-    try {
-      const data = await callScript({ token: GSC_TOKEN, action: "checkindex", url });
-      if (!data.success) throw new Error(data.error);
-      result.indexed = data.indexed;
-      result.coverageState = data.coverageState || "";
-      const tag = document.getElementById("indextag_" + i);
-      tag.style.display = "inline";
-      if (data.indexed) {
-        tag.className = "url-tag url-tag-indexed"; tag.textContent = "Đã Index";
-        setStep(i, "idx", "done", data.coverageState || "Đã index ✓");
-      } else {
-        tag.className = "url-tag url-tag-noindex"; tag.textContent = "Chưa Index";
-        setStep(i, "idx", "warn", (data.coverageState || "Chưa index") + " → sẽ lưu vào Sheet");
-      }
-    } catch(e) {
-      result.indexed = null;
-      setStep(i, "idx", "error", e.message);
-    }
-
-    setStep(i, "em", "idle", "Chờ gửi email...");
-    allResults.push(result);
+    setStep(i,"idx","active","Đang kiểm tra...");
+    try{
+      const data=await callScript({token:GSC_TOKEN,action:"checkindex",url});
+      if(!data.success)throw new Error(data.error);
+      result.indexed=data.indexed; result.coverageState=data.coverageState||"";
+      const tag=document.getElementById("indextag_"+i);
+      tag.style.display="inline";
+      if(data.indexed){tag.className="url-tag url-tag-indexed";tag.textContent="Đã Index";setStep(i,"idx","done",data.coverageState||"Đã index ✓");}
+      else{tag.className="url-tag url-tag-noindex";tag.textContent="Chưa Index";setStep(i,"idx","warn",(data.coverageState||"Chưa index")+" → lưu Sheet");}
+    }catch(e){result.indexed=null;setStep(i,"idx","error",e.message);}
+    setStep(i,"em","idle","Chờ gửi email..."); allResults.push(result);
   }
 
-  // Email + Sheet
-  urls.forEach((_, i) => setStep(i, "em", "active", "Đang xử lý..."));
-  const now = new Date().toLocaleString("vi-VN");
-  const noIndexUrls = allResults.filter(r => r.indexed === false).map(r => ({ url: r.url, timeAdded: now }));
-
-  const minData = allResults.map(r => ({
-    url: r.url, indexed: r.indexed, coverageState: r.coverageState,
-    mScore: getScore(r.mobile), dScore: getScore(r.desktop),
-    mLCP: getMetric(r.mobile,"largest-contentful-paint"), mCLS: getMetric(r.mobile,"cumulative-layout-shift"),
-    mTBT: getMetric(r.mobile,"total-blocking-time"), mFCP: getMetric(r.mobile,"first-contentful-paint"), mSI: getMetric(r.mobile,"speed-index"),
-    dLCP: getMetric(r.desktop,"largest-contentful-paint"), dCLS: getMetric(r.desktop,"cumulative-layout-shift"),
-    dTBT: getMetric(r.desktop,"total-blocking-time"), dFCP: getMetric(r.desktop,"first-contentful-paint"), dSI: getMetric(r.desktop,"speed-index"),
-    mLCP_s: getMetricScore(r.mobile,"largest-contentful-paint"), mCLS_s: getMetricScore(r.mobile,"cumulative-layout-shift"),
-    mTBT_s: getMetricScore(r.mobile,"total-blocking-time"), mFCP_s: getMetricScore(r.mobile,"first-contentful-paint"), mSI_s: getMetricScore(r.mobile,"speed-index"),
-    dLCP_s: getMetricScore(r.desktop,"largest-contentful-paint"), dCLS_s: getMetricScore(r.desktop,"cumulative-layout-shift"),
-    dTBT_s: getMetricScore(r.desktop,"total-blocking-time"), dFCP_s: getMetricScore(r.desktop,"first-contentful-paint"), dSI_s: getMetricScore(r.desktop,"speed-index"),
+  urls.forEach((_,i)=>setStep(i,"em","active","Đang xử lý..."));
+  const now=new Date().toLocaleString("vi-VN");
+  const noIndexUrls=allResults.filter(r=>r.indexed===false).map(r=>({url:r.url,timeAdded:now}));
+  const minData=allResults.map(r=>({
+    url:r.url,indexed:r.indexed,coverageState:r.coverageState,
+    mScore:getScore(r.mobile),dScore:getScore(r.desktop),
+    mLCP:getMetric(r.mobile,"largest-contentful-paint"),mCLS:getMetric(r.mobile,"cumulative-layout-shift"),
+    mTBT:getMetric(r.mobile,"total-blocking-time"),mFCP:getMetric(r.mobile,"first-contentful-paint"),mSI:getMetric(r.mobile,"speed-index"),
+    dLCP:getMetric(r.desktop,"largest-contentful-paint"),dCLS:getMetric(r.desktop,"cumulative-layout-shift"),
+    dTBT:getMetric(r.desktop,"total-blocking-time"),dFCP:getMetric(r.desktop,"first-contentful-paint"),dSI:getMetric(r.desktop,"speed-index"),
+    mLCP_s:getMetricScore(r.mobile,"largest-contentful-paint"),mCLS_s:getMetricScore(r.mobile,"cumulative-layout-shift"),
+    mTBT_s:getMetricScore(r.mobile,"total-blocking-time"),mFCP_s:getMetricScore(r.mobile,"first-contentful-paint"),mSI_s:getMetricScore(r.mobile,"speed-index"),
+    dLCP_s:getMetricScore(r.desktop,"largest-contentful-paint"),dCLS_s:getMetricScore(r.desktop,"cumulative-layout-shift"),
+    dTBT_s:getMetricScore(r.desktop,"total-blocking-time"),dFCP_s:getMetricScore(r.desktop,"first-contentful-paint"),dSI_s:getMetricScore(r.desktop,"speed-index"),
   }));
 
-  try {
-    await callScript({ token: GSC_TOKEN, action: "email", reportData: encodeURIComponent(JSON.stringify({ checkedAt: now, results: minData })) });
-  } catch(e) {}
-
-  let sheetMsg = "Email đã gửi";
-  if (noIndexUrls.length > 0) {
-    try {
-      await callScript({ token: GSC_TOKEN, action: "savesheet", sheetData: encodeURIComponent(JSON.stringify(noIndexUrls)) });
-      sheetMsg = `Email đã gửi · ${noIndexUrls.length} URL chưa index → lưu Sheet`;
-    } catch(e) {}
+  try{await callScript({token:GSC_TOKEN,action:"email",reportData:encodeURIComponent(JSON.stringify({checkedAt:now,results:minData}))});}catch(e){}
+  let sheetMsg="Email đã gửi";
+  if(noIndexUrls.length>0){
+    try{await callScript({token:GSC_TOKEN,action:"savesheet",sheetData:encodeURIComponent(JSON.stringify(noIndexUrls))});sheetMsg=`Email đã gửi · ${noIndexUrls.length} URL chưa index → lưu Sheet`;}catch(e){}
   }
-  urls.forEach((_, i) => setStep(i, "em", "done", i === urls.length-1 ? sheetMsg : "✓"));
+  urls.forEach((_,i)=>setStep(i,"em","done",i===urls.length-1?sheetMsg:"✓"));
 
-  // Summary
-  const noIndexCount = allResults.filter(r => r.indexed === false).length;
-  const sumDiv = document.createElement("div");
-  sumDiv.className = "summary-card";
-  sumDiv.innerHTML = `<div class="summary-title">TỔNG KẾT — ${allResults.length} URL</div>` +
-    allResults.map((r,i) => `<div class="summary-row">
-      <span style="color:#4a5568;font-family:'DM Mono',monospace;font-size:11px;min-width:40px">[${i+1}]</span>
+  const noIndexCount=allResults.filter(r=>r.indexed===false).length;
+  const sumDiv=document.createElement("div");
+  sumDiv.className="summary-card";
+  sumDiv.innerHTML=`<div class="summary-title">TỔNG KẾT — ${allResults.length} URL</div>`+
+    allResults.map((r,i)=>`<div class="summary-row">
+      <span style="color:#4a5568;font-family:'DM Mono',monospace;min-width:36px">[${i+1}]</span>
       <span style="flex:1;color:#8892a4;font-family:'DM Mono',monospace;font-size:11px;word-break:break-all">${r.url}</span>
-      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.mobile))};font-size:12px;margin:0 4px">M:${getScore(r.mobile)}</span>
-      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.desktop))};font-size:12px;margin:0 4px">D:${getScore(r.desktop)}</span>
-      <span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:700;color:${r.indexed===true?"#0cce6b":r.indexed===false?"#ff4e42":"#4a5568"}">${r.indexed===true?"✅ Index":r.indexed===false?"❌ No Index":"?"}</span>
-    </div>`).join("") +
-    (noIndexCount > 0 ? `<div style="background:#1a0808;border:1px solid #ff4e4244;border-radius:6px;padding:8px 12px;margin-top:10px;color:#ff4e42;font-size:11px;font-family:'DM Mono',monospace">⚠️ ${noIndexCount} URL chưa index đã lưu vào Google Sheet</div>` : "") +
+      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.mobile))};margin:0 4px">M:${getScore(r.mobile)}</span>
+      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.desktop))};margin:0 4px">D:${getScore(r.desktop)}</span>
+      <span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:700;color:${r.indexed===true?"#0cce6b":r.indexed===false?"#ff4e42":"#4a5568"}">${r.indexed===true?"✅":r.indexed===false?"❌":"?"}</span>
+    </div>`).join("")+
+    (noIndexCount>0?`<div style="background:#1a0808;border:1px solid #ff4e4244;border-radius:6px;padding:8px 12px;margin-top:10px;color:#ff4e42;font-size:11px;font-family:'DM Mono',monospace">⚠️ ${noIndexCount} URL chưa index đã lưu vào Google Sheet</div>`:"")+
     `<button class="btn-copy" onclick="handleCopy1(event)">📋 Copy báo cáo</button>`;
   div.appendChild(sumDiv);
-
-  btn.disabled = false; btn.textContent = "Kiểm tra tất cả";
+  btn.disabled=false; btn.textContent="Kiểm tra tất cả";
 }
 
-function handleCopy1(e) {
-  const now = new Date().toLocaleString("vi-VN");
-  let text = `📊 BÁO CÁO SEO — ${now}\n━━━━━━━━━━━━━━━━━━━\n\n`;
-  allResults.forEach((r,i) => {
-    text += `[${i+1}] ${r.url}\nPageSpeed — Mobile: ${getScore(r.mobile)} | Desktop: ${getScore(r.desktop)}\nIndex: ${r.indexed===true?"✅ Đã Index":r.indexed===false?"❌ Chưa Index":"Không xác định"}${r.coverageState?" ("+r.coverageState+")":""}\n\n`;
+function handleCopy1(e){
+  const now=new Date().toLocaleString("vi-VN");
+  let text=`📊 BÁO CÁO SEO — ${now}\n━━━━━━━━━━━━━━━━━━━\n\n`;
+  allResults.forEach((r,i)=>{text+=`[${i+1}] ${r.url}\nPageSpeed — Mobile: ${getScore(r.mobile)} | Desktop: ${getScore(r.desktop)}\nIndex: ${r.indexed===true?"✅ Đã Index":r.indexed===false?"❌ Chưa Index":"?"}${r.coverageState?" ("+r.coverageState+")":""}\n\n`;});
+  navigator.clipboard.writeText(text.trim()).then(()=>{e.target.textContent="✅ Đã copy!";setTimeout(()=>e.target.textContent="📋 Copy báo cáo",2000);});
+}
+
+// ── TAB 2 helpers ──
+function renderNiList(rows, prefix) {
+  const list = document.getElementById("list_" + prefix);
+  list.innerHTML = "";
+  rows.forEach((row, i) => {
+    const item = document.createElement("div");
+    item.className = "ni-item"; item.id = `${prefix}_item_${i}`;
+    item.innerHTML = `
+      <span id="${prefix}_icon_${i}" style="min-width:16px;text-align:center">⏳</span>
+      <span class="ni-url">${row.url}</span>
+      <span class="ni-time">${row.timeAdded||""}</span>
+      <span class="ni-status" id="${prefix}_status_${i}" style="color:#4a5568">Chờ...</span>`;
+    list.appendChild(item);
   });
-  navigator.clipboard.writeText(text.trim()).then(() => {
-    e.target.textContent = "✅ Đã copy!";
-    setTimeout(() => e.target.textContent = "📋 Copy báo cáo", 2000);
-  });
 }
 
-// ── TAB 2: No Index List ──
-async function handleLoadSheet() {
-  const btn = document.getElementById("btnLoadSheet");
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⟳</span> Đang tải...';
+async function handleCheckAll(prefix) {
+  const rows = prefix === "sheet" ? sheetRows : entityRows;
+  const results = prefix === "sheet" ? sheetCheckResults : entityCheckResults;
+  results.length = 0;
+  const btn = document.getElementById("btnCheck" + (prefix==="sheet"?"Sheet":"Entity"));
+  btn.disabled = true; btn.innerHTML = '<span class="spin">⟳</span> Đang kiểm tra...';
+  const color = prefix === "sheet" ? "#3b82f6" : "#7c3aed";
+  document.getElementById("pb_"+prefix).style.display = "block";
+  document.getElementById("stats_"+prefix).style.display = "flex";
+  document.getElementById("pf_"+prefix).style.background = color;
+  const total = rows.length;
+  let done=0, indexed=0, noindex=0;
+  document.getElementById(`st_${prefix}_total`).textContent = total;
 
-  const div = document.getElementById("results2");
-  div.innerHTML = "";
-  div.style.display = "block";
-
-  try {
-    const data = await callScript({ token: GSC_TOKEN, action: "readsheet" });
-    if (!data.success) throw new Error(data.error);
-    sheetRows = data.rows || [];
-
-    if (sheetRows.length === 0) {
-      div.innerHTML = `<div style="background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:32px;text-align:center;color:#4a5568;font-family:'DM Mono',monospace;font-size:13px">✅ Không có URL nào trong danh sách No Index</div>`;
-      btn.disabled = false; btn.textContent = "📋 Tải danh sách từ Sheet";
-      return;
-    }
-
-    // Render danh sách
-    const listCard = document.createElement("div");
-    listCard.className = "card";
-    listCard.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <div>
-          <div style="color:#e8eaf0;font-size:14px;font-weight:700">Danh sách No Index</div>
-          <div style="color:#4a5568;font-size:11px;font-family:'DM Mono',monospace;margin-top:2px">${sheetRows.length} URL cần kiểm tra</div>
-        </div>
-        <button onclick="handleCheckAll()" id="btnCheckAll" style="background:#3b82f6;color:#fff;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700">Kiểm tra tất cả</button>
-      </div>
-      <div class="progress-bar" id="progressBar" style="display:none"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-      <div class="stat-row" id="statRow" style="display:none">
-        <div class="stat-box"><div class="stat-num" id="statTotal" style="color:#e8eaf0">0</div><div class="stat-label">Tổng</div></div>
-        <div class="stat-box"><div class="stat-num" id="statDone" style="color:#4a5568">0</div><div class="stat-label">Đã check</div></div>
-        <div class="stat-box"><div class="stat-num" id="statIndexed" style="color:#0cce6b">0</div><div class="stat-label">Đã Index</div></div>
-        <div class="stat-box"><div class="stat-num" id="statNoIndex" style="color:#ff4e42">0</div><div class="stat-label">Chưa Index</div></div>
-      </div>
-      <div id="urlList"></div>
-      <div id="finalActions" style="display:none;margin-top:12px">
-        <button onclick="handleUpdateSheet()" style="background:#0cce6b22;border:1px solid #0cce6b;color:#0cce6b;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:700;width:100%">
-          ✅ Xóa URL đã Index khỏi Sheet & lưu vào History
-        </button>
-      </div>`;
-    div.appendChild(listCard);
-
-    const urlList = document.getElementById("urlList");
-    sheetRows.forEach((row, i) => {
-      const item = document.createElement("div");
-      item.className = "noindex-item";
-      item.id = "ni_" + i;
-      item.innerHTML = `
-        <span class="step-icon" id="ni_icon_${i}">⏳</span>
-        <span class="noindex-url">${row.url}</span>
-        <span class="noindex-time">${row.timeAdded || ""}</span>
-        <span class="noindex-status" id="ni_status_${i}" style="color:#4a5568">Chờ...</span>`;
-      urlList.appendChild(item);
-    });
-
-  } catch(e) {
-    div.innerHTML = `<div style="background:#1a0808;border:1px solid #ff4e42;border-radius:12px;padding:20px;color:#ff4e42;font-family:'DM Mono',monospace;font-size:13px">❌ ${e.message}</div>`;
-  }
-
-  btn.disabled = false; btn.textContent = "📋 Tải lại danh sách";
-}
-
-async function handleCheckAll() {
-  const btn = document.getElementById("btnCheckAll");
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⟳</span> Đang kiểm tra...';
-
-  checkResults = [];
-  const total = sheetRows.length;
-  let done = 0, indexed = 0, noindex = 0;
-
-  document.getElementById("progressBar").style.display = "block";
-  document.getElementById("statRow").style.display = "flex";
-  document.getElementById("statTotal").textContent = total;
-
-  for (let i = 0; i < sheetRows.length; i++) {
-    const row = sheetRows[i];
-    const item = document.getElementById("ni_" + i);
-    const icon = document.getElementById("ni_icon_" + i);
-    const status = document.getElementById("ni_status_" + i);
-
-    item.className = "noindex-item checking";
+  for(let i=0; i<rows.length; i++){
+    const row = rows[i];
+    const item = document.getElementById(`${prefix}_item_${i}`);
+    const icon = document.getElementById(`${prefix}_icon_${i}`);
+    const status = document.getElementById(`${prefix}_status_${i}`);
+    item.className = "ni-item checking";
     icon.innerHTML = '<span class="spin">⟳</span>';
-    status.textContent = "Đang kiểm tra...";
-    status.style.color = "#3b82f6";
-
-    try {
-      const data = await callScript({ token: GSC_TOKEN, action: "checkindex", url: row.url });
-      const result = { ...row, indexed: data.indexed, coverageState: data.coverageState || "" };
-      checkResults.push(result);
-
-      if (data.indexed) {
+    status.textContent = "Đang kiểm tra..."; status.style.color = color;
+    try{
+      const data = await callScript({token:GSC_TOKEN, action:"checkindex", url:row.url});
+      const r = {...row, indexed:data.indexed, coverageState:data.coverageState||""};
+      results.push(r);
+      if(data.indexed){
         indexed++;
-        item.className = "noindex-item indexed";
-        icon.textContent = "✅";
-        status.textContent = "Đã Index";
-        status.style.color = "#0cce6b";
+        item.className="ni-item indexed"; icon.textContent="✅";
+        status.textContent="Đã Index"; status.style.color="#0cce6b";
       } else {
         noindex++;
-        item.className = "noindex-item noindex";
-        icon.textContent = "❌";
-        status.textContent = data.coverageState || "Chưa Index";
-        status.style.color = "#ff4e42";
+        item.className="ni-item noindex"; icon.textContent="❌";
+        status.textContent=data.coverageState||"Chưa Index"; status.style.color="#ff4e42";
       }
-    } catch(e) {
-      checkResults.push({ ...row, indexed: null, coverageState: "Lỗi" });
-      item.className = "noindex-item error";
-      icon.textContent = "⚠️";
-      status.textContent = "Lỗi";
-      status.style.color = "#ffa400";
+    }catch(e){
+      results.push({...row,indexed:null});
+      item.className="ni-item err"; icon.textContent="⚠️";
+      status.textContent="Lỗi"; status.style.color="#ffa400";
     }
-
     done++;
-    document.getElementById("statDone").textContent = done;
-    document.getElementById("statIndexed").textContent = indexed;
-    document.getElementById("statNoIndex").textContent = noindex;
-    document.getElementById("progressFill").style.width = (done/total*100) + "%";
+    document.getElementById(`st_${prefix}_done`).textContent=done;
+    document.getElementById(`st_${prefix}_idx`).textContent=indexed;
+    document.getElementById(`st_${prefix}_noidx`).textContent=noindex;
+    document.getElementById(`pf_${prefix}`).style.width=(done/total*100)+"%";
   }
 
-  btn.disabled = false; btn.textContent = "🔄 Kiểm tra lại";
-
-  if (indexed > 0) {
-    document.getElementById("finalActions").style.display = "block";
-  }
+  btn.disabled=false; btn.textContent="🔄 Kiểm tra lại";
+  if(indexed>0) document.getElementById("act_"+prefix).style.display="block";
 }
 
-async function handleUpdateSheet() {
-  const btn = document.querySelector("#finalActions button");
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⟳</span> Đang cập nhật Sheet...';
-
+async function handleUpdate(prefix) {
+  const results = prefix === "sheet" ? sheetCheckResults : entityCheckResults;
+  const action = prefix === "sheet" ? "updatesheet" : "updateentity";
+  const btn = document.querySelector(`#act_${prefix} button`);
+  btn.disabled=true; btn.innerHTML='<span class="spin">⟳</span> Đang cập nhật Sheet...';
   const now = new Date().toLocaleString("vi-VN");
-  const indexedRows = checkResults.filter(r => r.indexed === true);
-  const toDelete = indexedRows.map(r => r.rowIndex);
-  const indexed = indexedRows.map(r => ({ url: r.url, timeAdded: r.timeAdded || "", timeIndexed: now }));
+  const indexedRows = results.filter(r=>r.indexed===true);
+  const toDelete = indexedRows.map(r=>r.rowIndex);
+  const indexed = indexedRows.map(r=>({url:r.url, timeAdded:r.timeAdded||"", timeIndexed:now}));
+  try{
+    const data = await callScript({token:GSC_TOKEN, action, updateData:encodeURIComponent(JSON.stringify({indexed,toDelete}))});
+    if(data.success){
+      btn.style.opacity=".5"; btn.textContent=`✅ Đã xóa ${indexed.length} URL · Lưu vào History`;
+      setTimeout(()=> prefix==="sheet"?handleLoadSheet():handleLoadEntity(), 1500);
+    } else throw new Error(data.error);
+  }catch(e){btn.disabled=false; btn.textContent="❌ Lỗi: "+e.message;}
+}
 
-  try {
-    const data = await callScript({
-      token: GSC_TOKEN,
-      action: "updatesheet",
-      updateData: encodeURIComponent(JSON.stringify({ indexed, toDelete }))
-    });
-    if (data.success) {
-      btn.style.background = "#0a1a0a";
-      btn.style.color = "#0cce6b88";
-      btn.textContent = `✅ Đã xóa ${indexed.length} URL đã index · Lưu vào Index History`;
-      // Reload sheet
-      setTimeout(() => handleLoadSheet(), 1500);
-    } else {
-      throw new Error(data.error);
+async function handleLoadSheet() {
+  const btn=document.getElementById("btnLoadSheet");
+  btn.disabled=true; btn.innerHTML='<span class="spin">⟳</span> Đang tải...';
+  document.getElementById("sheetSection").style.display="none";
+  try{
+    const data=await callScript({token:GSC_TOKEN,action:"readsheet"});
+    if(!data.success)throw new Error(data.error);
+    sheetRows=data.rows||[];
+    sheetCheckResults=[];
+    if(sheetRows.length===0){
+      document.getElementById("sheetSection").style.display="none";
+      btn.disabled=false; btn.textContent="📋 Tải danh sách";
+      alert("✅ Không có URL nào trong No Index!");
+      return;
     }
-  } catch(e) {
-    btn.disabled = false;
-    btn.textContent = "❌ Lỗi: " + e.message;
-  }
+    document.getElementById("sheetCount").textContent=`${sheetRows.length} URL`;
+    document.getElementById("pb_sheet").style.display="none";
+    document.getElementById("stats_sheet").style.display="none";
+    document.getElementById("act_sheet").style.display="none";
+    renderNiList(sheetRows,"sheet");
+    document.getElementById("sheetSection").style.display="block";
+  }catch(e){alert("Lỗi: "+e.message);}
+  btn.disabled=false; btn.textContent="📋 Tải lại danh sách";
+}
+
+async function handleLoadEntity() {
+  const btn=document.getElementById("btnLoadEntity");
+  btn.disabled=true; btn.innerHTML='<span class="spin">⟳</span> Đang tải...';
+  document.getElementById("entitySection").style.display="none";
+  try{
+    const data=await callScript({token:GSC_TOKEN,action:"readentity"});
+    if(!data.success)throw new Error(data.error);
+    entityRows=data.rows||[];
+    entityCheckResults=[];
+    if(entityRows.length===0){
+      document.getElementById("entitySection").style.display="none";
+      btn.disabled=false; btn.textContent="📋 Tải danh sách Entity";
+      alert("✅ Không có URL nào trong Entity No Index!");
+      return;
+    }
+    document.getElementById("entityCount").textContent=`${entityRows.length} URL`;
+    document.getElementById("pb_entity").style.display="none";
+    document.getElementById("stats_entity").style.display="none";
+    document.getElementById("act_entity").style.display="none";
+    renderNiList(entityRows,"entity");
+    document.getElementById("entitySection").style.display="block";
+  }catch(e){alert("Lỗi: "+e.message);}
+  btn.disabled=false; btn.textContent="📋 Tải lại danh sách Entity";
 }
 </script>
 </body>
