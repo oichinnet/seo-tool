@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Oichin SEO Toolkit</title>
+<title>Oichin SEO Toolkit V9</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -391,7 +391,8 @@ async function handleCheckAll(prefix) {
     icon.innerHTML = '<span class="spin">⟳</span>';
     status.textContent = "Đang kiểm tra..."; status.style.color = color;
     try{
-      const data = await callScript({token:GSC_TOKEN, action:"checkindex", url:row.url});
+      const checkAction = prefix === "entity" ? "checkexternal" : "checkindex";
+      const data = await callScript({token:GSC_TOKEN, action:checkAction, url:row.url});
       const r = {...row, indexed:data.indexed, coverageState:data.coverageState||""};
       results.push(r);
       if(data.indexed){
