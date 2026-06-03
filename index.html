@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Oichin SEO Toolkit V7</title>
+<title>Oichin SEO Toolkit</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -13,22 +13,27 @@ textarea{font-family:'DM Mono',monospace;font-size:13px;background:#080c12;borde
 textarea:focus{outline:none;border-color:#3b82f6}
 button{cursor:pointer;border:none;transition:all .2s;font-family:'Syne',sans-serif}
 button:hover:not(:disabled){opacity:.85;transform:translateY(-1px)}
-button:disabled{cursor:not-allowed}
+button:disabled{cursor:not-allowed;transform:none!important;opacity:.4}
 .badge{display:inline-block;background:#0d1117;border:1px solid #1e2533;border-radius:8px;padding:4px 14px;color:#3b82f6;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:16px}
 h1{color:#e8eaf0;font-size:clamp(24px,5vw,38px);font-weight:800;line-height:1.15;margin-bottom:10px;text-align:center}
 h1 span{color:#3b82f6}
 .subtitle{color:#4a5568;font-size:14px;font-family:'DM Mono',monospace;text-align:center;margin-bottom:40px}
 .tabs{display:flex;gap:8px;width:100%;max-width:720px;margin-bottom:24px}
-.tab{flex:1;padding:12px;border-radius:8px;font-size:13px;font-weight:700;text-align:center;background:#0d1117;border:1px solid #1e2533;color:#4a5568;transition:all .2s}
+.tab{flex:1;padding:12px;border-radius:8px;font-size:12px;font-weight:700;text-align:center;background:#0d1117;border:1px solid #1e2533;color:#4a5568;transition:all .2s;cursor:pointer}
 .tab.active{background:#0f1f3d;border-color:#3b82f6;color:#3b82f6}
 .tab-content{display:none;width:100%;max-width:720px}
 .tab-content.active{display:block}
-.card{background:#0d1117;border:1px solid #1e2533;border-radius:16px;padding:32px;margin-bottom:24px}
+.card{background:#0d1117;border:1px solid #1e2533;border-radius:16px;padding:28px;margin-bottom:20px}
 .label{display:block;color:#4a5568;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
 .hint{color:#3a4252;font-size:11px;font-family:'DM Mono',monospace;margin-top:8px}
-.btn-primary{background:#3b82f6;color:#fff;border-radius:8px;padding:14px 24px;font-size:14px;font-weight:700;width:100%;margin-top:16px}
-.btn-primary:disabled{background:#1e2533;opacity:.6}
-.btn-green{background:#0cce6b22;border:1px solid #0cce6b;color:#0cce6b;border-radius:8px;padding:14px 24px;font-size:14px;font-weight:700;width:100%;margin-top:16px}
+
+/* Action buttons */
+.action-btns{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.btn-action{flex:1;min-width:140px;padding:12px 16px;border-radius:8px;font-size:12px;font-weight:700;text-align:center;border:1px solid}
+.btn-ps{background:#0f1f3d;border-color:#3b82f6;color:#3b82f6}
+.btn-onpage{background:#1a0d2e;border-color:#7c3aed;color:#a78bfa}
+.btn-all{background:#0f2d1a;border-color:#0cce6b;color:#0cce6b}
+.btn-green{background:#0cce6b22;border:1px solid #0cce6b;color:#0cce6b;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:700;width:100%}
 .btn-green:disabled{opacity:.4}
 
 /* URL Block */
@@ -38,7 +43,7 @@ h1 span{color:#3b82f6}
 .url-tag-indexed{background:#0a1a0a;color:#0cce6b}
 .url-tag-noindex{background:#1a0808;color:#ff4e42}
 .url-text{color:#e8eaf0;font-size:12px;font-family:'DM Mono',monospace;word-break:break-all;margin-top:6px;margin-bottom:12px}
-.score-row{display:flex;gap:12px;flex-wrap:wrap}
+.score-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
 .score-box{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px 16px;flex:1;min-width:200px}
 .score-box-label{color:#4a5568;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
 .score-num{font-size:28px;font-weight:800;font-family:'DM Mono',monospace}
@@ -58,6 +63,26 @@ h1 span{color:#3b82f6}
 .step-icon{min-width:16px;text-align:center}
 .step-detail{opacity:.8;margin-top:2px}
 
+/* Onpage Audit */
+.audit-panel{margin-top:12px;background:#080c12;border:1px solid #1e2533;border-radius:10px;overflow:hidden}
+.audit-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #1e2533;cursor:pointer}
+.audit-header-left{display:flex;align-items:center;gap:10px}
+.audit-score-badge{font-size:13px;font-weight:800;font-family:'DM Mono',monospace;padding:3px 10px;border-radius:6px}
+.audit-title{color:#e8eaf0;font-size:12px;font-weight:700;font-family:'DM Mono',monospace}
+.audit-toggle{color:#4a5568;font-size:11px;font-family:'DM Mono',monospace}
+.audit-body{padding:12px 16px;display:none}
+.audit-body.open{display:block}
+.audit-cat{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin:10px 0 6px;font-weight:700}
+.audit-cat:first-child{margin-top:0}
+.audit-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #1e2533}
+.audit-item:last-child{border:none}
+.audit-status{font-size:13px;min-width:18px}
+.audit-name{color:#8892a4;font-size:11px;font-family:'DM Mono',monospace;min-width:140px}
+.audit-msg{color:#e8eaf0;font-size:11px;font-family:'DM Mono',monospace;flex:1;word-break:break-all}
+.audit-msg.pass{color:#0cce6b}
+.audit-msg.warn{color:#ffa400}
+.audit-msg.fail{color:#ff4e42}
+
 /* Summary */
 .summary-card{background:#0d1117;border:1px solid #0cce6b44;border-radius:12px;padding:20px;margin-bottom:16px;animation:fadeIn .4s ease}
 .summary-title{color:#0cce6b;font-size:11px;font-family:'DM Mono',monospace;font-weight:700;margin-bottom:12px;letter-spacing:.1em}
@@ -65,23 +90,23 @@ h1 span{color:#3b82f6}
 .summary-row:last-child{border:none}
 .btn-copy{background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px 20px;color:#4a5568;font-size:13px;font-family:'DM Mono',monospace;text-align:center;width:100%;margin-top:12px}
 
-/* Tab 2 - No Index checker */
-.noindex-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;background:#080c12;border:1px solid #1e2533;margin-bottom:8px;font-family:'DM Mono',monospace;font-size:12px;transition:all .3s}
-.noindex-item.checking{border-color:#3b82f6}
-.noindex-item.indexed{border-color:#0cce6b44;background:#0a1a0a}
-.noindex-item.noindex{border-color:#1e2533}
-.noindex-item.error{border-color:#ff4e4244}
-.noindex-url{flex:1;color:#8892a4;word-break:break-all;font-size:11px}
-.noindex-status{font-size:11px;font-weight:700;white-space:nowrap}
-.noindex-time{color:#3a4252;font-size:10px;white-space:nowrap}
+/* Tab 2 */
+.ni-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;background:#080c12;border:1px solid #1e2533;margin-bottom:6px;font-family:'DM Mono',monospace;font-size:11px;transition:all .3s}
+.ni-item.checking{border-color:#3b82f644}
+.ni-item.indexed{border-color:#0cce6b44;background:#0a1a0a}
+.ni-item.noindex{border-color:#1e2533}
+.ni-item.err{border-color:#ffa40044}
+.ni-url{flex:1;color:#8892a4;word-break:break-all}
+.ni-time{color:#3a4252;font-size:10px;white-space:nowrap;margin-left:4px}
+.ni-status{font-size:11px;font-weight:700;white-space:nowrap;margin-left:8px}
 .progress-bar{height:3px;background:#1e2533;border-radius:2px;margin-bottom:16px;overflow:hidden}
-.progress-fill{height:100%;background:#3b82f6;border-radius:2px;transition:width .3s}
-.stat-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.stat-box{flex:1;min-width:100px;background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:12px;text-align:center}
-.stat-num{font-size:24px;font-weight:800;font-family:'DM Mono',monospace}
-.stat-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
-
+.progress-fill{height:100%;border-radius:2px;transition:width .3s}
+.stat-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.stat-box{flex:1;min-width:80px;background:#080c12;border:1px solid #1e2533;border-radius:8px;padding:10px;text-align:center}
+.stat-num{font-size:22px;font-weight:800;font-family:'DM Mono',monospace}
+.stat-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
 .progress-label{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;margin-bottom:6px;letter-spacing:.1em;text-transform:uppercase}
+
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .spin{animation:spin 1s linear infinite;display:inline-block}
@@ -93,134 +118,184 @@ h1 span{color:#3b82f6}
 <h1>PageSpeed &amp; Index<br><span>Inspector</span></h1>
 <p class="subtitle">Kiểm tra hiệu suất và tình trạng index</p>
 
-<!-- Tabs -->
 <div class="tabs" style="max-width:720px;width:100%">
-  <div class="tab active" onclick="switchTab(1)">⚡ Check PageSpeed + Index</div>
-  <div class="tab" onclick="switchTab(2)">📋 Kiểm tra danh sách No Index</div>
+  <div class="tab active" onclick="switchTab(1)">⚡ Check URL</div>
+  <div class="tab" onclick="switchTab(2)">📋 Danh sách No Index</div>
 </div>
 
-<!-- TAB 1: PageSpeed + Index -->
+<!-- TAB 1 -->
 <div class="tab-content active" id="tab1">
   <div class="card">
-    <label class="label">Danh sách URL cần kiểm tra</label>
+    <label class="label">URL cần kiểm tra (tối đa 3)</label>
     <textarea id="urlInput" rows="4" placeholder="https://oichin.net/san-pham/abc
 https://oichin.net/san-pham/xyz
 https://oichin.net/danh-muc/abc"></textarea>
-    <p class="hint">⚡ Tối đa 3 URL — mỗi URL một dòng</p>
-    <button class="btn-primary" id="btnRun" onclick="handleRun()">Kiểm tra tất cả</button>
+    <p class="hint">Mỗi URL một dòng</p>
+    <div class="action-btns">
+      <button class="btn-action btn-ps" id="btnPS" onclick="handleRun('ps')">⚡ PageSpeed + Index</button>
+      <button class="btn-action btn-onpage" id="btnOP" onclick="handleRun('onpage')">🔍 Onpage + Index</button>
+      <button class="btn-action btn-all" id="btnAll" onclick="handleRun('all')">🚀 Check All</button>
+    </div>
   </div>
   <div id="results1" style="display:none"></div>
 </div>
 
-<!-- TAB 2: No Index List -->
+<!-- TAB 2 -->
 <div class="tab-content" id="tab2">
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-      <div>
-        <div class="label" style="margin-bottom:4px">Danh sách No Index từ Google Sheet</div>
-        <div style="color:#3a4252;font-size:11px;font-family:'DM Mono',monospace">URL chưa được index sẽ giữ nguyên · URL đã index sẽ được xóa & lưu vào Index History</div>
+    <div style="margin-bottom:4px">
+      <div style="color:#e8eaf0;font-size:14px;font-weight:700">Danh sách No Index</div>
+      <div style="color:#4a5568;font-size:11px;font-family:'DM Mono',monospace;margin-top:2px">URL tự động thêm từ Tab 1 · URL đã index sẽ xóa & lưu vào History</div>
+    </div>
+    <button class="btn-green" id="btnLoadSheet" onclick="handleLoadSheet()" style="margin-top:16px">📋 Tải danh sách</button>
+  </div>
+  <div id="sheetSection" style="display:none">
+    <div class="card" style="padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span style="color:#e8eaf0;font-size:13px;font-weight:700" id="sheetCount"></span>
+        <button onclick="handleCheckAll()" id="btnCheckSheet" style="background:#3b82f6;color:#fff;border-radius:6px;padding:8px 16px;font-size:12px;font-weight:700">Kiểm tra tất cả</button>
+      </div>
+      <div class="progress-bar" id="pb_sheet" style="display:none"><div class="progress-fill" id="pf_sheet" style="width:0%;background:#3b82f6"></div></div>
+      <div class="stat-row" id="stats_sheet" style="display:none">
+        <div class="stat-box"><div class="stat-num" id="st_total" style="color:#e8eaf0">0</div><div class="stat-label">Tổng</div></div>
+        <div class="stat-box"><div class="stat-num" id="st_done" style="color:#4a5568">0</div><div class="stat-label">Đã check</div></div>
+        <div class="stat-box"><div class="stat-num" id="st_idx" style="color:#0cce6b">0</div><div class="stat-label">Đã Index</div></div>
+        <div class="stat-box"><div class="stat-num" id="st_noidx" style="color:#ff4e42">0</div><div class="stat-label">Chưa Index</div></div>
+      </div>
+      <div id="list_sheet"></div>
+      <div id="act_sheet" style="display:none;margin-top:12px">
+        <button onclick="handleUpdate()" class="btn-green">✅ Xóa URL đã Index · Lưu vào History</button>
       </div>
     </div>
-    <button class="btn-green" id="btnLoadSheet" onclick="handleLoadSheet()">📋 Tải danh sách từ Sheet</button>
   </div>
-  <div id="results2" style="display:none"></div>
 </div>
 
 <script>
 const GSC_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8Y5wQrXhJxXWtwOJGol-sd8N_m5JSGSuQO0MVR4zNo7eevHzB9sMxNhC-_6HBP-e3/exec";
 const GSC_TOKEN = "oichin2024gsc";
-
-let allResults = [];
-let sheetRows = [];
-let checkResults = [];
+let allResults = [], sheetRows = [], sheetCheckResults = [];
 
 function switchTab(n) {
-  document.querySelectorAll(".tab").forEach((t,i) => t.className = "tab" + (i===n-1?" active":""));
-  document.querySelectorAll(".tab-content").forEach((t,i) => t.className = "tab-content" + (i===n-1?" active":""));
+  document.querySelectorAll(".tab").forEach((t,i)=>t.className="tab"+(i===n-1?" active":""));
+  document.querySelectorAll(".tab-content").forEach((t,i)=>t.className="tab-content"+(i===n-1?" active":""));
 }
 
-function normalizeUrl(u) {
-  u = u.trim();
-  if (!u.startsWith("http")) u = "https://" + u;
-  return u;
-}
+function normalizeUrl(u){u=u.trim();if(!u.startsWith("http"))u="https://"+u;return u;}
 
 function callScript(params) {
-  return new Promise((resolve, reject) => {
-    const cbName = "cb_" + Math.random().toString(36).slice(2);
-    const qs = Object.entries(params).map(([k,v]) => k + "=" + encodeURIComponent(v)).join("&");
-    const url = GSC_SCRIPT_URL + "?" + qs + "&callback=" + cbName;
-    const script = document.createElement("script");
-    const timer = setTimeout(() => {
-      delete window[cbName];
-      try { document.head.removeChild(script); } catch(e) {}
-      reject(new Error("Timeout"));
-    }, 90000);
-    window[cbName] = (data) => {
-      clearTimeout(timer);
-      delete window[cbName];
-      try { document.head.removeChild(script); } catch(e) {}
-      resolve(data);
-    };
-    script.onerror = () => { clearTimeout(timer); reject(new Error("Không kết nối được")); };
-    script.src = url;
-    document.head.appendChild(script);
+  return new Promise((resolve,reject)=>{
+    const cbName="cb_"+Math.random().toString(36).slice(2);
+    const qs=Object.entries(params).map(([k,v])=>k+"="+encodeURIComponent(v)).join("&");
+    const url=GSC_SCRIPT_URL+"?"+qs+"&callback="+cbName;
+    const script=document.createElement("script");
+    const timer=setTimeout(()=>{delete window[cbName];try{document.head.removeChild(script);}catch(e){}reject(new Error("Timeout"));},120000);
+    window[cbName]=(data)=>{clearTimeout(timer);delete window[cbName];try{document.head.removeChild(script);}catch(e){}resolve(data);};
+    script.onerror=()=>{clearTimeout(timer);reject(new Error("Không kết nối được"));};
+    script.src=url;document.head.appendChild(script);
   });
 }
 
-function metricColor(s) { return s >= 0.9 ? "#0cce6b" : s >= 0.5 ? "#ffa400" : "#ff4e42"; }
-function scoreColor(s) { return s >= 90 ? "#0cce6b" : s >= 50 ? "#ffa400" : "#ff4e42"; }
-function getScore(d) { return d ? Math.round((d.lighthouseResult?.categories?.performance?.score ?? 0) * 100) : "N/A"; }
-function getMetric(d, key) { return d?.lighthouseResult?.audits?.[key]?.displayValue ?? "N/A"; }
-function getMetricScore(d, key) { return d?.lighthouseResult?.audits?.[key]?.score ?? 0; }
+function metricColor(s){return s>=0.9?"#0cce6b":s>=0.5?"#ffa400":"#ff4e42"}
+function scoreColor(s){return s>=90?"#0cce6b":s>=50?"#ffa400":"#ff4e42"}
+function getScore(d){return d?Math.round((d.lighthouseResult?.categories?.performance?.score??0)*100):"N/A"}
+function getMetric(d,key){return d?.lighthouseResult?.audits?.[key]?.displayValue??"N/A"}
+function getMetricScore(d,key){return d?.lighthouseResult?.audits?.[key]?.score??0}
 
-function renderScoreBox(data, label) {
-  const score = getScore(data);
-  const audits = data?.lighthouseResult?.audits ?? {};
-  const metrics = [
-    { name: "LCP", key: "largest-contentful-paint" },
-    { name: "CLS", key: "cumulative-layout-shift" },
-    { name: "TBT", key: "total-blocking-time" },
-    { name: "FCP", key: "first-contentful-paint" },
-    { name: "Speed Index", key: "speed-index" },
+function auditScoreColor(p){return p>=80?"#0cce6b":p>=60?"#ffa400":"#ff4e42"}
+
+function renderScoreBox(data,label){
+  const score=getScore(data);
+  const audits=data?.lighthouseResult?.audits??{};
+  const metrics=[
+    {name:"LCP",key:"largest-contentful-paint"},{name:"CLS",key:"cumulative-layout-shift"},
+    {name:"TBT",key:"total-blocking-time"},{name:"FCP",key:"first-contentful-paint"},{name:"Speed Index",key:"speed-index"}
   ];
-  const rows = metrics.map(m => {
-    const a = audits[m.key];
-    if (!a) return "";
-    return `<div class="metric-row"><span class="metric-name">${m.name}</span><div class="metric-val">${a.displayValue??'—'}<span class="dot" style="background:${metricColor(a.score??0)}"></span></div></div>`;
-  }).join("");
-  return `<div class="score-box"><div class="score-box-label">${label}</div><div class="score-num" style="color:${scoreColor(score)}">${score}</div><div style="margin-top:8px">${rows}</div></div>`;
+  const rows=metrics.map(m=>{const a=audits[m.key];if(!a)return"";return`<div class="metric-row"><span class="metric-name">${m.name}</span><div class="metric-val">${a.displayValue??'—'}<span class="dot" style="background:${metricColor(a.score??0)}"></span></div></div>`;}).join("");
+  return`<div class="score-box"><div class="score-box-label">${label}</div><div class="score-num" style="color:${scoreColor(score)}">${score}</div><div style="margin-top:8px">${rows}</div></div>`;
 }
 
-function setStep(index, id, state, detail) {
-  const el = document.getElementById(`s_${id}_${index}`);
-  if (!el) return;
-  el.className = "step " + state;
-  const icons = { active: '<span class="spin">⟳</span>', done: "✅", error: "❌", idle: "⏳", warn: "⚠️" };
-  el.querySelector(".step-icon").innerHTML = icons[state] || "⏳";
-  const d = document.getElementById(`d_${id}_${index}`);
-  if (d && detail !== undefined) d.textContent = detail;
+function renderAuditPanel(auditData, index) {
+  if (!auditData) return "";
+  const {results, score, maxScore, percentage} = auditData;
+  const color = auditScoreColor(percentage);
+  const cats = {};
+  results.forEach(r => {
+    if (!cats[r.cat]) cats[r.cat] = [];
+    cats[r.cat].push(r);
+  });
+  const failWarn = results.filter(r => r.status !== "pass");
+  const statusIcon = {pass:"✅", warn:"⚠️", fail:"❌"};
+
+  let body = "";
+  Object.entries(cats).forEach(([cat, items]) => {
+    body += `<div class="audit-cat">${cat}</div>`;
+    items.forEach(item => {
+      body += `<div class="audit-item">
+        <span class="audit-status">${statusIcon[item.status]}</span>
+        <span class="audit-name">${item.item}</span>
+        <span class="audit-msg ${item.status}">${item.msg}</span>
+      </div>`;
+    });
+  });
+
+  return `<div class="audit-panel">
+    <div class="audit-header" onclick="toggleAudit(${index})">
+      <div class="audit-header-left">
+        <span class="audit-score-badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${percentage}%</span>
+        <span class="audit-title">Onpage Audit — ${score}/${maxScore} điểm · ${failWarn.length} vấn đề cần xử lý</span>
+      </div>
+      <span class="audit-toggle" id="audit-toggle-${index}">▼ Xem chi tiết</span>
+    </div>
+    <div class="audit-body" id="audit-body-${index}">${body}</div>
+  </div>`;
 }
 
-// ── TAB 1: PageSpeed + Index ──
-async function handleRun() {
+function toggleAudit(i) {
+  const body = document.getElementById("audit-body-"+i);
+  const toggle = document.getElementById("audit-toggle-"+i);
+  const isOpen = body.classList.contains("open");
+  body.classList.toggle("open", !isOpen);
+  toggle.textContent = isOpen ? "▼ Xem chi tiết" : "▲ Thu gọn";
+}
+
+function setStep(i,id,state,detail){
+  const el=document.getElementById(`s_${id}_${i}`);if(!el)return;
+  el.className="step "+state;
+  const icons={active:'<span class="spin">⟳</span>',done:"✅",error:"❌",idle:"⏳",warn:"⚠️"};
+  el.querySelector(".step-icon").innerHTML=icons[state]||"⏳";
+  const d=document.getElementById(`d_${id}_${i}`);if(d&&detail!==undefined)d.textContent=detail;
+}
+
+function setAllBtns(disabled) {
+  ["btnPS","btnOP","btnAll"].forEach(id => {
+    document.getElementById(id).disabled = disabled;
+  });
+}
+
+async function handleRun(mode) {
   const raw = document.getElementById("urlInput").value;
-  const urls = raw.split("\n").map(u => u.trim()).filter(u => u).slice(0, 3).map(normalizeUrl);
+  const urls = raw.split("\n").map(u=>u.trim()).filter(u=>u).slice(0,3).map(normalizeUrl);
   if (!urls.length) return;
 
+  const doPS = mode === "ps" || mode === "all";
+  const doOnpage = mode === "onpage" || mode === "all";
+  const doIndex = true; // always
+
   allResults = [];
-  const btn = document.getElementById("btnRun");
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⟳</span> Đang xử lý...';
-
+  setAllBtns(true);
   const div = document.getElementById("results1");
-  div.innerHTML = "";
-  div.style.display = "block";
+  div.innerHTML = ""; div.style.display = "block";
 
+  // Build step list per mode
   urls.forEach((url, i) => {
+    const steps = [];
+    if (doPS) steps.push(`<div class="step" id="s_ps_${i}"><span class="step-icon">⏳</span><div><div>PageSpeed</div><div class="step-detail" id="d_ps_${i}">Chờ...</div></div></div>`);
+    if (doOnpage) steps.push(`<div class="step" id="s_op_${i}"><span class="step-icon">⏳</span><div><div>Onpage Audit</div><div class="step-detail" id="d_op_${i}">Chờ...</div></div></div>`);
+    steps.push(`<div class="step" id="s_idx_${i}"><span class="step-icon">⏳</span><div><div>Kiểm tra Index</div><div class="step-detail" id="d_idx_${i}">Chờ...</div></div></div>`);
+    steps.push(`<div class="step" id="s_em_${i}"><span class="step-icon">⏳</span><div><div>Gửi email & lưu Sheet</div><div class="step-detail" id="d_em_${i}">Chờ...</div></div></div>`);
+
     const block = document.createElement("div");
-    block.className = "url-block";
-    block.id = "block_" + i;
+    block.className = "url-block"; block.id = "block_"+i;
     block.innerHTML = `
       <div style="margin-bottom:4px">
         <span class="url-tag url-tag-num">URL ${i+1}</span>
@@ -228,65 +303,74 @@ async function handleRun() {
       </div>
       <div class="url-text">${url}</div>
       <div class="progress-label">Tiến trình</div>
-      <div class="steps">
-        <div class="step active" id="s_ps_${i}"><span class="step-icon"><span class="spin">⟳</span></span><div><div>Phân tích PageSpeed</div><div class="step-detail" id="d_ps_${i}">Đang chạy Mobile & Desktop...</div></div></div>
-        <div class="step" id="s_idx_${i}"><span class="step-icon">⏳</span><div><div>Kiểm tra Index</div><div class="step-detail" id="d_idx_${i}">Chờ PageSpeed...</div></div></div>
-        <div class="step" id="s_em_${i}"><span class="step-icon">⏳</span><div><div>Gửi email & lưu Sheet</div><div class="step-detail" id="d_em_${i}">Chờ xử lý...</div></div></div>
-      </div>
-      <div id="scores_${i}" style="display:none" class="score-row"></div>`;
+      <div class="steps">${steps.join("")}</div>
+      <div id="scores_${i}" style="display:none" class="score-row"></div>
+      <div id="audit_${i}"></div>`;
     div.appendChild(block);
+  });
+
+  // Activate first steps
+  urls.forEach((_, i) => {
+    if (doPS) setStep(i, "ps", "active", "Đang chạy Mobile & Desktop...");
+    else if (doOnpage) setStep(i, "op", "active", "Đang phân tích HTML...");
+    else setStep(i, "idx", "active", "Đang kiểm tra...");
   });
 
   for (let i = 0; i < urls.length; i++) {
     const url = urls[i];
-    const result = { url, mobile: null, desktop: null, indexed: null, coverageState: "" };
+    const result = { url, mobile: null, desktop: null, indexed: null, coverageState: "", audit: null };
 
     // PageSpeed
-    try {
-      const data = await callScript({ token: GSC_TOKEN, action: "pagespeed", url });
-      if (!data.success) throw new Error(data.error);
-      result.mobile = data.mobile;
-      result.desktop = data.desktop;
-      setStep(i, "ps", "done", `Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
-      const sd = document.getElementById("scores_" + i);
-      sd.innerHTML = renderScoreBox(data.mobile, "Mobile") + renderScoreBox(data.desktop, "Desktop");
-      sd.style.display = "flex";
-    } catch(e) {
-      setStep(i, "ps", "error", e.message);
-      setStep(i, "idx", "error", "Bỏ qua"); setStep(i, "em", "idle", "Chờ...");
-      allResults.push(result); continue;
+    if (doPS) {
+      setStep(i, "ps", "active", "Đang chạy Mobile & Desktop...");
+      try {
+        const data = await callScript({token: GSC_TOKEN, action: "pagespeed", url});
+        if (!data.success) throw new Error(data.error);
+        result.mobile = data.mobile; result.desktop = data.desktop;
+        setStep(i, "ps", "done", `Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
+        const sd = document.getElementById("scores_"+i);
+        sd.innerHTML = renderScoreBox(data.mobile, "Mobile") + renderScoreBox(data.desktop, "Desktop");
+        sd.style.display = "flex";
+      } catch(e) { setStep(i, "ps", "error", e.message); }
     }
 
-    // Check Index
+    // Onpage
+    if (doOnpage) {
+      setStep(i, "op", "active", "Đang phân tích HTML...");
+      try {
+        const data = await callScript({token: GSC_TOKEN, action: "audit", url});
+        if (!data.success) throw new Error(data.error);
+        result.audit = { results: data.results, score: data.score, maxScore: data.maxScore, percentage: data.percentage };
+        const issues = data.results.filter(r => r.status !== "pass").length;
+        setStep(i, "op", issues > 0 ? "warn" : "done", `${data.percentage}% — ${issues} vấn đề`);
+        document.getElementById("audit_"+i).innerHTML = renderAuditPanel(result.audit, i);
+      } catch(e) { setStep(i, "op", "error", e.message); }
+    }
+
+    // Index
     setStep(i, "idx", "active", "Đang kiểm tra...");
     try {
-      const data = await callScript({ token: GSC_TOKEN, action: "checkindex", url });
+      const data = await callScript({token: GSC_TOKEN, action: "checkindex", url});
       if (!data.success) throw new Error(data.error);
-      result.indexed = data.indexed;
-      result.coverageState = data.coverageState || "";
-      const tag = document.getElementById("indextag_" + i);
+      result.indexed = data.indexed; result.coverageState = data.coverageState || "";
+      const tag = document.getElementById("indextag_"+i);
       tag.style.display = "inline";
       if (data.indexed) {
         tag.className = "url-tag url-tag-indexed"; tag.textContent = "Đã Index";
         setStep(i, "idx", "done", data.coverageState || "Đã index ✓");
       } else {
         tag.className = "url-tag url-tag-noindex"; tag.textContent = "Chưa Index";
-        setStep(i, "idx", "warn", (data.coverageState || "Chưa index") + " → sẽ lưu vào Sheet");
+        setStep(i, "idx", "warn", (data.coverageState || "Chưa index") + " → lưu Sheet");
       }
-    } catch(e) {
-      result.indexed = null;
-      setStep(i, "idx", "error", e.message);
-    }
+    } catch(e) { result.indexed = null; setStep(i, "idx", "error", e.message); }
 
-    setStep(i, "em", "idle", "Chờ gửi email...");
-    allResults.push(result);
+    setStep(i, "em", "idle", "Chờ gửi email..."); allResults.push(result);
   }
 
   // Email + Sheet
   urls.forEach((_, i) => setStep(i, "em", "active", "Đang xử lý..."));
   const now = new Date().toLocaleString("vi-VN");
-  const noIndexUrls = allResults.filter(r => r.indexed === false).map(r => ({ url: r.url, timeAdded: now }));
-
+  const noIndexUrls = allResults.filter(r => r.indexed === false).map(r => ({url: r.url, timeAdded: now}));
   const minData = allResults.map(r => ({
     url: r.url, indexed: r.indexed, coverageState: r.coverageState,
     mScore: getScore(r.mobile), dScore: getScore(r.desktop),
@@ -300,210 +384,120 @@ async function handleRun() {
     dTBT_s: getMetricScore(r.desktop,"total-blocking-time"), dFCP_s: getMetricScore(r.desktop,"first-contentful-paint"), dSI_s: getMetricScore(r.desktop,"speed-index"),
   }));
 
-  try {
-    await callScript({ token: GSC_TOKEN, action: "email", reportData: encodeURIComponent(JSON.stringify({ checkedAt: now, results: minData })) });
-  } catch(e) {}
-
+  try { await callScript({token: GSC_TOKEN, action: "email", reportData: encodeURIComponent(JSON.stringify({checkedAt: now, results: minData}))}); } catch(e) {}
   let sheetMsg = "Email đã gửi";
   if (noIndexUrls.length > 0) {
-    try {
-      await callScript({ token: GSC_TOKEN, action: "savesheet", sheetData: encodeURIComponent(JSON.stringify(noIndexUrls)) });
-      sheetMsg = `Email đã gửi · ${noIndexUrls.length} URL chưa index → lưu Sheet`;
-    } catch(e) {}
+    try { await callScript({token: GSC_TOKEN, action: "savesheet", sheetData: encodeURIComponent(JSON.stringify(noIndexUrls))}); sheetMsg = `Email đã gửi · ${noIndexUrls.length} URL chưa index → lưu Sheet`; } catch(e) {}
   }
   urls.forEach((_, i) => setStep(i, "em", "done", i === urls.length-1 ? sheetMsg : "✓"));
 
   // Summary
-  const noIndexCount = allResults.filter(r => r.indexed === false).length;
   const sumDiv = document.createElement("div");
   sumDiv.className = "summary-card";
   sumDiv.innerHTML = `<div class="summary-title">TỔNG KẾT — ${allResults.length} URL</div>` +
-    allResults.map((r,i) => `<div class="summary-row">
-      <span style="color:#4a5568;font-family:'DM Mono',monospace;font-size:11px;min-width:40px">[${i+1}]</span>
-      <span style="flex:1;color:#8892a4;font-family:'DM Mono',monospace;font-size:11px;word-break:break-all">${r.url}</span>
-      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.mobile))};font-size:12px;margin:0 4px">M:${getScore(r.mobile)}</span>
-      <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.desktop))};font-size:12px;margin:0 4px">D:${getScore(r.desktop)}</span>
-      <span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:700;color:${r.indexed===true?"#0cce6b":r.indexed===false?"#ff4e42":"#4a5568"}">${r.indexed===true?"✅ Index":r.indexed===false?"❌ No Index":"?"}</span>
-    </div>`).join("") +
-    (noIndexCount > 0 ? `<div style="background:#1a0808;border:1px solid #ff4e4244;border-radius:6px;padding:8px 12px;margin-top:10px;color:#ff4e42;font-size:11px;font-family:'DM Mono',monospace">⚠️ ${noIndexCount} URL chưa index đã lưu vào Google Sheet</div>` : "") +
-    `<button class="btn-copy" onclick="handleCopy1(event)">📋 Copy báo cáo</button>`;
+    allResults.map((r,i) => {
+      const auditPct = r.audit ? r.audit.percentage : null;
+      return `<div class="summary-row">
+        <span style="color:#4a5568;font-family:'DM Mono',monospace;min-width:36px">[${i+1}]</span>
+        <span style="flex:1;color:#8892a4;font-family:'DM Mono',monospace;font-size:11px;word-break:break-all">${r.url}</span>
+        ${doPS ? `<span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.mobile))};margin:0 3px">M:${getScore(r.mobile)}</span>
+        <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.desktop))};margin:0 3px">D:${getScore(r.desktop)}</span>` : ""}
+        ${doOnpage && auditPct !== null ? `<span style="font-weight:700;font-family:'DM Mono',monospace;color:${auditScoreColor(auditPct)};margin:0 3px">OP:${auditPct}%</span>` : ""}
+        <span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:700;color:${r.indexed===true?"#0cce6b":r.indexed===false?"#ff4e42":"#4a5568"}">${r.indexed===true?"✅":r.indexed===false?"❌":"?"}</span>
+      </div>`;
+    }).join("") +
+    `<button class="btn-copy" onclick="handleCopy(event)">📋 Copy báo cáo</button>`;
   div.appendChild(sumDiv);
-
-  btn.disabled = false; btn.textContent = "Kiểm tra tất cả";
+  setAllBtns(false);
 }
 
-function handleCopy1(e) {
+function handleCopy(e) {
   const now = new Date().toLocaleString("vi-VN");
   let text = `📊 BÁO CÁO SEO — ${now}\n━━━━━━━━━━━━━━━━━━━\n\n`;
   allResults.forEach((r,i) => {
-    text += `[${i+1}] ${r.url}\nPageSpeed — Mobile: ${getScore(r.mobile)} | Desktop: ${getScore(r.desktop)}\nIndex: ${r.indexed===true?"✅ Đã Index":r.indexed===false?"❌ Chưa Index":"Không xác định"}${r.coverageState?" ("+r.coverageState+")":""}\n\n`;
+    text += `[${i+1}] ${r.url}\n`;
+    if (r.mobile || r.desktop) text += `PageSpeed — Mobile: ${getScore(r.mobile)} | Desktop: ${getScore(r.desktop)}\n`;
+    if (r.audit) {
+      text += `Onpage — ${r.audit.percentage}% (${r.audit.score}/${r.audit.maxScore})\n`;
+      r.audit.results.filter(x=>x.status!=="pass").forEach(x => text += `  ${x.status==="warn"?"⚠️":"❌"} ${x.item}: ${x.msg}\n`);
+    }
+    text += `Index: ${r.indexed===true?"✅ Đã Index":r.indexed===false?"❌ Chưa Index":"?"}${r.coverageState?" ("+r.coverageState+")":""}\n\n`;
   });
-  navigator.clipboard.writeText(text.trim()).then(() => {
-    e.target.textContent = "✅ Đã copy!";
-    setTimeout(() => e.target.textContent = "📋 Copy báo cáo", 2000);
-  });
+  navigator.clipboard.writeText(text.trim()).then(()=>{e.target.textContent="✅ Đã copy!";setTimeout(()=>e.target.textContent="📋 Copy báo cáo",2000);});
 }
 
-// ── TAB 2: No Index List ──
+// ── TAB 2 ──
 async function handleLoadSheet() {
   const btn = document.getElementById("btnLoadSheet");
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⟳</span> Đang tải...';
-
-  const div = document.getElementById("results2");
-  div.innerHTML = "";
-  div.style.display = "block";
-
+  btn.disabled = true; btn.innerHTML = '<span class="spin">⟳</span> Đang tải...';
+  document.getElementById("sheetSection").style.display = "none";
   try {
-    const data = await callScript({ token: GSC_TOKEN, action: "readsheet" });
+    const data = await callScript({token: GSC_TOKEN, action: "readsheet"});
     if (!data.success) throw new Error(data.error);
-    sheetRows = data.rows || [];
-
-    if (sheetRows.length === 0) {
-      div.innerHTML = `<div style="background:#0d1117;border:1px solid #1e2533;border-radius:12px;padding:32px;text-align:center;color:#4a5568;font-family:'DM Mono',monospace;font-size:13px">✅ Không có URL nào trong danh sách No Index</div>`;
-      btn.disabled = false; btn.textContent = "📋 Tải danh sách từ Sheet";
-      return;
-    }
-
-    // Render danh sách
-    const listCard = document.createElement("div");
-    listCard.className = "card";
-    listCard.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <div>
-          <div style="color:#e8eaf0;font-size:14px;font-weight:700">Danh sách No Index</div>
-          <div style="color:#4a5568;font-size:11px;font-family:'DM Mono',monospace;margin-top:2px">${sheetRows.length} URL cần kiểm tra</div>
-        </div>
-        <button onclick="handleCheckAll()" id="btnCheckAll" style="background:#3b82f6;color:#fff;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700">Kiểm tra tất cả</button>
-      </div>
-      <div class="progress-bar" id="progressBar" style="display:none"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-      <div class="stat-row" id="statRow" style="display:none">
-        <div class="stat-box"><div class="stat-num" id="statTotal" style="color:#e8eaf0">0</div><div class="stat-label">Tổng</div></div>
-        <div class="stat-box"><div class="stat-num" id="statDone" style="color:#4a5568">0</div><div class="stat-label">Đã check</div></div>
-        <div class="stat-box"><div class="stat-num" id="statIndexed" style="color:#0cce6b">0</div><div class="stat-label">Đã Index</div></div>
-        <div class="stat-box"><div class="stat-num" id="statNoIndex" style="color:#ff4e42">0</div><div class="stat-label">Chưa Index</div></div>
-      </div>
-      <div id="urlList"></div>
-      <div id="finalActions" style="display:none;margin-top:12px">
-        <button onclick="handleUpdateSheet()" style="background:#0cce6b22;border:1px solid #0cce6b;color:#0cce6b;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:700;width:100%">
-          ✅ Xóa URL đã Index khỏi Sheet & lưu vào History
-        </button>
-      </div>`;
-    div.appendChild(listCard);
-
-    const urlList = document.getElementById("urlList");
+    sheetRows = data.rows || []; sheetCheckResults = [];
+    if (sheetRows.length === 0) { alert("✅ Không có URL nào trong No Index!"); btn.disabled=false; btn.textContent="📋 Tải danh sách"; return; }
+    document.getElementById("sheetCount").textContent = `${sheetRows.length} URL`;
+    document.getElementById("pb_sheet").style.display = "none";
+    document.getElementById("stats_sheet").style.display = "none";
+    document.getElementById("act_sheet").style.display = "none";
+    const list = document.getElementById("list_sheet"); list.innerHTML = "";
     sheetRows.forEach((row, i) => {
       const item = document.createElement("div");
-      item.className = "noindex-item";
-      item.id = "ni_" + i;
-      item.innerHTML = `
-        <span class="step-icon" id="ni_icon_${i}">⏳</span>
-        <span class="noindex-url">${row.url}</span>
-        <span class="noindex-time">${row.timeAdded || ""}</span>
-        <span class="noindex-status" id="ni_status_${i}" style="color:#4a5568">Chờ...</span>`;
-      urlList.appendChild(item);
+      item.className = "ni-item"; item.id = "ni_"+i;
+      item.innerHTML = `<span id="ni_icon_${i}" style="min-width:16px;text-align:center">⏳</span><span class="ni-url">${row.url}</span><span class="ni-time">${row.timeAdded||""}</span><span class="ni-status" id="ni_status_${i}" style="color:#4a5568">Chờ...</span>`;
+      list.appendChild(item);
     });
-
-  } catch(e) {
-    div.innerHTML = `<div style="background:#1a0808;border:1px solid #ff4e42;border-radius:12px;padding:20px;color:#ff4e42;font-family:'DM Mono',monospace;font-size:13px">❌ ${e.message}</div>`;
-  }
-
+    document.getElementById("sheetSection").style.display = "block";
+  } catch(e) { alert("Lỗi: "+e.message); }
   btn.disabled = false; btn.textContent = "📋 Tải lại danh sách";
 }
 
 async function handleCheckAll() {
-  const btn = document.getElementById("btnCheckAll");
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⟳</span> Đang kiểm tra...';
-
-  checkResults = [];
+  const btn = document.getElementById("btnCheckSheet");
+  btn.disabled = true; btn.innerHTML = '<span class="spin">⟳</span> Đang kiểm tra...';
+  sheetCheckResults = [];
   const total = sheetRows.length;
-  let done = 0, indexed = 0, noindex = 0;
+  let done=0, indexed=0, noindex=0;
+  document.getElementById("pb_sheet").style.display = "block";
+  document.getElementById("stats_sheet").style.display = "flex";
+  document.getElementById("st_total").textContent = total;
 
-  document.getElementById("progressBar").style.display = "block";
-  document.getElementById("statRow").style.display = "flex";
-  document.getElementById("statTotal").textContent = total;
-
-  for (let i = 0; i < sheetRows.length; i++) {
+  for (let i=0; i<sheetRows.length; i++) {
     const row = sheetRows[i];
-    const item = document.getElementById("ni_" + i);
-    const icon = document.getElementById("ni_icon_" + i);
-    const status = document.getElementById("ni_status_" + i);
-
-    item.className = "noindex-item checking";
-    icon.innerHTML = '<span class="spin">⟳</span>';
-    status.textContent = "Đang kiểm tra...";
-    status.style.color = "#3b82f6";
-
+    const item = document.getElementById("ni_"+i);
+    const icon = document.getElementById("ni_icon_"+i);
+    const status = document.getElementById("ni_status_"+i);
+    item.className = "ni-item checking"; icon.innerHTML = '<span class="spin">⟳</span>';
+    status.textContent = "Đang kiểm tra..."; status.style.color = "#3b82f6";
     try {
-      const data = await callScript({ token: GSC_TOKEN, action: "checkindex", url: row.url });
-      const result = { ...row, indexed: data.indexed, coverageState: data.coverageState || "" };
-      checkResults.push(result);
-
-      if (data.indexed) {
-        indexed++;
-        item.className = "noindex-item indexed";
-        icon.textContent = "✅";
-        status.textContent = "Đã Index";
-        status.style.color = "#0cce6b";
-      } else {
-        noindex++;
-        item.className = "noindex-item noindex";
-        icon.textContent = "❌";
-        status.textContent = data.coverageState || "Chưa Index";
-        status.style.color = "#ff4e42";
-      }
-    } catch(e) {
-      checkResults.push({ ...row, indexed: null, coverageState: "Lỗi" });
-      item.className = "noindex-item error";
-      icon.textContent = "⚠️";
-      status.textContent = "Lỗi";
-      status.style.color = "#ffa400";
-    }
-
+      const data = await callScript({token: GSC_TOKEN, action: "checkindex", url: row.url});
+      const r = {...row, indexed: data.indexed, coverageState: data.coverageState||""};
+      sheetCheckResults.push(r);
+      if (data.indexed) { indexed++; item.className="ni-item indexed"; icon.textContent="✅"; status.textContent="Đã Index"; status.style.color="#0cce6b"; }
+      else { noindex++; item.className="ni-item noindex"; icon.textContent="❌"; status.textContent=data.coverageState||"Chưa Index"; status.style.color="#ff4e42"; }
+    } catch(e) { sheetCheckResults.push({...row,indexed:null}); item.className="ni-item err"; icon.textContent="⚠️"; status.textContent="Lỗi"; status.style.color="#ffa400"; }
     done++;
-    document.getElementById("statDone").textContent = done;
-    document.getElementById("statIndexed").textContent = indexed;
-    document.getElementById("statNoIndex").textContent = noindex;
-    document.getElementById("progressFill").style.width = (done/total*100) + "%";
+    document.getElementById("st_done").textContent=done;
+    document.getElementById("st_idx").textContent=indexed;
+    document.getElementById("st_noidx").textContent=noindex;
+    document.getElementById("pf_sheet").style.width=(done/total*100)+"%";
   }
-
-  btn.disabled = false; btn.textContent = "🔄 Kiểm tra lại";
-
-  if (indexed > 0) {
-    document.getElementById("finalActions").style.display = "block";
-  }
+  btn.disabled=false; btn.textContent="🔄 Kiểm tra lại";
+  if (sheetCheckResults.filter(r=>r.indexed===true).length > 0) document.getElementById("act_sheet").style.display="block";
 }
 
-async function handleUpdateSheet() {
-  const btn = document.querySelector("#finalActions button");
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⟳</span> Đang cập nhật Sheet...';
-
+async function handleUpdate() {
+  const btn = document.querySelector("#act_sheet button");
+  btn.disabled=true; btn.innerHTML='<span class="spin">⟳</span> Đang cập nhật...';
   const now = new Date().toLocaleString("vi-VN");
-  const indexedRows = checkResults.filter(r => r.indexed === true);
-  const toDelete = indexedRows.map(r => r.rowIndex);
-  const indexed = indexedRows.map(r => ({ url: r.url, timeAdded: r.timeAdded || "", timeIndexed: now }));
-
+  const indexedRows = sheetCheckResults.filter(r=>r.indexed===true);
+  const toDelete = indexedRows.map(r=>r.rowIndex);
+  const indexed = indexedRows.map(r=>({url:r.url, timeAdded:r.timeAdded||"", timeIndexed:now}));
   try {
-    const data = await callScript({
-      token: GSC_TOKEN,
-      action: "updatesheet",
-      updateData: encodeURIComponent(JSON.stringify({ indexed, toDelete }))
-    });
-    if (data.success) {
-      btn.style.background = "#0a1a0a";
-      btn.style.color = "#0cce6b88";
-      btn.textContent = `✅ Đã xóa ${indexed.length} URL đã index · Lưu vào Index History`;
-      // Reload sheet
-      setTimeout(() => handleLoadSheet(), 1500);
-    } else {
-      throw new Error(data.error);
-    }
-  } catch(e) {
-    btn.disabled = false;
-    btn.textContent = "❌ Lỗi: " + e.message;
-  }
+    const data = await callScript({token:GSC_TOKEN, action:"updatesheet", updateData:encodeURIComponent(JSON.stringify({indexed,toDelete}))});
+    if (data.success) { btn.style.opacity=".5"; btn.textContent=`✅ Đã xóa ${indexed.length} URL · Lưu vào History`; setTimeout(()=>handleLoadSheet(), 1500); }
+    else throw new Error(data.error);
+  } catch(e) { btn.disabled=false; btn.textContent="❌ Lỗi: "+e.message; }
 }
 </script>
 </body>
