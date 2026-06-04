@@ -311,21 +311,19 @@ async function handleRun(mode) {
 
   const doPS = mode === "ps" || mode === "all";
   const doOnpage = mode === "onpage" || mode === "all";
-  const doIndex = true; // always
 
   allResults = [];
   setAllBtns(true);
   const div = document.getElementById("results1");
   div.innerHTML = ""; div.style.display = "block";
 
-  // Build step list per mode
-  urls.forEach((url, i) => {
-    const steps = [];
-    if (doPS) steps.push(`<div class="step" id="s_ps_${i}"><span class="step-icon">⏳</span><div><div>PageSpeed</div><div class="step-detail" id="d_ps_${i}">Chờ...</div></div></div>`);
-    if (doOnpage) steps.push(`<div class="step" id="s_op_${i}"><span class="step-icon">⏳</span><div><div>Onpage Audit</div><div class="step-detail" id="d_op_${i}">Chờ...</div></div></div>`);
-    steps.push(`<div class="step" id="s_idx_${i}"><span class="step-icon">⏳</span><div><div>Kiểm tra Index</div><div class="step-detail" id="d_idx_${i}">Chờ...</div></div></div>`);
-    steps.push(`<div class="step" id="s_em_${i}"><span class="step-icon">⏳</span><div><div>Gửi email & lưu Sheet</div><div class="step-detail" id="d_em_${i}">Chờ...</div></div></div>`);
+  const now = new Date().toLocaleString("vi-VN");
 
+  // Clear report cache trước khi bắt đầu
+  try { await callScript({token: GSC_TOKEN, action: "clearreport"}); } catch(e) {}
+
+  // Build UI blocks
+  urls.forEach((url, i) => {
     const block = document.createElement("div");
     block.className = "url-block"; block.id = "block_"+i;
     block.innerHTML = `
@@ -335,100 +333,85 @@ async function handleRun(mode) {
       </div>
       <div class="url-text">${url}</div>
       <div class="progress-label">Tiến trình</div>
-      <div class="steps">${steps.join("")}</div>
+      <div class="steps">
+        <div class="step active" id="s_fc_${i}"><span class="step-icon"><span class="spin">⟳</span></span><div><div>${mode==="ps"?"PageSpeed + Index":mode==="onpage"?"Onpage Audit + Index":"PageSpeed + Onpage + Index"}</div><div class="step-detail" id="d_fc_${i}">Đang xử lý...</div></div></div>
+        <div class="step" id="s_em_${i}"><span class="step-icon">⏳</span><div><div>Gửi email & lưu Sheet</div><div class="step-detail" id="d_em_${i}">Chờ...</div></div></div>
+      </div>
       <div id="scores_${i}" style="display:none" class="score-row"></div>
       <div id="audit_${i}"></div>`;
     div.appendChild(block);
   });
 
-  // Activate first steps
-  urls.forEach((_, i) => {
-    if (doPS) setStep(i, "ps", "active", "Đang chạy Mobile & Desktop...");
-    else if (doOnpage) setStep(i, "op", "active", "Đang phân tích HTML...");
-    else setStep(i, "idx", "active", "Đang kiểm tra...");
-  });
-
+  // Check từng URL tuần tự qua fullcheck
   for (let i = 0; i < urls.length; i++) {
     const url = urls[i];
-    const result = { url, mobile: null, desktop: null, indexed: null, coverageState: "", audit: null };
+    setStep(i, "fc", "active", "Đang xử lý...");
+    try {
+      const data = await callScript({
+        token: GSC_TOKEN, action: "fullcheck",
+        url, mode, checkedAt: encodeURIComponent(now)
+      });
+      if (!data.success) throw new Error(data.error || "Lỗi không xác định");
 
-    // PageSpeed
-    if (doPS) {
-      setStep(i, "ps", "active", "Đang chạy Mobile & Desktop...");
-      try {
-        const data = await callScript({token: GSC_TOKEN, action: "pagespeed", url});
-        if (!data.success) throw new Error(data.error);
-        result.mobile = data.mobile; result.desktop = data.desktop;
-        setStep(i, "ps", "done", `Mobile: ${getScore(data.mobile)}/100 · Desktop: ${getScore(data.desktop)}/100`);
+      const result = {
+        url,
+        mobile: data.mobile || null,
+        desktop: data.desktop || null,
+        indexed: data.indexed,
+        coverageState: data.coverageState || "",
+        audit: data.audit || null
+      };
+      allResults.push(result);
+
+      // Hiển thị PageSpeed
+      if (data.mobile || data.desktop) {
         const sd = document.getElementById("scores_"+i);
         sd.innerHTML = renderScoreBox(data.mobile, "Mobile") + renderScoreBox(data.desktop, "Desktop");
         sd.style.display = "flex";
-      } catch(e) { setStep(i, "ps", "error", e.message); }
-    }
+      }
 
-    // Onpage
-    if (doOnpage) {
-      setStep(i, "op", "active", "Đang phân tích HTML...");
-      try {
-        const data = await callScript({token: GSC_TOKEN, action: "audit", url});
-        if (!data.success) throw new Error(data.error);
-        result.audit = { results: data.results, score: data.score, maxScore: data.maxScore, percentage: data.percentage };
-        const issues = data.results.filter(r => r.status !== "pass").length;
-        setStep(i, "op", issues > 0 ? "warn" : "done", `${data.percentage}% — ${issues} vấn đề`);
-        document.getElementById("audit_"+i).innerHTML = renderAuditPanel(result.audit);
-        // Lưu kết quả onpage vào Sheet nếu URL tồn tại trong No Index
-        try {
-          const auditPayload = { url, percentage: data.percentage, results: data.results };
-          callScript({token: GSC_TOKEN, action: "saveonpage", auditData: encodeURIComponent(JSON.stringify(auditPayload))});
-        } catch(e) {}
-      } catch(e) { setStep(i, "op", "error", e.message); }
-    }
+      // Hiển thị Audit
+      if (data.audit) {
+        document.getElementById("audit_"+i).innerHTML = renderAuditPanel(data.audit);
+      }
 
-    // Index
-    setStep(i, "idx", "active", "Đang kiểm tra...");
-    try {
-      const data = await callScript({token: GSC_TOKEN, action: "checkindex", url});
-      if (!data.success) throw new Error(data.error);
-      result.indexed = data.indexed; result.coverageState = data.coverageState || "";
+      // Hiển thị Index tag
       const tag = document.getElementById("indextag_"+i);
       tag.style.display = "inline";
       if (data.indexed) {
         tag.className = "url-tag url-tag-indexed"; tag.textContent = "Đã Index";
-        setStep(i, "idx", "done", data.coverageState || "Đã index ✓");
       } else {
         tag.className = "url-tag url-tag-noindex"; tag.textContent = "Chưa Index";
-        setStep(i, "idx", "warn", (data.coverageState || "Chưa index") + " → lưu Sheet");
       }
-    } catch(e) { result.indexed = null; setStep(i, "idx", "error", e.message); }
 
-    setStep(i, "em", "idle", "Chờ gửi email..."); allResults.push(result);
+      // Build summary message
+      const parts = [];
+      if (data.mobile) parts.push(`M:${getScore(data.mobile)} D:${getScore(data.desktop)}`);
+      if (data.audit) parts.push(`Onpage:${data.audit.percentage}%`);
+      parts.push(data.indexed ? "✅ Đã index" : "❌ Chưa index");
+      setStep(i, "fc", data.indexed === false ? "warn" : "done", parts.join(" · "));
+
+    } catch(e) {
+      allResults.push({ url, mobile: null, desktop: null, indexed: null, coverageState: "", audit: null });
+      setStep(i, "fc", "error", e.message);
+    }
+    setStep(i, "em", "idle", "Chờ...");
   }
 
-  // Email + Sheet
-  urls.forEach((_, i) => setStep(i, "em", "active", "Đang xử lý..."));
-  const now = new Date().toLocaleString("vi-VN");
+  // Lưu URL chưa index vào sheet
   const noIndexUrls = allResults.filter(r => r.indexed === false).map(r => ({url: r.url, timeAdded: now}));
-  const minData = allResults.map(r => ({
-    url: r.url, indexed: r.indexed, coverageState: r.coverageState,
-    auditResults: r.audit ? r.audit.results.filter(x => x.status !== "pass") : [],
-    auditPct: r.audit ? r.audit.percentage : null,
-    auditCells: r.audit ? buildAuditCells(r.audit) : [],
-    auditColors: r.audit ? buildAuditColors(r.audit) : [],
-    mScore: getScore(r.mobile), dScore: getScore(r.desktop),
-    mLCP: getMetric(r.mobile,"largest-contentful-paint"), mCLS: getMetric(r.mobile,"cumulative-layout-shift"),
-    mTBT: getMetric(r.mobile,"total-blocking-time"), mFCP: getMetric(r.mobile,"first-contentful-paint"), mSI: getMetric(r.mobile,"speed-index"),
-    dLCP: getMetric(r.desktop,"largest-contentful-paint"), dCLS: getMetric(r.desktop,"cumulative-layout-shift"),
-    dTBT: getMetric(r.desktop,"total-blocking-time"), dFCP: getMetric(r.desktop,"first-contentful-paint"), dSI: getMetric(r.desktop,"speed-index"),
-    mLCP_s: getMetricScore(r.mobile,"largest-contentful-paint"), mCLS_s: getMetricScore(r.mobile,"cumulative-layout-shift"),
-    mTBT_s: getMetricScore(r.mobile,"total-blocking-time"), mFCP_s: getMetricScore(r.mobile,"first-contentful-paint"), mSI_s: getMetricScore(r.mobile,"speed-index"),
-    dLCP_s: getMetricScore(r.desktop,"largest-contentful-paint"), dCLS_s: getMetricScore(r.desktop,"cumulative-layout-shift"),
-    dTBT_s: getMetricScore(r.desktop,"total-blocking-time"), dFCP_s: getMetricScore(r.desktop,"first-contentful-paint"), dSI_s: getMetricScore(r.desktop,"speed-index"),
-  }));
-
-  try { await callScript({token: GSC_TOKEN, action: "email", reportData: encodeURIComponent(JSON.stringify({checkedAt: now, results: minData}))}); } catch(e) {}
-  let sheetMsg = "Email đã gửi";
   if (noIndexUrls.length > 0) {
-    try { await callScript({token: GSC_TOKEN, action: "savesheet", sheetData: encodeURIComponent(JSON.stringify(noIndexUrls))}); sheetMsg = `Email đã gửi · ${noIndexUrls.length} URL chưa index → lưu Sheet`; } catch(e) {}
+    try { await callScript({token: GSC_TOKEN, action: "savesheet", sheetData: encodeURIComponent(JSON.stringify(noIndexUrls))}); } catch(e) {}
+  }
+
+  // Gửi email từ Apps Script (dùng cache đã lưu)
+  urls.forEach((_, i) => setStep(i, "em", "active", "Đang gửi email..."));
+  let sheetMsg = "Email đã gửi";
+  try {
+    await callScript({token: GSC_TOKEN, action: "sendemail"});
+    if (noIndexUrls.length > 0) sheetMsg = `Email đã gửi · ${noIndexUrls.length} URL chưa index → lưu Sheet`;
+  } catch(e) {
+    sheetMsg = "Lỗi gửi email: " + e.message;
   }
   urls.forEach((_, i) => setStep(i, "em", "done", i === urls.length-1 ? sheetMsg : "✓"));
 
@@ -441,7 +424,7 @@ async function handleRun(mode) {
       return `<div class="summary-row">
         <span style="color:#4a5568;font-family:'DM Mono',monospace;min-width:36px">[${i+1}]</span>
         <span style="flex:1;color:#8892a4;font-family:'DM Mono',monospace;font-size:11px;word-break:break-all">${r.url}</span>
-        ${doPS ? `<span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.mobile))};margin:0 3px">M:${getScore(r.mobile)}</span>
+        ${doPS && r.mobile ? `<span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.mobile))};margin:0 3px">M:${getScore(r.mobile)}</span>
         <span style="font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor(getScore(r.desktop))};margin:0 3px">D:${getScore(r.desktop)}</span>` : ""}
         ${doOnpage && auditPct !== null ? `<span style="font-weight:700;font-family:'DM Mono',monospace;color:${auditScoreColor(auditPct)};margin:0 3px">OP:${auditPct}%</span>` : ""}
         <span style="font-size:11px;font-family:'DM Mono',monospace;font-weight:700;color:${r.indexed===true?"#0cce6b":r.indexed===false?"#ff4e42":"#4a5568"}">${r.indexed===true?"✅":r.indexed===false?"❌":"?"}</span>
