@@ -71,7 +71,6 @@ h1 span{color:#3b82f6}
 .audit-title{color:#e8eaf0;font-size:12px;font-weight:700;font-family:'DM Mono',monospace}
 .audit-toggle{color:#4a5568;font-size:11px;font-family:'DM Mono',monospace}
 .audit-body{padding:12px 16px;display:none}
-.audit-body.open{display:block}
 .audit-cat{color:#4a5568;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin:10px 0 6px;font-weight:700}
 .audit-cat:first-child{margin-top:0}
 .audit-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #1e2533}
@@ -115,7 +114,7 @@ h1 span{color:#3b82f6}
 <body>
 
 <div class="badge">Oichin SEO Toolkit</div>
-<h1>PageSpeed &amp; Index<br><span>Inspector</span></h1>
+<h1>PageSpeed &amp; Index<br><span>Inspector V11</span></h1>
 <p class="subtitle">Kiểm tra hiệu suất và tình trạng index</p>
 
 <div class="tabs" style="max-width:720px;width:100%">
@@ -214,17 +213,27 @@ function renderScoreBox(data,label){
   return`<div class="score-box"><div class="score-box-label">${label}</div><div class="score-num" style="color:${scoreColor(score)}">${score}</div><div style="margin-top:8px">${rows}</div></div>`;
 }
 
-function renderAuditPanel(auditData, index) {
+function renderAuditPanel(auditData) {
   if (!auditData) return "";
   const {results, score, maxScore, percentage} = auditData;
   const color = auditScoreColor(percentage);
+  const failWarn = results.filter(r => r.status !== "pass");
+  const statusIcon = {warn:"⚠️", fail:"❌"};
+
+  if (failWarn.length === 0) {
+    return `<div class="audit-panel" style="margin-top:12px">
+      <div style="padding:12px 16px;display:flex;align-items:center;gap:10px">
+        <span class="audit-score-badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${percentage}%</span>
+        <span style="color:#0cce6b;font-size:12px;font-family:'DM Mono',monospace">✅ Onpage hoàn hảo — ${score}/${maxScore} điểm</span>
+      </div>
+    </div>`;
+  }
+
   const cats = {};
-  results.forEach(r => {
+  failWarn.forEach(r => {
     if (!cats[r.cat]) cats[r.cat] = [];
     cats[r.cat].push(r);
   });
-  const failWarn = results.filter(r => r.status !== "pass");
-  const statusIcon = {pass:"✅", warn:"⚠️", fail:"❌"};
 
   let body = "";
   Object.entries(cats).forEach(([cat, items]) => {
@@ -238,24 +247,13 @@ function renderAuditPanel(auditData, index) {
     });
   });
 
-  return `<div class="audit-panel">
-    <div class="audit-header" onclick="toggleAudit(${index})">
-      <div class="audit-header-left">
-        <span class="audit-score-badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${percentage}%</span>
-        <span class="audit-title">Onpage Audit — ${score}/${maxScore} điểm · ${failWarn.length} vấn đề cần xử lý</span>
-      </div>
-      <span class="audit-toggle" id="audit-toggle-${index}">▼ Xem chi tiết</span>
+  return `<div class="audit-panel" style="margin-top:12px">
+    <div style="padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1e2533">
+      <span class="audit-score-badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${percentage}%</span>
+      <span class="audit-title">Onpage Audit — ${score}/${maxScore} điểm · ${failWarn.length} vấn đề</span>
     </div>
-    <div class="audit-body" id="audit-body-${index}">${body}</div>
+    <div style="padding:12px 16px">${body}</div>
   </div>`;
-}
-
-function toggleAudit(i) {
-  const body = document.getElementById("audit-body-"+i);
-  const toggle = document.getElementById("audit-toggle-"+i);
-  const isOpen = body.classList.contains("open");
-  body.classList.toggle("open", !isOpen);
-  toggle.textContent = isOpen ? "▼ Xem chi tiết" : "▲ Thu gọn";
 }
 
 function setStep(i,id,state,detail){
@@ -343,7 +341,7 @@ async function handleRun(mode) {
         result.audit = { results: data.results, score: data.score, maxScore: data.maxScore, percentage: data.percentage };
         const issues = data.results.filter(r => r.status !== "pass").length;
         setStep(i, "op", issues > 0 ? "warn" : "done", `${data.percentage}% — ${issues} vấn đề`);
-        document.getElementById("audit_"+i).innerHTML = renderAuditPanel(result.audit, i);
+        document.getElementById("audit_"+i).innerHTML = renderAuditPanel(result.audit);
       } catch(e) { setStep(i, "op", "error", e.message); }
     }
 
@@ -373,6 +371,8 @@ async function handleRun(mode) {
   const noIndexUrls = allResults.filter(r => r.indexed === false).map(r => ({url: r.url, timeAdded: now}));
   const minData = allResults.map(r => ({
     url: r.url, indexed: r.indexed, coverageState: r.coverageState,
+    auditResults: r.audit ? r.audit.results.filter(x => x.status !== "pass") : [],
+    auditPct: r.audit ? r.audit.percentage : null,
     mScore: getScore(r.mobile), dScore: getScore(r.desktop),
     mLCP: getMetric(r.mobile,"largest-contentful-paint"), mCLS: getMetric(r.mobile,"cumulative-layout-shift"),
     mTBT: getMetric(r.mobile,"total-blocking-time"), mFCP: getMetric(r.mobile,"first-contentful-paint"), mSI: getMetric(r.mobile,"speed-index"),
