@@ -349,7 +349,7 @@ async function handleRun(mode) {
     try {
       const data = await callScript({
         token: GSC_TOKEN, action: "fullcheck",
-        url, mode, checkedAt: encodeURIComponent(now)
+        url, mode, checkedAt: now
       });
       if (!data.success) throw new Error(data.error || "Lỗi không xác định");
 
