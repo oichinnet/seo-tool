@@ -114,7 +114,7 @@ h1 span{color:#3b82f6}
 <body>
 
 <div class="badge">Oichin SEO Toolkit</div>
-<h1>PageSpeed &amp; Index<br><span>Inspector V11</span></h1>
+<h1>PageSpeed &amp; Index<br><span>Inspector</span></h1>
 <p class="subtitle">Kiểm tra hiệu suất và tình trạng index</p>
 
 <div class="tabs" style="max-width:720px;width:100%">
@@ -192,6 +192,40 @@ function callScript(params) {
     script.onerror=()=>{clearTimeout(timer);reject(new Error("Không kết nối được"));};
     script.src=url;document.head.appendChild(script);
   });
+}
+
+const AUDIT_ITEMS = [
+  "Title tag","Meta Description","Canonical","Robot meta","OG Tags",
+  "H1","Heading structure","Title ~ H1","Alt tags","Width/Height","WebP format",
+  "Schema Markup","Internal Links","Internal SSL","External Links",
+  "Internal links status","Word count","Page size","HTTPS","URL structure"
+];
+
+function buildAuditCells(audit) {
+  if (!audit) return [];
+  const cells = [`${audit.percentage}%`];
+  AUDIT_ITEMS.forEach(itemName => {
+    const found = audit.results.find(r => r.item === itemName);
+    if (!found) { cells.push(""); return; }
+    if (found.status === "pass") cells.push("✅");
+    else cells.push(`${found.status==="warn"?"⚠️":"❌"} ${found.msg}`);
+  });
+  cells.push(new Date().toLocaleString("vi-VN")); // Checked At
+  return cells;
+}
+
+function buildAuditColors(audit) {
+  if (!audit) return [];
+  const pct = audit.percentage;
+  const scoreColor = pct >= 80 ? "#C8E6C9" : pct >= 60 ? "#FFF9C4" : "#FFCDD2";
+  const colors = [scoreColor];
+  AUDIT_ITEMS.forEach(itemName => {
+    const found = audit.results.find(r => r.item === itemName);
+    if (!found || found.status === "pass") { colors.push(null); return; }
+    colors.push(found.status === "warn" ? "#FFF9C4" : "#FFCDD2");
+  });
+  colors.push(null); // Checked At
+  return colors;
 }
 
 function metricColor(s){return s>=0.9?"#0cce6b":s>=0.5?"#ffa400":"#ff4e42"}
@@ -342,6 +376,11 @@ async function handleRun(mode) {
         const issues = data.results.filter(r => r.status !== "pass").length;
         setStep(i, "op", issues > 0 ? "warn" : "done", `${data.percentage}% — ${issues} vấn đề`);
         document.getElementById("audit_"+i).innerHTML = renderAuditPanel(result.audit);
+        // Lưu kết quả onpage vào Sheet nếu URL tồn tại trong No Index
+        try {
+          const auditPayload = { url, percentage: data.percentage, results: data.results };
+          callScript({token: GSC_TOKEN, action: "saveonpage", auditData: encodeURIComponent(JSON.stringify(auditPayload))});
+        } catch(e) {}
       } catch(e) { setStep(i, "op", "error", e.message); }
     }
 
@@ -373,6 +412,8 @@ async function handleRun(mode) {
     url: r.url, indexed: r.indexed, coverageState: r.coverageState,
     auditResults: r.audit ? r.audit.results.filter(x => x.status !== "pass") : [],
     auditPct: r.audit ? r.audit.percentage : null,
+    auditCells: r.audit ? buildAuditCells(r.audit) : [],
+    auditColors: r.audit ? buildAuditColors(r.audit) : [],
     mScore: getScore(r.mobile), dScore: getScore(r.desktop),
     mLCP: getMetric(r.mobile,"largest-contentful-paint"), mCLS: getMetric(r.mobile,"cumulative-layout-shift"),
     mTBT: getMetric(r.mobile,"total-blocking-time"), mFCP: getMetric(r.mobile,"first-contentful-paint"), mSI: getMetric(r.mobile,"speed-index"),
