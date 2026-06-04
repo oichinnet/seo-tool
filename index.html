@@ -187,7 +187,7 @@ function callScript(params) {
     const qs=Object.entries(params).map(([k,v])=>k+"="+encodeURIComponent(v)).join("&");
     const url=GSC_SCRIPT_URL+"?"+qs+"&callback="+cbName;
     const script=document.createElement("script");
-    const timer=setTimeout(()=>{delete window[cbName];try{document.head.removeChild(script);}catch(e){}reject(new Error("Timeout"));},120000);
+    const timer=setTimeout(()=>{delete window[cbName];try{document.head.removeChild(script);}catch(e){}reject(new Error("Timeout"));},240000);
     window[cbName]=(data)=>{clearTimeout(timer);delete window[cbName];try{document.head.removeChild(script);}catch(e){}resolve(data);};
     script.onerror=()=>{clearTimeout(timer);reject(new Error("Không kết nối được"));};
     script.src=url;document.head.appendChild(script);
