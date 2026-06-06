@@ -126,14 +126,14 @@ h1 span{color:#3b82f6}
 <div class="tab-content active" id="tab1">
   <div class="card">
     <label class="label">URL cần kiểm tra (tối đa 3)</label>
-    <textarea id="urlInput" rows="4" placeholder="https://oichin.net/san-pham/abc
+    <textarea id="urlInput" rows="6" placeholder="https://oichin.net/san-pham/abc
 https://oichin.net/san-pham/xyz
 https://oichin.net/danh-muc/abc"></textarea>
-    <p class="hint">Mỗi URL một dòng</p>
+    <p class="hint">Mỗi URL một dòng · Onpage: tối đa 10 URL · PageSpeed/Check All: tối đa 3 URL</p>
     <div class="action-btns">
-      <button class="btn-action btn-ps" id="btnPS" onclick="handleRun('ps')">⚡ PageSpeed + Index<span style="display:block;font-size:10px;opacity:.6;font-weight:400;margin-top:2px">~3 phút/URL</span></button>
-      <button class="btn-action btn-onpage" id="btnOP" onclick="handleRun('onpage')">🔍 Onpage + Index<span style="display:block;font-size:10px;opacity:.6;font-weight:400;margin-top:2px">~15 giây/URL</span></button>
-      <button class="btn-action btn-all" id="btnAll" onclick="handleRun('all')">🚀 Check All<span style="display:block;font-size:10px;opacity:.6;font-weight:400;margin-top:2px">~4 phút/URL</span></button>
+      <button class="btn-action btn-ps" id="btnPS" onclick="handleRun('ps')">⚡ PageSpeed + Index<span style="display:block;font-size:10px;opacity:.6;font-weight:400;margin-top:2px">tối đa 3 URL · ~3 phút/URL</span></button>
+      <button class="btn-action btn-onpage" id="btnOP" onclick="handleRun('onpage')">🔍 Onpage + Index<span style="display:block;font-size:10px;opacity:.6;font-weight:400;margin-top:2px">tối đa 10 URL · ~15 giây/URL</span></button>
+      <button class="btn-action btn-all" id="btnAll" onclick="handleRun('all')">🚀 Check All<span style="display:block;font-size:10px;opacity:.6;font-weight:400;margin-top:2px">tối đa 3 URL · ~4 phút/URL</span></button>
     </div>
   </div>
   <div id="results1" style="display:none"></div>
@@ -306,11 +306,15 @@ function setAllBtns(disabled) {
 
 async function handleRun(mode) {
   const raw = document.getElementById("urlInput").value;
-  const urls = raw.split("\n").map(u=>u.trim()).filter(u=>u).slice(0,3).map(normalizeUrl);
+  let urls = raw.split("\n").map(u=>u.trim()).filter(u=>u).slice(0,10).map(normalizeUrl);
   if (!urls.length) return;
 
   const doPS = mode === "ps" || mode === "all";
   const doOnpage = mode === "onpage" || mode === "all";
+
+  // Giới hạn URL theo mode
+  const maxUrls = mode === "onpage" ? 10 : 3;
+  urls = urls.slice(0, maxUrls);
 
   allResults = [];
   setAllBtns(true);
