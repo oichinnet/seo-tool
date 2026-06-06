@@ -77,7 +77,7 @@ h1 span{color:#3b82f6}
 .audit-item:last-child{border:none}
 .audit-status{font-size:13px;min-width:18px}
 .audit-name{color:#8892a4;font-size:11px;font-family:'DM Mono',monospace;min-width:140px}
-.audit-msg{color:#e8eaf0;font-size:11px;font-family:'DM Mono',monospace;flex:1;word-break:break-all}
+.audit-msg{color:#e8eaf0;font-size:11px;font-family:'DM Mono',monospace;flex:1;word-break:break-all;white-space:pre-line}
 .audit-msg.pass{color:#0cce6b}
 .audit-msg.warn{color:#ffa400}
 .audit-msg.fail{color:#ff4e42}
@@ -131,9 +131,9 @@ https://oichin.net/san-pham/xyz
 https://oichin.net/danh-muc/abc"></textarea>
     <p class="hint">Mỗi URL một dòng</p>
     <div class="action-btns">
-      <button class="btn-action btn-ps" id="btnPS" onclick="handleRun('ps')">⚡ PageSpeed + Index</button>
-      <button class="btn-action btn-onpage" id="btnOP" onclick="handleRun('onpage')">🔍 Onpage + Index</button>
-      <button class="btn-action btn-all" id="btnAll" onclick="handleRun('all')">🚀 Check All</button>
+      <button class="btn-action btn-ps" id="btnPS" onclick="handleRun('ps')">⚡ PageSpeed + Index<span style="display:block;font-size:10px;opacity:.6;font-weight:400;margin-top:2px">~3 phút/URL</span></button>
+      <button class="btn-action btn-onpage" id="btnOP" onclick="handleRun('onpage')">🔍 Onpage + Index<span style="display:block;font-size:10px;opacity:.6;font-weight:400;margin-top:2px">~15 giây/URL</span></button>
+      <button class="btn-action btn-all" id="btnAll" onclick="handleRun('all')">🚀 Check All<span style="display:block;font-size:10px;opacity:.6;font-weight:400;margin-top:2px">~4 phút/URL</span></button>
     </div>
   </div>
   <div id="results1" style="display:none"></div>
