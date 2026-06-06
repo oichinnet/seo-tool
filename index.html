@@ -402,18 +402,14 @@ async function handleRun(mode) {
     setStep(i, "em", "idle", "Chờ...");
   }
 
-  // Lưu URL chưa index vào sheet
-  const noIndexUrls = allResults.filter(r => r.indexed === false).map(r => ({url: r.url, timeAdded: now}));
-  if (noIndexUrls.length > 0) {
-    try { await callScript({token: GSC_TOKEN, action: "savesheet", sheetData: encodeURIComponent(JSON.stringify(noIndexUrls))}); } catch(e) {}
-  }
-
   // Gửi email từ Apps Script (dùng cache đã lưu)
+  // Sheet đã được xử lý tự động trong fullCheck ở Apps Script
   urls.forEach((_, i) => setStep(i, "em", "active", "Đang gửi email..."));
+  const noIndexCount = allResults.filter(r => r.indexed === false).length;
   let sheetMsg = "Email đã gửi";
   try {
     await callScript({token: GSC_TOKEN, action: "sendemail"});
-    if (noIndexUrls.length > 0) sheetMsg = `Email đã gửi · ${noIndexUrls.length} URL chưa index → lưu Sheet`;
+    if (noIndexCount > 0) sheetMsg = `Email đã gửi · ${noIndexCount} URL chưa index → đã lưu Sheet`;
   } catch(e) {
     sheetMsg = "Lỗi gửi email: " + e.message;
   }
